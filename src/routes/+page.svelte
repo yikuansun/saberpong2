@@ -25,6 +25,14 @@
         color: "hsl(0deg, 100%, 60%)",
     };
 
+    let ball = {
+        x: 1920 / 2,
+        y: 1080 / 2,
+        radius: 10,
+        angle: 0,
+        color: "green",
+    }
+
     /** @type {Object.<string, boolean>} */
     let keysPressed = {};
 
@@ -86,6 +94,11 @@
     {/each}
     <div style:width="{p2.width}px" style:height="{p2.height}px" style:background-color="white"
         style:position="absolute" style:top="{p2.y}px" style:left="{p2.x}px"
+        style:border-radius="100px" style:filter="blur(1px)"></div>
+
+    <!-- laser -->
+    <div style:width="{ball.radius * 2}px" style:height="{ball.radius * 2}px" style:background-color={ball.color}
+        style:position="absolute" style:top="{ball.y - ball.radius}px" style:left="{ball.x - ball.radius}px"
         style:border-radius="100px" style:filter="blur(1px)"></div>
 
 </div>
