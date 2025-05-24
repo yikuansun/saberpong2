@@ -1,2 +1,91 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+    import { onMount } from "svelte";
+
+    /** @type {HTMLDivElement} */
+    let gameScreen;
+
+    function resizeGameScreen() {
+        let scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+        gameScreen.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    }
+
+    let p1 = {
+        x: 150,
+        y: 540 - 180,
+        width: 16,
+        height: 360,
+        color: "hsl(200deg, 100%, 50%)",
+    };
+
+    let p2 = {
+        x: 1920 - 150 - 16,
+        y: 540 - 180,
+        width: 16,
+        height: 360,
+        color: "hsl(0deg, 100%, 60%)",
+    };
+
+    /** @type {Object.<string, boolean>} */
+    let keysPressed = {};
+
+    const saberSpeed = 8;
+    function mainGameLoop() {
+        if (keysPressed["w"]) {
+            p1.y -= saberSpeed;
+            if (p1.y < 0) p1.y = 0;
+        }
+        if (keysPressed["s"]) {
+            p1.y += saberSpeed;
+            if (p1.y > 1080 - p1.height) p1.y = 1080 - p1.height;
+        }
+        if (keysPressed["ArrowUp"]) {
+            p2.y -= saberSpeed;
+            if (p2.y < 0) p2.y = 0;
+        }
+        if (keysPressed["ArrowDown"]) {
+            p2.y += saberSpeed;
+            if (p2.y > 1080 - p2.height) p2.y = 1080 - p2.height;
+        }
+        requestAnimationFrame(mainGameLoop);
+    }
+
+    onMount(() => {
+        resizeGameScreen();
+        window.addEventListener("resize", resizeGameScreen);
+
+        window.addEventListener("keydown", (e) => {
+            keysPressed[e.key] = true;
+        });
+        window.addEventListener("keyup", (e) => {
+            keysPressed[e.key] = false;
+        });
+
+        mainGameLoop();
+    });
+</script>
+
+<div style:width="1920px" style:height="1080px" style:background-color="black" bind:this={gameScreen}
+    style:position="fixed" style:top="50vh" style:left="50vw" style:transform="translate(-50%, -50%)"
+    style:overflow="hidden">
+
+    <!-- player 1 -->
+    {#each [5, 10, 20, 40, 80, 160, 320] as glowRadius}
+        <div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color={p1.color}
+            style:position="absolute" style:top="{p1.y}px" style:left="{p1.x}px"
+            style:border-radius="100px" style:filter="blur({glowRadius}px)" style:mix-blend-mode="screen"></div>
+    {/each}
+    <div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color="white"
+        style:position="absolute" style:top="{p1.y}px" style:left="{p1.x}px"
+        style:border-radius="100px" style:filter="blur(1px)"></div>
+
+    <!-- player 2 -->
+    {#each [5, 10, 20, 40, 80, 160, 320] as glowRadius}
+        <div style:width="{p2.width}px" style:height="{p2.height}px" style:background-color={p2.color}
+            style:position="absolute" style:top="{p2.y}px" style:left="{p2.x}px"
+            style:border-radius="100px" style:filter="blur({glowRadius}px)" style:mix-blend-mode="screen"></div>
+    {/each}
+    <div style:width="{p2.width}px" style:height="{p2.height}px" style:background-color="white"
+        style:position="absolute" style:top="{p2.y}px" style:left="{p2.x}px"
+        style:border-radius="100px" style:filter="blur(1px)"></div>
+
+</div>
