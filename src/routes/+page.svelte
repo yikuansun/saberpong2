@@ -42,7 +42,7 @@
     let lastTime = (new Date()).getTime();
     let frameCount = 0;
     const saberSpeed = 444;
-    const ballSpeed = 400;
+    const ballSpeed = 100;
     function mainGameLoop() {
         let startTime = (new Date()).getTime();
         deltaTime = (startTime - lastTime) / 1000;
@@ -67,9 +67,9 @@
 
         ball.x += ballSpeed * deltaTime * Math.cos(ball.angle);
         ball.y += ballSpeed * deltaTime * Math.sin(ball.angle);
-        ballPastPositions.push({x: ball.x, y: ball.y});
+        ballPastPositions = [...ballPastPositions, {x: ball.x, y: ball.y}];
         if (ballPastPositions.length > laserLength / (ballSpeed * deltaTime)) {
-            ballPastPositions.shift();
+            ballPastPositions = ballPastPositions.slice(1);
         }
 
         frameCount++;
