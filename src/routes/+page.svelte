@@ -36,22 +36,28 @@
     /** @type {Object.<string, boolean>} */
     let keysPressed = {};
 
-    const saberSpeed = 8;
+    let deltaTime = 0; // velocities are in pixels per second
+    let lastTime = (new Date()).getTime();
+    const saberSpeed = 444;
     function mainGameLoop() {
+        let startTime = (new Date()).getTime();
+        deltaTime = (startTime - lastTime) / 1000;
+        lastTime = startTime;
+
         if (keysPressed["w"]) {
-            p1.y -= saberSpeed;
+            p1.y -= saberSpeed * deltaTime;
             if (p1.y < 0) p1.y = 0;
         }
         if (keysPressed["s"]) {
-            p1.y += saberSpeed;
+            p1.y += saberSpeed * deltaTime;
             if (p1.y > 1080 - p1.height) p1.y = 1080 - p1.height;
         }
         if (keysPressed["ArrowUp"]) {
-            p2.y -= saberSpeed;
+            p2.y -= saberSpeed * deltaTime;
             if (p2.y < 0) p2.y = 0;
         }
         if (keysPressed["ArrowDown"]) {
-            p2.y += saberSpeed;
+            p2.y += saberSpeed * deltaTime;
             if (p2.y > 1080 - p2.height) p2.y = 1080 - p2.height;
         }
         requestAnimationFrame(mainGameLoop);
@@ -100,5 +106,9 @@
     <div style:width="{ball.radius * 2}px" style:height="{ball.radius * 2}px" style:background-color={ball.color}
         style:position="absolute" style:top="{ball.y - ball.radius}px" style:left="{ball.x - ball.radius}px"
         style:border-radius="100px" style:filter="blur(1px)"></div>
+
+    <div style:position="fixed" style:top="10px" style:left="10px" style:color="white">
+        Delta Time: {deltaTime.toFixed(3)}
+    </div>
 
 </div>
