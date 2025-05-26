@@ -28,7 +28,7 @@
     let ball = {
         x: 1920 / 2,
         y: 1080 / 2,
-        radius: 3,
+        radius: 4,
         angle: 0,
         color: "hsl(100deg, 100%, 50%)",
     };
@@ -42,7 +42,7 @@
     let lastTime = (new Date()).getTime();
     let frameCount = 0;
     const saberSpeed = 444;
-    const ballSpeed = 100;
+    const ballSpeed = 333;
     function mainGameLoop() {
         let startTime = (new Date()).getTime();
         deltaTime = (startTime - lastTime) / 1000;
@@ -119,14 +119,14 @@
         style:border-radius="100px" style:filter="blur(1px)"></div>
 
     <!-- laser -->
-    <div style:mix-blend-mode="screen" style:filter="drop-shadow(0 0 5px {ball.color}) drop-shadow(0 0 15px {ball.color})">
+    <div style:mix-blend-mode="screen" style:filter="blur(2px) drop-shadow(0 0 5px {ball.color}) drop-shadow(0 0 15px {ball.color})">
         <div style:width="{ball.radius * 2}px" style:height="{ball.radius * 2}px" style:background-color={ball.color}
             style:position="absolute" style:top="{ball.y - ball.radius}px" style:left="{ball.x - ball.radius}px"
-            style:border-radius="100px" style:filter="blur(1px)"></div>
+            style:border-radius="100px"></div>
         {#each ballPastPositions as pastPosition}
             <div style:width="{ball.radius * 2}px" style:height="{ball.radius * 2}px" style:background-color={ball.color}
                 style:position="absolute" style:top="{pastPosition.y - ball.radius}px" style:left="{pastPosition.x - ball.radius}px"
-                style:border-radius="100px" style:filter="blur(1px)"></div>
+                style:border-radius="100px"></div>
         {/each}
     </div>
 
