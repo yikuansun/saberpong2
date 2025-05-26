@@ -29,7 +29,7 @@
         x: 1920 / 2,
         y: 1080 / 2,
         radius: 4,
-        angle: 0,
+        angle: Math.PI / 3,
         color: "hsl(100deg, 100%, 50%)",
     };
     let ballPastPositions = [{x: ball.x, y: ball.y}];
@@ -64,6 +64,11 @@
             p2.y += saberSpeed * deltaTime;
             if (p2.y > 1080 - p2.height) p2.y = 1080 - p2.height;
         }
+
+        if (ball.y <= 0) ball.angle = Math.PI * 2 - ball.angle;
+        if (ball.y >= 1080) ball.angle = Math.PI * 2 - ball.angle;
+        if (ball.x <= 0) ball.angle = Math.PI - ball.angle;
+        if (ball.x >= 1920) ball.angle = Math.PI - ball.angle;
 
         ball.x += ballSpeed * deltaTime * Math.cos(ball.angle);
         ball.y += ballSpeed * deltaTime * Math.sin(ball.angle);
