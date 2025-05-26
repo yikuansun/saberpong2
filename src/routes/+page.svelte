@@ -28,7 +28,7 @@
     let ball = {
         x: 1920 / 2,
         y: 1080 / 2,
-        radius: 5,
+        radius: 3,
         angle: 0,
         color: "hsl(100deg, 100%, 50%)",
     };
@@ -68,9 +68,12 @@
         ball.x += ballSpeed * deltaTime * Math.cos(ball.angle);
         ball.y += ballSpeed * deltaTime * Math.sin(ball.angle);
         ballPastPositions = [...ballPastPositions, {x: ball.x, y: ball.y}];
-        if (ballPastPositions.length > laserLength / (ballSpeed * deltaTime)) {
-            ballPastPositions = ballPastPositions.slice(1);
+        let laserLengthActual = 0;
+        for (let i = 0; i < ballPastPositions.length - 1; i++) {
+            let distance = Math.sqrt(Math.pow(ballPastPositions[i].x - ballPastPositions[i + 1].x, 2) + Math.pow(ballPastPositions[i].y - ballPastPositions[i + 1].y, 2));
+            laserLengthActual += distance;
         }
+        if (laserLengthActual > laserLength) ballPastPositions = ballPastPositions.slice(1);
 
         frameCount++;
         requestAnimationFrame(mainGameLoop);
