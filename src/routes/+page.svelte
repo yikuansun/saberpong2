@@ -31,6 +31,7 @@
         radius: 4,
         angle: Math.PI / 3,
         color: "hsl(100deg, 100%, 50%)",
+        speed: 642,
     };
     let ballPastPositions = [{x: ball.x, y: ball.y}];
     let laserLength = 150;
@@ -42,7 +43,6 @@
     let lastTime = (new Date()).getTime();
     let frameCount = 0;
     const saberSpeed = 444;
-    const ballSpeed = 333;
     function mainGameLoop() {
         let startTime = (new Date()).getTime();
         deltaTime = (startTime - lastTime) / 1000;
@@ -105,8 +105,8 @@
             ball.angle = Math.atan2(yUV, xUV);
         }
 
-        ball.x += ballSpeed * deltaTime * Math.cos(ball.angle);
-        ball.y += ballSpeed * deltaTime * Math.sin(ball.angle);
+        ball.x += ball.speed * deltaTime * Math.cos(ball.angle);
+        ball.y += ball.speed * deltaTime * Math.sin(ball.angle);
         ballPastPositions = [...ballPastPositions, {x: ball.x, y: ball.y}];
         let laserLengthActual = 0;
         for (let i = 0; i < ballPastPositions.length - 1; i++) {
