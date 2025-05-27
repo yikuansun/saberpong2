@@ -65,10 +65,32 @@
             if (p2.y > 1080 - p2.height) p2.y = 1080 - p2.height;
         }
 
-        if (ball.y <= 0) ball.angle = Math.PI * 2 - ball.angle;
-        if (ball.y >= 1080) ball.angle = Math.PI * 2 - ball.angle;
-        if (ball.x <= 0) ball.angle = Math.PI - ball.angle;
-        if (ball.x >= 1920) ball.angle = Math.PI - ball.angle;
+        if (ball.y <= 0) {
+            // x unit velocity
+            let xUV = Math.cos(ball.angle);
+            let yUV = Math.sin(ball.angle);
+            yUV = Math.abs(yUV);
+            ball.angle = Math.atan2(yUV, xUV);
+            // Why not use Math.PI * 2 - ball.angle? Because it may cause the ball to get stuck in the wall. Math.abs ensures the right direction
+        }
+        if (ball.y >= 1080) {
+            let xUV = Math.cos(ball.angle);
+            let yUV = Math.sin(ball.angle);
+            yUV = Math.abs(yUV);
+            ball.angle = -Math.atan2(yUV, xUV);
+        }
+        if (ball.x <= 0) {
+            let xUV = Math.cos(ball.angle);
+            let yUV = Math.sin(ball.angle);
+            xUV = Math.abs(xUV);
+            ball.angle = Math.atan2(yUV, xUV);
+        }
+        if (ball.x >= 1920) {
+            let xUV = Math.cos(ball.angle);
+            let yUV = Math.sin(ball.angle);
+            xUV = -Math.abs(xUV);
+            ball.angle = Math.atan2(yUV, xUV);
+        }
 
         ball.x += ballSpeed * deltaTime * Math.cos(ball.angle);
         ball.y += ballSpeed * deltaTime * Math.sin(ball.angle);
