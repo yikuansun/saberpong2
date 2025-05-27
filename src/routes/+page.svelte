@@ -92,6 +92,19 @@
             ball.angle = Math.atan2(yUV, xUV);
         }
 
+        if (ball.y <= p1.y + p1.height && ball.y >= p1.y && ball.x >= p1.x && ball.x <= p1.x + p1.width) {
+            let xUV = Math.cos(ball.angle);
+            let yUV = Math.sin(ball.angle);
+            xUV = Math.abs(xUV);
+            ball.angle = Math.atan2(yUV, xUV);
+        }
+        if (ball.y <= p2.y + p2.height && ball.y >= p2.y && ball.x >= p2.x && ball.x <= p2.x + p2.width) {
+            let xUV = Math.cos(ball.angle);
+            let yUV = Math.sin(ball.angle);
+            xUV = -Math.abs(xUV);
+            ball.angle = Math.atan2(yUV, xUV);
+        }
+
         ball.x += ballSpeed * deltaTime * Math.cos(ball.angle);
         ball.y += ballSpeed * deltaTime * Math.sin(ball.angle);
         ballPastPositions = [...ballPastPositions, {x: ball.x, y: ball.y}];
