@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import { fade, scale } from "svelte/transition";
 
     /** @type {HTMLDivElement} */
     let gameScreen;
@@ -35,6 +36,9 @@
     };
     let ballPastPositions = [{x: ball.x, y: ball.y}];
     let laserLength = 150;
+
+    let lensFlarePosition = {x: 0, y: 0};
+    let lensFlareVisible = true;
 
     /** @type {Object.<string, boolean>} */
     let keysPressed = {};
@@ -92,17 +96,23 @@
             ball.angle = Math.atan2(yUV, xUV);
         }
 
+        lensFlareVisible = false;
+
         if (ball.y <= p1.y + p1.height && ball.y >= p1.y && ball.x >= p1.x && ball.x <= p1.x + p1.width) {
             let xUV = Math.cos(ball.angle);
             let yUV = Math.sin(ball.angle);
             xUV = Math.abs(xUV);
             ball.angle = Math.atan2(yUV, xUV);
+            lensFlarePosition = {x: ball.x, y: ball.y};
+            lensFlareVisible = true;
         }
         if (ball.y <= p2.y + p2.height && ball.y >= p2.y && ball.x >= p2.x && ball.x <= p2.x + p2.width) {
             let xUV = Math.cos(ball.angle);
             let yUV = Math.sin(ball.angle);
             xUV = -Math.abs(xUV);
             ball.angle = Math.atan2(yUV, xUV);
+            lensFlarePosition = {x: ball.x, y: ball.y};
+            lensFlareVisible = true;
         }
 
         ball.x += ball.speed * deltaTime * Math.cos(ball.angle);
@@ -173,6 +183,17 @@
                 style:border-radius="100px"></div>
         {/each}
     </div>
+
+    {#if lensFlareVisible}
+        <div style:position="absolute" style:top="{lensFlarePosition.y}px" style:left="{lensFlarePosition.x}px"
+            style:width="414px" style:height="32px" style:background-color="hsl(48deg, 100%, 50%)" style:filter="blur(16px)"
+            style:transform="translate(-50%, -50%)" style:border-radius="100%" style:mix-blend-mode="screen"
+            out:scale={{ duration: 222, }}></div>
+        <div style:position="absolute" style:top="{lensFlarePosition.y}px" style:left="{lensFlarePosition.x}px"
+            style:width="300x" style:height="20px" style:background-color="white" style:filter="blur(10px)"
+            style:transform="translate(-50%, -50%)" style:border-radius="100%" style:mix-blend-mode="screen"
+            out:scale={{ duration: 222, }}></div>
+    {/if}
 
     <div style:position="fixed" style:top="10px" style:left="10px" style:color="white">
         Delta Time: {deltaTime.toFixed(3)}
