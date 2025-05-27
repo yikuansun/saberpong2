@@ -78,7 +78,11 @@
             let distance = Math.sqrt(Math.pow(ballPastPositions[i].x - ballPastPositions[i + 1].x, 2) + Math.pow(ballPastPositions[i].y - ballPastPositions[i + 1].y, 2));
             laserLengthActual += distance;
         }
-        if (laserLengthActual > laserLength) ballPastPositions = ballPastPositions.slice(1);
+        while (laserLengthActual > laserLength) {
+            let marginalDistance = Math.sqrt(Math.pow(ballPastPositions[0].x - ballPastPositions[1].x, 2) + Math.pow(ballPastPositions[0].y - ballPastPositions[1].y, 2));
+            ballPastPositions = ballPastPositions.slice(1);
+            laserLengthActual -= marginalDistance;
+        }
 
         frameCount++;
         requestAnimationFrame(mainGameLoop);
