@@ -193,7 +193,7 @@
 
     {#if lensFlareVisible}
         <div style:position="absolute" style:top="{lensFlarePosition.y}px" style:left="{lensFlarePosition.x}px"
-            style:width="414px" style:height="32px" style:background-color="hsl(48deg, 100%, 50%)" style:filter="blur(16px)"
+            style:width="414px" style:height="32px" style:background-color="hsl(48deg, 100%, 64%)" style:filter="blur(16px)"
             style:transform="translate(-50%, -50%)" style:border-radius="100%" style:mix-blend-mode="screen"
             out:scale={{ duration: 222, }}></div>
         <div style:position="absolute" style:top="{lensFlarePosition.y}px" style:left="{lensFlarePosition.x}px"
