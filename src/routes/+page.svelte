@@ -12,17 +12,17 @@
 
     let p1 = {
         x: 150,
-        y: 540 - 140,
-        width: 12,
-        height: 280,
+        y: 540 - 160,
+        width: 16,
+        height: 320,
         color: "hsl(202deg, 100%, 54%)",
     };
 
     let p2 = {
-        x: 1920 - 150 - 12,
-        y: 540 - 140,
-        width: 12,
-        height: 280,
+        x: 1920 - 150 - 16,
+        y: 540 - 160,
+        width: 16,
+        height: 320,
         color: "hsl(0deg, 100%, 60%)",
     };
 
@@ -32,7 +32,7 @@
         radius: 4,
         angle: Math.PI / 3,
         color: "hsl(100deg, 100%, 50%)",
-        speed: 760,
+        speed: 842,
     };
     let ballPastPositions = [{x: ball.x, y: ball.y}];
     let laserLength = 150;
@@ -158,21 +158,21 @@
     {#each (new Array(6)).fill(0).map((_, i) => Math.pow(2, i) * 3) as glowRadius}
         <div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color={p1.color}
             style:position="absolute" style:top="{p1.y}px" style:left="{p1.x}px"
-            style:border-radius="6px/24px" style:filter="blur({glowRadius}px)" style:mix-blend-mode="svreen"></div>
+            style:border-radius="8px/24px" style:filter="blur({glowRadius}px)" style:mix-blend-mode="svreen"></div>
     {/each}
     <div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color="white"
         style:position="absolute" style:top="{p1.y}px" style:left="{p1.x}px"
-        style:border-radius="6px/24px" style:filter="blur(1px)"></div>
+        style:border-radius="8px/24px" style:filter="blur(1px)"></div>
 
     <!-- player 2 -->
     {#each (new Array(6)).fill(0).map((_, i) => Math.pow(2, i) * 3) as glowRadius}
         <div style:width="{p2.width}px" style:height="{p2.height}px" style:background-color={p2.color}
             style:position="absolute" style:top="{p2.y}px" style:left="{p2.x}px"
-            style:border-radius="6px/24px" style:filter="blur({glowRadius}px)" style:mix-blend-mode="screen"></div>
+            style:border-radius="8px/24px" style:filter="blur({glowRadius}px)" style:mix-blend-mode="screen"></div>
     {/each}
     <div style:width="{p2.width}px" style:height="{p2.height}px" style:background-color="white"
         style:position="absolute" style:top="{p2.y}px" style:left="{p2.x}px"
-        style:border-radius="6px/24px" style:filter="blur(1px)"></div>
+        style:border-radius="8px/24px" style:filter="blur(1px)"></div>
 
     <!-- laser -->
     <div style:mix-blend-mode="screen" style:filter="blur(2px) drop-shadow(0 0 5px {ball.color}) drop-shadow(0 0 15px {ball.color})">
@@ -202,8 +202,8 @@
             out:scale={{ duration: 222, }}></div>
     {/if}
 
-    <div style:position="fixed" style:top="10px" style:left="10px" style:color="white">
+    <!--<div style:position="fixed" style:top="10px" style:left="10px" style:color="white">
         Delta Time: {deltaTime.toFixed(3)}
-    </div>
+    </div>-->
 
 </div>
