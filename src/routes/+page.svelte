@@ -158,21 +158,21 @@
     {#each (new Array(6)).fill(0).map((_, i) => Math.pow(2, i) * 3) as glowRadius}
         <div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color={p1.color}
             style:position="absolute" style:top="{p1.y}px" style:left="{p1.x}px"
-            style:border-radius="100px" style:filter="blur({glowRadius}px)" style:mix-blend-mode="screen"></div>
+            style:border-radius="6px/24px" style:filter="blur({glowRadius}px)" style:mix-blend-mode="svreen"></div>
     {/each}
     <div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color="white"
         style:position="absolute" style:top="{p1.y}px" style:left="{p1.x}px"
-        style:border-radius="100px" style:filter="blur(1px)"></div>
+        style:border-radius="6px/24px" style:filter="blur(1px)"></div>
 
     <!-- player 2 -->
     {#each (new Array(6)).fill(0).map((_, i) => Math.pow(2, i) * 3) as glowRadius}
         <div style:width="{p2.width}px" style:height="{p2.height}px" style:background-color={p2.color}
             style:position="absolute" style:top="{p2.y}px" style:left="{p2.x}px"
-            style:border-radius="100px" style:filter="blur({glowRadius}px)" style:mix-blend-mode="screen"></div>
+            style:border-radius="6px/24px" style:filter="blur({glowRadius}px)" style:mix-blend-mode="screen"></div>
     {/each}
     <div style:width="{p2.width}px" style:height="{p2.height}px" style:background-color="white"
         style:position="absolute" style:top="{p2.y}px" style:left="{p2.x}px"
-        style:border-radius="100px" style:filter="blur(1px)"></div>
+        style:border-radius="6px/24px" style:filter="blur(1px)"></div>
 
     <!-- laser -->
     <div style:mix-blend-mode="screen" style:filter="blur(2px) drop-shadow(0 0 5px {ball.color}) drop-shadow(0 0 15px {ball.color})">
