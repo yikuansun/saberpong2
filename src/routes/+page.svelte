@@ -12,17 +12,17 @@
 
     let p1 = {
         x: 150,
-        y: 540 - 180,
-        width: 16,
-        height: 360,
+        y: 540 - 140,
+        width: 12,
+        height: 280,
         color: "hsl(200deg, 100%, 50%)",
     };
 
     let p2 = {
-        x: 1920 - 150 - 16,
-        y: 540 - 180,
-        width: 16,
-        height: 360,
+        x: 1920 - 150 - 12,
+        y: 540 - 140,
+        width: 12,
+        height: 280,
         color: "hsl(0deg, 100%, 60%)",
     };
 
@@ -32,7 +32,7 @@
         radius: 4,
         angle: Math.PI / 3,
         color: "hsl(100deg, 100%, 50%)",
-        speed: 642,
+        speed: 760,
     };
     let ballPastPositions = [{x: ball.x, y: ball.y}];
     let laserLength = 150;
@@ -155,7 +155,7 @@
     style:overflow="hidden">
 
     <!-- player 1 -->
-    {#each [5, 10, 20, 40, 80, 160] as glowRadius}
+    {#each [4, 8, 16, 32, 64, 128] as glowRadius}
         <div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color={p1.color}
             style:position="absolute" style:top="{p1.y}px" style:left="{p1.x}px"
             style:border-radius="100px" style:filter="blur({glowRadius}px)" style:mix-blend-mode="screen"></div>
@@ -165,7 +165,7 @@
         style:border-radius="100px" style:filter="blur(1px)"></div>
 
     <!-- player 2 -->
-    {#each [5, 10, 20, 40, 80, 160] as glowRadius}
+    {#each [4, 8, 16, 32, 64, 128] as glowRadius}
         <div style:width="{p2.width}px" style:height="{p2.height}px" style:background-color={p2.color}
             style:position="absolute" style:top="{p2.y}px" style:left="{p2.x}px"
             style:border-radius="100px" style:filter="blur({glowRadius}px)" style:mix-blend-mode="screen"></div>
