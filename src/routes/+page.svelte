@@ -47,6 +47,7 @@
     let lastTime = (new Date()).getTime();
     let frameCount = 0;
     const saberSpeed = 444;
+    let maxBounceAngle = 5 * Math.PI / 12;
     function mainGameLoop() {
         let startTime = (new Date()).getTime();
         deltaTime = (startTime - lastTime) / 1000;
@@ -99,18 +100,19 @@
         lensFlareVisible = false;
 
         if (ball.y <= p1.y + p1.height && ball.y >= p1.y && ball.x >= p1.x && ball.x <= p1.x + p1.width) {
-            let xUV = Math.cos(ball.angle);
-            let yUV = Math.sin(ball.angle);
-            xUV = Math.abs(xUV);
-            ball.angle = Math.atan2(yUV, xUV);
+            // more info on bounce: https://gamedev.stackexchange.com/questions/4253/in-pong-how-do-you-calculate-the-balls-direction-when-it-bounces-off-the-paddl
+            let relativeIntersectY = p1.y + p1.height / 2 - ball.y;
+            let normalizedRelativeIntersectY = relativeIntersectY / p1.height * 2;
+            ball.angle = -1 * normalizedRelativeIntersectY * maxBounceAngle;
+
             lensFlarePosition = {x: ball.x, y: ball.y};
             lensFlareVisible = true;
         }
         if (ball.y <= p2.y + p2.height && ball.y >= p2.y && ball.x >= p2.x && ball.x <= p2.x + p2.width) {
-            let xUV = Math.cos(ball.angle);
-            let yUV = Math.sin(ball.angle);
-            xUV = -Math.abs(xUV);
-            ball.angle = Math.atan2(yUV, xUV);
+            let relativeIntersectY = p2.y + p2.height / 2 - ball.y;
+            let normalizedRelativeIntersectY = relativeIntersectY / p2.height * 2;
+            ball.angle = normalizedRelativeIntersectY * maxBounceAngle + Math.PI;
+
             lensFlarePosition = {x: ball.x, y: ball.y};
             lensFlareVisible = true;
         }
