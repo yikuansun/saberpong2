@@ -176,12 +176,17 @@
 
     <!-- laser -->
     <div style:mix-blend-mode="screen" style:filter="blur(2px) drop-shadow(0 0 5px {ball.color}) drop-shadow(0 0 15px {ball.color})">
-        <div style:width="{ball.radius * 2}px" style:height="{ball.radius * 2}px" style:background-color={ball.color}
-            style:position="absolute" style:top="{ball.y - ball.radius}px" style:left="{ball.x - ball.radius}px"
-            style:border-radius="100px"></div>
-        {#each ballPastPositions as pastPosition}
-            <div style:width="{ball.radius * 2}px" style:height="{ball.radius * 2}px" style:background-color={ball.color}
-                style:position="absolute" style:top="{pastPosition.y - ball.radius}px" style:left="{pastPosition.x - ball.radius}px"
+        <!-- for a smooth line, draw line segments between each pair of points -->
+        {#each ballPastPositions as pastPosition, index}
+            {@const midpointX = (index < ballPastPositions.length - 1) ? ((ballPastPositions[index + 1].x + pastPosition.x) / 2) : ((ball.x + pastPosition.x) / 2)}
+            {@const midpointY = (index < ballPastPositions.length - 1) ? ((ballPastPositions[index + 1].y + pastPosition.y) / 2) : ((ball.y + pastPosition.y) / 2)}
+            {@const distanceX = (index < ballPastPositions.length - 1) ? (ballPastPositions[index + 1].x - pastPosition.x) : (ball.x - pastPosition.x)}
+            {@const distanceY = (index < ballPastPositions.length - 1) ? (ballPastPositions[index + 1].y - pastPosition.y) : (ball.y - pastPosition.y)}
+            {@const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2))}
+            {@const angle = Math.atan2(distanceY, distanceX)}
+
+            <div style:width="{distance}px" style:height="{ball.radius * 2}px" style:background-color={ball.color}
+                style:position="absolute" style:top="{midpointY}px" style:left="{midpointX}px" style:transform="translate(-50%, -50%) rotate({angle}rad)"
                 style:border-radius="100px"></div>
         {/each}
     </div>
