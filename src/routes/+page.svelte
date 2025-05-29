@@ -2,6 +2,9 @@
     import { onMount } from "svelte";
     import { fade, scale } from "svelte/transition";
 
+    import deflectSound from "$lib/assets/sounds/laser_deflect.mp3";
+    import annoyingHumSound from "$lib/assets/sounds/saber_hum.mp3";
+
     /** @type {HTMLDivElement} */
     let gameScreen;
 
@@ -107,6 +110,10 @@
 
             lensFlarePosition = {x: ball.x, y: ball.y};
             lensFlareVisible = true;
+
+            let deflectSoundInstance = new Audio(deflectSound);
+            deflectSoundInstance.volume = 0.5;
+            deflectSoundInstance.play();
         }
         if (ball.y <= p2.y + p2.height && ball.y >= p2.y && ball.x >= p2.x && ball.x <= p2.x + p2.width) {
             let relativeIntersectY = p2.y + p2.height / 2 - ball.y;
@@ -115,6 +122,10 @@
 
             lensFlarePosition = {x: ball.x, y: ball.y};
             lensFlareVisible = true;
+
+            let deflectSoundInstance = new Audio(deflectSound);
+            deflectSoundInstance.volume = 0.5;
+            deflectSoundInstance.play();
         }
 
         ball.x += ball.speed * deltaTime * Math.cos(ball.angle);
@@ -207,3 +218,15 @@
     </div>-->
 
 </div>
+
+<audio autoplay loop controls volume="30" on:timeupdate={(e) => {
+    if (e.target) {
+        let buffer = 0.5;
+        if (e.target.currentTime > e.target.duration - buffer) {
+            e.target.currentTime = 0;
+            e.target.play();
+        }
+    }
+}}>
+    <source src={annoyingHumSound} type="audio/mpeg">
+</audio>
