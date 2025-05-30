@@ -102,7 +102,7 @@
 
         lensFlareVisible = false;
 
-        if (ball.y <= p1.y + p1.height && ball.y >= p1.y && ball.x >= p1.x && ball.x <= p1.x + p1.width) {
+        if (ball.y - ball.radius <= p1.y + p1.height && ball.y + ball.radius >= p1.y && ball.x + ball.radius >= p1.x && ball.x - ball.radius <= p1.x + p1.width) {
             // more info on bounce: https://gamedev.stackexchange.com/questions/4253/in-pong-how-do-you-calculate-the-balls-direction-when-it-bounces-off-the-paddl
             let relativeIntersectY = p1.y + p1.height / 2 - ball.y;
             let normalizedRelativeIntersectY = relativeIntersectY / p1.height * 2;
@@ -115,7 +115,7 @@
             deflectSoundInstance.volume = 0.5;
             deflectSoundInstance.play();
         }
-        if (ball.y <= p2.y + p2.height && ball.y >= p2.y && ball.x >= p2.x && ball.x <= p2.x + p2.width) {
+        if (ball.y - ball.radius <= p2.y + p2.height && ball.y + ball.radius >= p2.y && ball.x + ball.radius >= p2.x && ball.x - ball.radius <= p2.x + p2.width) {
             let relativeIntersectY = p2.y + p2.height / 2 - ball.y;
             let normalizedRelativeIntersectY = relativeIntersectY / p2.height * 2;
             ball.angle = normalizedRelativeIntersectY * maxBounceAngle + Math.PI;
