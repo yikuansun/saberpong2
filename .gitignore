@@ -22,3 +22,6 @@ vite.config.ts.timestamp-*
 
 .npmrc
 package-lock.json
+
+# temp (will push later)
+docs
