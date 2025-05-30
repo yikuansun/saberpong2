@@ -15,17 +15,17 @@
 
     let p1 = {
         x: 150,
-        y: 540 - 160,
-        width: 16,
-        height: 320,
+        y: 540 - 150,
+        width: 12,
+        height: 300,
         color: "hsl(202deg, 100%, 54%)",
     };
 
     let p2 = {
-        x: 1920 - 150 - 16,
-        y: 540 - 160,
-        width: 16,
-        height: 320,
+        x: 1920 - 150 - 12,
+        y: 540 - 150,
+        width: 12,
+        height: 300,
         color: "hsl(0deg, 100%, 60%)",
     };
 
