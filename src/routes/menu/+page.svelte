@@ -34,21 +34,23 @@
 
 <style>
     button {
-        border: 5px solid white;
-        border-radius: 5px;
+        /*border: 5px solid white;
+        border-radius: 5px;*/
+        border: 0;
         background-color: transparent;
         color: white;
         font-weight: bold;
-        text-shadow: 0 0 4px white, 0 0 14px white;
-        box-shadow: 0 0 4px white, 0 0 14px white, inset 0 0 4px white, inset 0 0 14px white;
+        text-shadow: 0 0 10px white, 0 0 20px white, 0 0 40px white;
+        /*box-shadow: 0 0 4px white, 0 0 14px white, inset 0 0 4px white, inset 0 0 14px white;*/
         transition: text-shadow 0.3s, box-shadow 0.3s;
         font-size: 36px;
         padding: 10px 20px;
     }
 
     button:hover {
-        --glow-color: hsl(200deg, 100%, 60%);
-        text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
-        box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), inset 0 0 10px var(--glow-color), inset 0 0 20px var(--glow-color);
+        --glow-color: hsl(200deg, 100%, 70%);
+        text-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color), 0 0 60px var(--glow-color), 0 0 120px var(--glow-color);
+        /*box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), inset 0 0 10px var(--glow-color), inset 0 0 20px var(--glow-color);*/
+        cursor: pointer;
     }
 </style>
