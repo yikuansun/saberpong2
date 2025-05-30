@@ -230,3 +230,8 @@
 }}>
     <source src={annoyingHumSound} type="audio/mpeg">
 </audio>
+
+<svelte:head>
+    <link rel="preload" as="audio" href={deflectSound} />
+    <link rel="preload" as="audio" href={annoyingHumSound} />
+</svelte:head>
