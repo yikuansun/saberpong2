@@ -41,7 +41,7 @@
     let laserLength = 150;
 
     let lensFlarePosition = {x: 0, y: 0};
-    let lensFlareVisible = true;
+    let lensFlareVisible = false;
 
     /** @type {Object.<string, boolean>} */
     let keysPressed = {};
@@ -110,10 +110,6 @@
 
             lensFlarePosition = {x: ball.x, y: ball.y};
             lensFlareVisible = true;
-
-            let deflectSoundInstance = new Audio(deflectSound);
-            deflectSoundInstance.volume = 0.5;
-            deflectSoundInstance.play();
         }
         if (ball.y - ball.radius <= p2.y + p2.height && ball.y + ball.radius >= p2.y && ball.x + ball.radius >= p2.x && ball.x - ball.radius <= p2.x + p2.width) {
             let relativeIntersectY = p2.y + p2.height / 2 - ball.y;
@@ -122,10 +118,6 @@
 
             lensFlarePosition = {x: ball.x, y: ball.y};
             lensFlareVisible = true;
-
-            let deflectSoundInstance = new Audio(deflectSound);
-            deflectSoundInstance.volume = 0.5;
-            deflectSoundInstance.play();
         }
 
         ball.x += ball.speed * deltaTime * Math.cos(ball.angle);
@@ -211,6 +203,10 @@
             style:width="300x" style:height="20px" style:background-color="white" style:filter="blur(10px)"
             style:transform="translate(-50%, -50%)" style:border-radius="100%" style:mix-blend-mode="screen"
             out:scale={{ duration: 222, }}></div>
+        <!-- since this sound effect occurs every time the lens flare is visible, we can group it together -->
+        <audio autoplay volume="0.5" out:fade={{ delay: 911, duration: 1, }}> <!-- make sure sound finishes playing before element is destroyed -->
+            <source src={deflectSound} type="audio/mpeg">
+        </audio>
     {/if}
 
     <!--<div style:position="fixed" style:top="10px" style:left="10px" style:color="white">
@@ -219,7 +215,7 @@
 
 </div>
 
-<audio autoplay loop controls volume="30" on:timeupdate={(e) => {
+<audio autoplay loop volume="1" on:timeupdate={(e) => {
     if (e.target) {
         let buffer = 0.5;
         if (e.target.currentTime > e.target.duration - buffer) {
