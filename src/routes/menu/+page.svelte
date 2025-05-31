@@ -3,6 +3,8 @@
     import { onMount } from "svelte";
 
     import logo from "$lib/assets/images/logo.jpg";
+    import ExpletusSansTtf from "$lib/assets/fonts/ExpletusSans-VariableFont_wght.ttf";
+    import Exo2Ttf from "$lib/assets/fonts/Exo2-VariableFont_wght.ttf";
 
     /** @type {HTMLDivElement} */
     let gameScreen;
@@ -39,12 +41,12 @@
         border: 0;
         background-color: transparent;
         color: white;
-        font-weight: bold;
         text-shadow: 0 0 10px white, 0 0 20px white, 0 0 40px white;
         /*box-shadow: 0 0 4px white, 0 0 14px white, inset 0 0 4px white, inset 0 0 14px white;*/
         transition: text-shadow 0.3s, box-shadow 0.3s;
         font-size: 36px;
         padding: 10px 20px;
+        font-family: "Exo2", sans-serif;
     }
 
     button:hover {
@@ -53,4 +55,19 @@
         /*box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), inset 0 0 10px var(--glow-color), inset 0 0 20px var(--glow-color);*/
         cursor: pointer;
     }
+
+    @font-face {
+        font-family: "ExpletusSans";
+        src: url("$lib/assets/fonts/ExpletusSans-VariableFont_wght.ttf");
+    }
+
+    @font-face {
+        font-family: "Exo2";
+        src: url("$lib/assets/fonts/Exo2-VariableFont_wght.ttf");
+    }
 </style>
+
+<svelte:head>
+    <link rel="preload" as="font" href={ExpletusSansTtf} type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" as="font" href={Exo2Ttf} type="font/ttf" crossorigin="anonymous" />
+</svelte:head>
