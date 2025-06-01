@@ -6,6 +6,7 @@
     import ExpletusSansTtf from "$lib/assets/fonts/ExpletusSans-VariableFont_wght.ttf";
     import Exo2Ttf from "$lib/assets/fonts/Exo2-VariableFont_wght.ttf";
     import bgVideo from "$lib/assets/videos/homescreenLoop.mp4";
+    import music from "$lib/assets/music/menuTheme.mp3";
 
     /** @type {HTMLDivElement} */
     let gameScreen;
@@ -47,6 +48,18 @@
         }}>Credits</button>
     </div>
 </div>
+
+<audio autoplay loop on:timeupdate={(e) => {
+    if (e.target) {
+        let buffer = 0.44;
+        if (e.target.currentTime > e.target.duration - buffer) {
+            e.target.currentTime = 0;
+            e.target.play();
+        }
+    }
+}}>
+    <source src={music} type="audio/mpeg">
+</audio>
 
 <style>
     button {
