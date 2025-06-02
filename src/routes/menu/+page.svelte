@@ -27,7 +27,7 @@
     style:position="fixed" style:top="50vh" style:left="50vw" style:transform="translate(-50%, -50%)"
     style:overflow="hidden">
     <!-- svelte-ignore a11y-media-has-caption -->
-    <video autoplay loop style:width="1920px" style:height="1080px" style:position = "absolute" style:top="0px" style:left="0px"
+    <video autoplay muted loop style:width="1920px" style:height="1080px" style:position = "absolute" style:top="0px" style:left="0px"
         on:contextmenu={(e) => e.preventDefault()} on:click={(e) => e.preventDefault()}>
         <source src={bgVideo} type="video/mp4" />
     </video>

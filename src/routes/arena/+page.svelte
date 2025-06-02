@@ -16,8 +16,8 @@
     let p1 = {
         x: 360,
         y: 540 - 150,
-        width: 12,
-        height: 300,
+        width: 0,
+        height: 0,
         color: "hsl(204deg, 100%, 54%)",
         flicker: 1,
     };
@@ -25,8 +25,8 @@
     let p2 = {
         x: 1920 - 360 - 12,
         y: 540 - 150,
-        width: 12,
-        height: 300,
+        width: 0,
+        height: 0,
         color: "hsl(0deg, 100%, 60%)",
         flicker: 1,
     };
