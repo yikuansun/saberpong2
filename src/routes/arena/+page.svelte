@@ -21,6 +21,7 @@
         color: "hsl(204deg, 100%, 54%)",
         flicker: 1,
     };
+    let p1Lives = 5;
 
     let p2 = {
         x: 1920 - 360 - 12,
@@ -30,6 +31,7 @@
         color: "hsl(0deg, 100%, 60%)",
         flicker: 1,
     };
+    let p2Lives = 5;
 
     let ball = {
         x: 1920 / 2,
@@ -90,16 +92,18 @@
             ball.angle = -Math.atan2(yUV, xUV);
         }
         if (ball.x <= 0) {
-            let xUV = Math.cos(ball.angle);
-            let yUV = Math.sin(ball.angle);
-            xUV = Math.abs(xUV);
-            ball.angle = Math.atan2(yUV, xUV);
+            // in p1 endzone
+            p1Lives--;
+            ball.x = 960;
+            ball.y = 540;
+            ball.angle = Math.PI / 3;
         }
         if (ball.x >= 1920) {
-            let xUV = Math.cos(ball.angle);
-            let yUV = Math.sin(ball.angle);
-            xUV = -Math.abs(xUV);
-            ball.angle = Math.atan2(yUV, xUV);
+            // in p2 endzone
+            p2Lives--;
+            ball.x = 960;
+            ball.y = 540;
+            ball.angle = 2 * Math.PI / 3;
         }
 
         lensFlareVisible = false;
@@ -213,6 +217,13 @@
             <source src={deflectSound} type="audio/mpeg">
         </audio>
     {/if}
+
+    <div style:position="fixed" style:top="20px" style:left="20px" style:color="white">
+        Health: {p1Lives}
+    </div>
+    <div style:position="fixed" style:top="20px" style:right="20px" style:color="white">
+        Health: {p2Lives}
+    </div>
 
     <!--<div style:position="fixed" style:top="10px" style:left="10px" style:color="white">
         Delta Time: {deltaTime.toFixed(3)}
