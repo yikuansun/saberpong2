@@ -91,19 +91,29 @@
             yUV = Math.abs(yUV);
             ball.angle = -Math.atan2(yUV, xUV);
         }
-        if (ball.x <= 0) {
+        if (ball.x <= 0 - laserLength) {
             // in p1 endzone
             p1Lives--;
             ball.x = 960;
             ball.y = 540;
             ball.angle = Math.PI / 3;
+            // shoot 1 second after goal
+            ball.speed = 0;
+            setTimeout(() => {
+                ball.speed = 842;
+            }, 3000);
         }
-        if (ball.x >= 1920) {
+        if (ball.x >= 1920 + laserLength) {
             // in p2 endzone
             p2Lives--;
             ball.x = 960;
             ball.y = 540;
             ball.angle = 2 * Math.PI / 3;
+            // shoot 1 second after goal
+            ball.speed = 0;
+            setTimeout(() => {
+                ball.speed = 842;
+            }, 3000);
         }
 
         lensFlareVisible = false;
