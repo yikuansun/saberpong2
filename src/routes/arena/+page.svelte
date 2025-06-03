@@ -21,7 +21,7 @@
         color: "hsl(204deg, 100%, 54%)",
         flicker: 1,
     };
-    let p1Lives = 5;
+    let p1Lives = 10;
 
     let p2 = {
         x: 1920 - 360 - 12,
@@ -31,7 +31,7 @@
         color: "hsl(0deg, 100%, 60%)",
         flicker: 1,
     };
-    let p2Lives = 5;
+    let p2Lives = 10;
 
     let ball = {
         x: 1920 / 2,
@@ -228,12 +228,36 @@
         </audio>
     {/if}
 
-    <div style:position="fixed" style:top="20px" style:left="20px" style:color="white">
-        Health: {p1Lives}
-    </div>
-    <div style:position="fixed" style:top="20px" style:right="20px" style:color="white">
-        Health: {p2Lives}
-    </div>
+    {#each (new Array(p1Lives)).fill(0) as _, i}
+        <div style:position="absolute" style:top="{24 + Math.floor(i / 5) * 54}px" style:left="{24 + (i % 5) * 54}px"
+            style:width="32px" style:height="32px" style:filter="brightness(1.27) drop-shadow(0 0 3px {p1.color}) drop-shadow(0 0 10px {p1.color})"
+            style:mix-blend-mode="screen" out:scale={{ duration: 500, }}>
+            <div style:position="absolute" style:transform="translate(-50%, -50%)"
+                style:top="11.5px" style:left="21.75px" style:width="16px" style:height="16px"
+                style:border-radius="12px" style:background-color={p1.color}></div>
+            <div style:position="absolute" style:transform="translate(-50%, -50%)"
+                style:top="11.5px" style:left="10.25px" style:width="16px" style:height="16px"
+                style:border-radius="12px" style:background-color={p1.color}></div>
+            <div style:position="absolute" style:transform="translate(-50%, -50%) rotate(45deg)"
+                style:top="17.25px" style:left="16px" style:width="16px" style:height="16px"
+                style:background-color={p1.color}></div>
+        </div>
+    {/each}
+    {#each (new Array(p2Lives)).fill(0) as _, i}
+        <div style:position="absolute" style:top="{24 + Math.floor(i / 5) * 54}px" style:right="{24 + (i % 5) * 54}px"
+            style:width="32px" style:height="32px" style:filter="brightness(1.27) drop-shadow(0 0 3px {p2.color}) drop-shadow(0 0 10px {p2.color})"
+            style:mix-blend-mode="screen" out:scale={{ duration: 500, }}>
+            <div style:position="absolute" style:transform="translate(-50%, -50%)"
+                style:top="11.5px" style:left="21.75px" style:width="16px" style:height="16px"
+                style:border-radius="12px" style:background-color={p2.color}></div>
+            <div style:position="absolute" style:transform="translate(-50%, -50%)"
+                style:top="11.5px" style:left="10.25px" style:width="16px" style:height="16px"
+                style:border-radius="12px" style:background-color={p2.color}></div>
+            <div style:position="absolute" style:transform="translate(-50%, -50%) rotate(45deg)"
+                style:top="17.25px" style:left="16px" style:width="16px" style:height="16px"
+                style:background-color={p2.color}></div>
+        </div>
+    {/each}
 
     <!--<div style:position="fixed" style:top="10px" style:left="10px" style:color="white">
         Delta Time: {deltaTime.toFixed(3)}
