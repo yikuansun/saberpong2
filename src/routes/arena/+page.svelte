@@ -4,6 +4,7 @@
 
     import deflectSound from "$lib/assets/sounds/laser_deflect.mp3";
     import annoyingHumSound from "$lib/assets/sounds/saber_hum.mp3";
+    import serveSound from "$lib/assets/sounds/laser_blast.mp3";
 
     /** @type {HTMLDivElement} */
     let gameScreen;
@@ -101,6 +102,7 @@
             ball.speed = 0;
             setTimeout(() => {
                 ball.speed = 842;
+                (new Audio(serveSound)).play();
             }, 3000);
         }
         if (ball.x >= 1920 + laserLength) {
@@ -113,6 +115,7 @@
             ball.speed = 0;
             setTimeout(() => {
                 ball.speed = 842;
+                (new Audio(serveSound)).play();
             }, 3000);
         }
 
@@ -167,6 +170,10 @@
         window.addEventListener("keyup", (e) => {
             keysPressed[e.key] = false;
         });
+
+        // first serve
+        ball.speed = 842;
+        (new Audio(serveSound)).play();
 
         mainGameLoop();
     });
