@@ -53,6 +53,8 @@
     /** @type {Object.<string, boolean>} */
     let keysPressed = {};
 
+    let paused = false;
+
     let deltaTime = 0; // velocities are in pixels per second
     let lastTime = (new Date()).getTime();
     let frameCount = 0;
@@ -160,8 +162,10 @@
         p1.flicker = 1 + 0.3 * Math.sin(Date.now() / 100);
         p2.flicker = 1 + 0.3 * Math.cos(Date.now() / 100);
 
-        frameCount++;
-        requestAnimationFrame(mainGameLoop);
+        if (!paused) {
+            frameCount++;
+            requestAnimationFrame(mainGameLoop);
+        }
     }
 
     onMount(() => {
@@ -170,6 +174,14 @@
 
         window.addEventListener("keydown", (e) => {
             keysPressed[e.key] = true;
+            if (e.key == " " && !e.repeat) {
+                paused = !paused;
+                if (!paused) {
+                    lastTime = (new Date()).getTime();
+                    frameCount++;
+                    requestAnimationFrame(mainGameLoop);
+                }
+            }
         });
         window.addEventListener("keyup", (e) => {
             keysPressed[e.key] = false;
@@ -283,17 +295,19 @@
 
 </div>
 
-<audio autoplay loop volume="1" on:timeupdate={(e) => {
-    if (e.target) {
-        let buffer = 0.5;
-        if (e.target.currentTime > e.target.duration - buffer) {
-            e.target.currentTime = 0;
-            e.target.play();
+{#if !paused}
+    <audio autoplay loop volume="1" on:timeupdate={(e) => {
+        if (e.target) {
+            let buffer = 0.5;
+            if (e.target.currentTime > e.target.duration - buffer) {
+                e.target.currentTime = 0;
+                e.target.play();
+            }
         }
-    }
-}}>
-    <source src={annoyingHumSound} type="audio/mpeg">
-</audio>
+    }}>
+        <source src={annoyingHumSound} type="audio/mpeg">
+    </audio>
+{/if}
 
 <svelte:head>
     <link rel="preload" as="audio" href={deflectSound} />
