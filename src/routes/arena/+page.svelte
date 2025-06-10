@@ -48,6 +48,8 @@
     let lensFlarePosition = {x: 0, y: 0};
     let lensFlareVisible = false;
 
+    let serving = false;
+
     /** @type {Object.<string, boolean>} */
     let keysPressed = {};
 
@@ -102,7 +104,8 @@
             ball.speed = 0;
             setTimeout(() => {
                 ball.speed = 842;
-                (new Audio(serveSound)).play();
+                serving = true;
+                setTimeout(() => { serving = false; }, 10);
             }, 3000);
         }
         if (ball.x >= 1920 + laserLength) {
@@ -115,7 +118,8 @@
             ball.speed = 0;
             setTimeout(() => {
                 ball.speed = 842;
-                (new Audio(serveSound)).play();
+                serving = true;
+                setTimeout(() => { serving = false; }, 10);
             }, 3000);
         }
 
@@ -173,7 +177,8 @@
 
         // first serve
         ball.speed = 842;
-        (new Audio(serveSound)).play();
+        serving = true;
+        setTimeout(() => { serving = false; }, 10);
 
         mainGameLoop();
     });
@@ -265,6 +270,12 @@
                 style:background-color={p2.color}></div>
         </div>
     {/each}
+
+    {#if serving}
+        <audio autoplay volume="0.5" out:fade={{ delay: 1801, duration: 1, }}> <!-- make sure sound finishes playing before element is destroyed -->
+            <source src={serveSound} type="audio/mpeg">
+        </audio>
+    {/if}
 
     <!--<div style:position="fixed" style:top="10px" style:left="10px" style:color="white">
         Delta Time: {deltaTime.toFixed(3)}
