@@ -5,6 +5,7 @@
     import deflectSound from "$lib/assets/sounds/laser_deflect.mp3";
     import annoyingHumSound from "$lib/assets/sounds/saber_hum.mp3";
     import serveSound from "$lib/assets/sounds/laser_blast.mp3";
+    import pauseSound from "$lib/assets/sounds/pause.wav";
 
     /** @type {HTMLDivElement} */
     let gameScreen;
@@ -287,6 +288,18 @@
         <audio autoplay volume="0.5" out:fade={{ delay: 1801, duration: 1, }}> <!-- make sure sound finishes playing before element is destroyed -->
             <source src={serveSound} type="audio/mpeg">
         </audio>
+    {/if}
+
+    {#if paused}
+        <audio autoplay>
+            <source src={pauseSound} type="audio/wav">
+        </audio>
+        <div style:position="absolute" style:top="540px" style:left="960px" style:transform="translate(-50%, -50%)"
+            style:color="white" style:font-size="50px" transition:fade={{ duration: 222, }}>
+            game paused
+            <br /> <br />
+            press space to resume
+        </div>
     {/if}
 
     <!--<div style:position="fixed" style:top="10px" style:left="10px" style:color="white">
