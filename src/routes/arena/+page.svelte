@@ -1,11 +1,12 @@
 <script>
     import { onMount } from "svelte";
-    import { fade, scale } from "svelte/transition";
+    import { fade, scale, fly } from "svelte/transition";
 
     import deflectSound from "$lib/assets/sounds/laser_deflect.mp3";
     import annoyingHumSound from "$lib/assets/sounds/saber_hum.mp3";
     import serveSound from "$lib/assets/sounds/laser_blast.mp3";
     import pauseSound from "$lib/assets/sounds/pause.wav";
+    import scoreSound from "$lib/assets/sounds/score.wav";
     import ExpletusSansTtf from "$lib/assets/fonts/ExpletusSans-VariableFont_wght.ttf";
     import Exo2Ttf from "$lib/assets/fonts/Exo2-VariableFont_wght.ttf";
 
@@ -112,6 +113,7 @@
                 serving = true;
                 setTimeout(() => { serving = false; }, 10);
             }, 3000);
+            alert("Player 2 Scored!", p2.color, 2000, scoreSound);
         }
         if (ball.x >= 1920 + laserLength) {
             // in p2 endzone
@@ -126,6 +128,7 @@
                 serving = true;
                 setTimeout(() => { serving = false; }, 10);
             }, 3000);
+            alert("Player 1 Scored!", p1.color, 2000, scoreSound);
         }
 
         lensFlareVisible = false;
@@ -174,6 +177,28 @@
     let gameStarted = false;
     let curtainVisible = true;
     let screenFadeDuration = 500;
+
+    let alertMessage = "";
+    let alertColor = "white";
+    /** @type {null | string} */
+    let alertSound = null;
+    let alertVisible = false;
+    /**
+     * Display custom alert message
+     * @param {string} msg message to display
+     * @param {string} [color="white"] color of the message
+     * @param {number} [duration=2000] duration of the alert, in milliseconds (500ms buffer before and after)
+     * @param {null | string} [sound=null] path to sound to play (if null, no sound)
+     */
+    function alert(msg, color="white", duration=2000, sound=null) {
+        alertMessage = msg;
+        alertColor = color;
+        alertSound = sound;
+        alertVisible = true;
+        setTimeout(() => {
+            alertVisible = false;
+        }, duration);
+    }
 
     onMount(() => {
         resizeGameScreen();
@@ -312,6 +337,20 @@
             <br /> <br />
             Press Space to Resume
         </div>
+    {/if}
+
+    {#if alertVisible}
+        <div style:position="absolute" style:top="100px" style:left="960px" style:transform="translate(-50%, -50%)"
+            style:color={alertColor} style:font-size="50px" transition:fly={{ duration: 500, y: "-100px", }}
+            style:font-family="Exo2" style:user-select="none" style:mix-blend-mode="screen" style:filter="brightness(1.2)"
+            style:text-align="center" style:text-shadow="0 0 14px {alertColor}, 0 0 24px {alertColor}, 0 0 40px {alertColor}">
+            {alertMessage}
+        </div>
+        {#if alertSound}
+            <audio autoplay on:ended={() => { alertSound = null; }}>
+                <source src={alertSound} type="audio/mpeg">
+            </audio>
+        {/if}
     {/if}
 
     {#if curtainVisible}
