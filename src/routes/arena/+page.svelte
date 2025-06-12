@@ -404,6 +404,44 @@
         {/if}
     {/if}
 
+    {#if MOBILE_CONTROLS}
+        <button style:position="absolute" style:top="180px" style:left="100px"
+            style:width="180px" style:height="180px" class="mobileButton"
+            on:touchstart={() => { keysPressed[P1_UP_KEY] = true; }} on:touchend={() => { keysPressed[P1_UP_KEY] = false; }}
+            on:mousedown={() => { keysPressed[P1_UP_KEY] = true; }} on:mouseup={() => { keysPressed[P1_UP_KEY] = false; }}
+            on:contextmenu={(e) => e.preventDefault()}>up</button>
+        <button style:position="absolute" style:bottom="180px" style:left="100px"
+            style:width="180px" style:height="180px" class="mobileButton"
+            on:touchstart={() => { keysPressed[P1_DOWN_KEY] = true; }} on:touchend={() => { keysPressed[P1_DOWN_KEY] = false; }}
+            on:mousedown={() => { keysPressed[P1_DOWN_KEY] = true; }} on:mouseup={() => { keysPressed[P1_DOWN_KEY] = false; }}
+            on:contextmenu={(e) => e.preventDefault()}>down</button>
+
+        <button style:position="absolute" style:top="180px" style:right="100px"
+            style:width="180px" style:height="180px" class="mobileButton"
+            on:touchstart={() => { keysPressed[P2_UP_KEY] = true; }} on:touchend={() => { keysPressed[P2_UP_KEY] = false; }}
+            on:mousedown={() => { keysPressed[P2_UP_KEY] = true; }} on:mouseup={() => { keysPressed[P2_UP_KEY] = false; }}
+            on:contextmenu={(e) => e.preventDefault()}>up</button>
+        <button style:position="absolute" style:bottom="180px" style:right="100px"
+            style:width="180px" style:height="180px" class="mobileButton"
+            on:touchstart={() => { keysPressed[P2_DOWN_KEY] = true; }} on:touchend={() => { keysPressed[P2_DOWN_KEY] = false; }}
+            on:mousedown={() => { keysPressed[P2_DOWN_KEY] = true; }} on:mouseup={() => { keysPressed[P2_DOWN_KEY] = false; }}
+            on:contextmenu={(e) => e.preventDefault()}>down</button>
+
+        <button style:position="absolute" style:bottom="80px" style:left="960px" style:transform="translate(-50%, 50%)"
+            style:width="180px" style:height="100px" class="mobileButton"
+            on:click={() => {
+                paused = !paused;
+                if (!paused) {
+                    lastTime = (new Date()).getTime();
+                    frameCount++;
+                    requestAnimationFrame(mainGameLoop);
+                }
+            }}
+            on:contextmenu={(e) => e.preventDefault()}>
+            {#if paused} Resume {:else} Pause {/if}
+        </button>
+    {/if}
+
     {#if curtainVisible}
         <div style:position="absolute" style:left="0px" style:top="0px" style:width="1920px" style:height="1080px"
             style:background-color="black" transition:fade={{ duration: screenFadeDuration, }}></div>
@@ -454,6 +492,22 @@
     @font-face {
         font-family: "Exo2";
         src: url("$lib/assets/fonts/Exo2-VariableFont_wght.ttf");
+    }
+
+    .mobileButton {
+        border: 5px solid white;
+        background-color: transparent;
+        color: white;
+        text-shadow: 0 0 10px white, 0 0 20px white, 0 0 40px white;
+        box-shadow: 0 0 4px white, 0 0 14px white, inset 0 0 4px white, inset 0 0 14px white;
+        font-size: 36px;
+        font-family: "Exo2", sans-serif;
+        opacity: 0.5;
+        user-select: none;
+    }
+
+    .mobileButton:active {
+        opacity: 0.8;
     }
 </style>
 
