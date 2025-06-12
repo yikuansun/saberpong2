@@ -413,18 +413,18 @@
     {#if p2Lives <= 0}
         <div style:position="absolute" style:top="540px" style:left="960px"
             style:transform="translate(-50%, -50%)" style:font-size="72px"
-            style:color="white" style:font-family="Exo2" style:user-select="none"
+            style:color="white" style:font-family="ExpletusSans" style:user-select="none"
             style:mix-blend-mode="screen" style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white"
             in:fade={{ duration: 888, delay: 222, }}>
-            PLAYER 1 WINS
+            {P1_NAME.toUpperCase()} WINS!
         </div>
     {:else if p1Lives <= 0}
         <div style:position="absolute" style:top="540px" style:right="960px"
             style:transform="translate(50%, -50%)" style:font-size="72px"
-            style:color="white" style:font-family="Exo2" style:user-select="none"
+            style:color="white" style:font-family="ExpletusSans" style:user-select="none"
             style:mix-blend-mode="screen" style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white"
             in:fade={{ duration: 888, delay: 222, }}>
-            PLAYER 2 WINS
+            {P2_NAME.toUpperCase()} WINS!
         </div>
     {/if}
 
