@@ -1,6 +1,7 @@
 <script>
     import { goto } from "$app/navigation";
     import { onMount } from "svelte";
+    import { fade } from "svelte/transition";
 
     import logo from "$lib/assets/images/logo.jpg";
     import ExpletusSansTtf from "$lib/assets/fonts/ExpletusSans-VariableFont_wght.ttf";
@@ -16,18 +17,32 @@
         gameScreen.style.transform = `translate(-50%, -50%) scale(${scale})`;
     }
 
+    let curtainVisible = true;
+    let screenFadeDuration = 500;
+
+    /**
+     * Go to a page & use fade-out effect
+     * @param {string} endpt path to go to
+     */
+    function gotoCool(endpt) {
+        curtainVisible = true;
+        setTimeout(() => { goto(endpt); }, screenFadeDuration + 10);
+    }
+
     onMount(() => {
         resizeGameScreen();
         window.addEventListener("resize", resizeGameScreen);
+
+        setTimeout(() => { curtainVisible = false; }, 10);
     });
 </script>
 
-
-<div bind:this={gameScreen} style:width="1920px" style:height="1080px" style:background-color="black"
+<div bind:this={gameScreen} style:width="1920px" style:height="1080px" style:background-color="#111111"
     style:position="fixed" style:top="50vh" style:left="50vw" style:transform="translate(-50%, -50%)"
     style:overflow="hidden">
     <!-- svelte-ignore a11y-media-has-caption -->
-    <video autoplay muted loop style:width="1920px" style:height="1080px" style:position = "absolute" style:top="0px" style:left="0px"
+    <video autoplay muted loop style:width="1920px" style:height="1080px" style:position = "absolute"
+        style:top="0px" style:left="0px" style:mix-blend-mode="screen"
         on:contextmenu={(e) => e.preventDefault()} on:click={(e) => e.preventDefault()}>
         <source src={bgVideo} type="video/mp4" />
     </video>
@@ -36,17 +51,22 @@
         <img src={logo} alt="Saber Pong II" style:width="800px" style:height="auto" style:font-size="72px" draggable={false} />
         <br />
         <button on:click={() => {
-            goto("../arena");
+            gotoCool("../arena");
         }}>New Game (Player vs. Player)</button>
         <br />
         <button on:click={() => {
-            goto("../arena");
+            gotoCool("../arena");
         }}>New Game (Player vs. CPU)</button>
         <br />
         <button on:click={() => {
 
         }}>Credits</button>
     </div>
+
+    {#if curtainVisible}
+        <div style:position="absolute" style:left="0px" style:top="0px" style:width="1920px" style:height="1080px"
+            style:background-color="black" transition:fade={{ duration: screenFadeDuration, }}></div>
+    {/if}
 </div>
 
 <audio autoplay loop on:timeupdate={(e) => {
