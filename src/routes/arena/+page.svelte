@@ -19,33 +19,46 @@
         gameScreen.style.transform = `translate(-50%, -50%) scale(${scale})`;
     }
 
+    let P1_COLOR = "hsl(204deg, 100%, 54%)";
+    let P2_COLOR = "hsl(0deg, 100%, 60%)";
+    let BALL_COLOR = "hsl(100deg, 100%, 50%)";
+    let BALL_SPEED = 842;
+    let MAX_LIVES = 10;
+    let P1_NAME = "Player 1";
+    let P2_NAME = "Player 2";
+    let P1_UP_KEY = "w";
+    let P1_DOWN_KEY = "s";
+    let P2_UP_KEY = "ArrowUp";
+    let P2_DOWN_KEY = "ArrowDown";
+    let MOBILE_CONTROLS = false;
+
     let p1 = {
         x: 360,
         y: 540 - 150,
         width: 14,
         height: 300,
-        color: "hsl(204deg, 100%, 54%)",
+        color: P1_COLOR,
         flicker: 1,
     };
-    let p1Lives = 10;
+    let p1Lives = MAX_LIVES;
 
     let p2 = {
         x: 1920 - 360 - 14,
         y: 540 - 150,
         width: 14,
         height: 300,
-        color: "hsl(0deg, 100%, 60%)",
+        color: P2_COLOR,
         flicker: 1,
     };
-    let p2Lives = 10;
+    let p2Lives = MAX_LIVES;
 
     let ball = {
         x: 1920 / 2,
         y: 1080 / 2,
         radius: 4,
         angle: Math.PI / 3,
-        color: "hsl(100deg, 100%, 50%)",
-        speed: 842,
+        color: BALL_COLOR,
+        speed: BALL_SPEED,
     };
     let ballPastPositions = [{x: ball.x, y: ball.y}];
     let laserLength = 150;
@@ -70,19 +83,19 @@
         deltaTime = (startTime - lastTime) / 1000;
         lastTime = startTime;
 
-        if (keysPressed["w"]) {
+        if (keysPressed[P1_UP_KEY]) {
             p1.y -= saberSpeed * deltaTime;
             if (p1.y < 0) p1.y = 0;
         }
-        if (keysPressed["s"]) {
+        if (keysPressed[P1_DOWN_KEY]) {
             p1.y += saberSpeed * deltaTime;
             if (p1.y > 1080 - p1.height) p1.y = 1080 - p1.height;
         }
-        if (keysPressed["ArrowUp"]) {
+        if (keysPressed[P2_UP_KEY]) {
             p2.y -= saberSpeed * deltaTime;
             if (p2.y < 0) p2.y = 0;
         }
-        if (keysPressed["ArrowDown"]) {
+        if (keysPressed[P2_DOWN_KEY]) {
             p2.y += saberSpeed * deltaTime;
             if (p2.y > 1080 - p2.height) p2.y = 1080 - p2.height;
         }
@@ -110,11 +123,11 @@
             // shoot 1 second after goal
             ball.speed = 0;
             setTimeout(() => {
-                ball.speed = 842;
+                ball.speed = BALL_SPEED;
                 serving = true;
                 setTimeout(() => { serving = false; }, 10);
             }, 3000);
-            alert("Player 2 Scored!", p2.color, 2000, scoreSound);
+            alert(P2_NAME + " Scored!", p2.color, 2000, scoreSound);
         }
         if (ball.x >= 1920 + laserLength) {
             // in p2 endzone
@@ -125,11 +138,11 @@
             // shoot 1 second after goal
             ball.speed = 0;
             setTimeout(() => {
-                ball.speed = 842;
+                ball.speed = BALL_SPEED;
                 serving = true;
                 setTimeout(() => { serving = false; }, 10);
             }, 3000);
-            alert("Player 1 Scored!", p1.color, 2000, scoreSound);
+            alert(P1_NAME + " Scored!", p1.color, 2000, scoreSound);
         }
 
         lensFlareVisible = false;
@@ -234,7 +247,7 @@
                     alert("1", "white", 1000, beepSound);
                     setTimeout(() => {
                         gameStarted = true;
-                        ball.speed = 842;
+                        ball.speed = BALL_SPEED;
                         serving = true;
                         setTimeout(() => { serving = false; }, 10);
                         lastTime = (new Date()).getTime();
