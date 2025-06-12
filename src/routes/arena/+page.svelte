@@ -7,6 +7,7 @@
     import serveSound from "$lib/assets/sounds/laser_blast.mp3";
     import pauseSound from "$lib/assets/sounds/pause.wav";
     import scoreSound from "$lib/assets/sounds/score.wav";
+    import beepSound from "$lib/assets/sounds/beep.wav";
     import ExpletusSansTtf from "$lib/assets/fonts/ExpletusSans-VariableFont_wght.ttf";
     import Exo2Ttf from "$lib/assets/fonts/Exo2-VariableFont_wght.ttf";
 
@@ -226,13 +227,22 @@
         });
 
         setTimeout(() => {
-            gameStarted = true;
-            ball.speed = 842;
-            serving = true;
-            setTimeout(() => { serving = false; }, 10);
-            lastTime = (new Date()).getTime();
-            requestAnimationFrame(mainGameLoop);
-        }, 3000);
+            alert("3", "white", 1000, beepSound);
+            setTimeout(() => {
+                alert("2", "white", 1000, beepSound);
+                setTimeout(() => {
+                    alert("1", "white", 1000, beepSound);
+                    setTimeout(() => {
+                        gameStarted = true;
+                        ball.speed = 842;
+                        serving = true;
+                        setTimeout(() => { serving = false; }, 10);
+                        lastTime = (new Date()).getTime();
+                        requestAnimationFrame(mainGameLoop);
+                    }, 1500);
+                }, 1500);
+            }, 1500);
+        }, screenFadeDuration + 10);
 
         setTimeout(() => { curtainVisible = false; }, 10);
     });
@@ -386,7 +396,7 @@
 
 </div>
 
-{#if !paused}
+{#if gameStarted && !paused}
     <audio autoplay loop volume="1" on:timeupdate={(e) => {
         if (e.target) {
             let buffer = 0.5;
