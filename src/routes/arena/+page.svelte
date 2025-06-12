@@ -317,6 +317,28 @@
         </audio>
     {/if}
 
+    <!-- p1 endzone -->
+    <div style:position="absolute" style:top="0" style:left="0" style:width="296px" style:height="1080px"
+        style:background-color={p1.color} style:opacity="0.1" style:mix-blend-mode="screen"></div>
+    <div style:position="absolute" style:top="0" style:left="296px" style:width="10px" style:height="1080px"
+        style:background-color={p1.color} style:opacity="0.25" style:mix-blend-mode="screen"></div>
+    <div style:position="absolute" style:top="540px" style:left="148px" style:transform="translate(-50%, -50%) rotate(270deg)"
+        style:color={p1.color} style:font-size="70px" style:font-family="ExpletusSans" style:user-select="none"
+        style:mix-blend-mode="screen" style:opacity="0.5" style:font-variant="small-caps" style:letter-spacing="15px">
+        {P1_NAME}
+    </div>
+
+    <!-- p2 endzone -->
+    <div style:position="absolute" style:top="0" style:right="0" style:width="296px" style:height="1080px"
+        style:background-color={p2.color} style:opacity="0.1" style:mix-blend-mode="screen"></div>
+    <div style:position="absolute" style:top="0" style:right="296px" style:width="10px" style:height="1080px"
+        style:background-color={p2.color} style:opacity="0.25" style:mix-blend-mode="screen"></div>
+    <div style:position="absolute" style:top="540px" style:right="148px" style:transform="translate(50%, -50%) rotate(90deg)"
+        style:color={p2.color} style:font-size="70px" style:font-family="ExpletusSans" style:user-select="none"
+        style:mix-blend-mode="screen" style:opacity="0.5" style:font-variant="small-caps" style:letter-spacing="15px">
+        {P2_NAME}
+    </div>
+
     {#each (new Array(p1Lives)).fill(0) as _, i}
         <div style:position="absolute" style:top="{24 + Math.floor(i / 5) * 54}px" style:left="{24 + (i % 5) * 54}px"
             style:width="32px" style:height="32px" style:filter="brightness(1.27) drop-shadow(0 0 3px {p1.color}) drop-shadow(0 0 10px {p1.color})"
