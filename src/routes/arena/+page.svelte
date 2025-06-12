@@ -368,7 +368,19 @@
         <div style:position="absolute" style:top="0" style:left="0" style:color="white" style:background-color="hsla(0deg, 0%, 0%, 0.5)"
             style:padding="15px" style:font-size="20px">
             Delta Time: {deltaTime.toFixed(3)} sec <br />
-            Framerate: {(1 / deltaTime).toFixed(2)} fps
+            Framerate: {(1 / deltaTime).toFixed(2)} fps <br />
+            Performance:
+            {#if (1 / deltaTime) >= 60}
+                <span style:color="white">Perfect</span>
+            {:else if (1 / deltaTime) >= 45}
+                <span style:color="green">Good</span>
+            {:else if (1 / deltaTime) >= 30}
+                <span style:color="yellow">Fine</span>
+            {:else if (1 / deltaTime) >= 15}
+                <span style:color="orange">Poor</span>
+            {:else}
+                <span style:color="red">wtf.</span>
+            {/if}
         </div>
     {/if}
 
