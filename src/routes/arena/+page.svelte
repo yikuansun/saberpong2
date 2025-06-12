@@ -23,7 +23,7 @@
     let P2_COLOR = "hsl(0deg, 100%, 60%)";
     let BALL_COLOR = "hsl(100deg, 100%, 50%)";
     let BALL_SPEED = 842;
-    let MAX_LIVES = 10;
+    let MAX_LIVES = 3;
     let P1_NAME = "Player 1";
     let P2_NAME = "Player 2";
     let P1_UP_KEY = "w";
@@ -120,14 +120,17 @@
             ball.x = 960;
             ball.y = 540;
             ball.angle = Math.PI / 3;
-            // shoot 1 second after goal
             ball.speed = 0;
-            setTimeout(() => {
-                ball.speed = BALL_SPEED;
-                serving = true;
-                setTimeout(() => { serving = false; }, 10);
-            }, 3000);
-            alert(P2_NAME + " Scored!", p2.color, 2000, scoreSound);
+            if (p1Lives > 0) {
+                // shoot 3 seconds after goal
+                setTimeout(() => {
+                    ball.speed = BALL_SPEED;
+                    serving = true;
+                    setTimeout(() => { serving = false; }, 10);
+                }, 3000);
+                alert(P2_NAME + " Scored!", p2.color, 2000, scoreSound);
+            }
+            else alert("", "", 5000, scoreSound);
         }
         if (ball.x >= 1920 + laserLength) {
             // in p2 endzone
@@ -135,14 +138,17 @@
             ball.x = 960;
             ball.y = 540;
             ball.angle = 2 * Math.PI / 3;
-            // shoot 1 second after goal
             ball.speed = 0;
-            setTimeout(() => {
-                ball.speed = BALL_SPEED;
-                serving = true;
-                setTimeout(() => { serving = false; }, 10);
-            }, 3000);
-            alert(P1_NAME + " Scored!", p1.color, 2000, scoreSound);
+            if (p2Lives > 0) {
+                // shoot 3 seconds after goal
+                setTimeout(() => {
+                    ball.speed = BALL_SPEED;
+                    serving = true;
+                    setTimeout(() => { serving = false; }, 10);
+                }, 3000);
+                alert(P1_NAME + " Scored!", p1.color, 2000, scoreSound);
+            }
+            else alert("", "", 5000, scoreSound);
         }
 
         lensFlareVisible = false;
@@ -402,6 +408,24 @@
                 <source src={alertSound} type="audio/mpeg">
             </audio>
         {/if}
+    {/if}
+
+    {#if p2Lives <= 0}
+        <div style:position="absolute" style:top="540px" style:left="960px"
+            style:transform="translate(-50%, -50%)" style:font-size="72px"
+            style:color="white" style:font-family="Exo2" style:user-select="none"
+            style:mix-blend-mode="screen" style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white"
+            in:fade={{ duration: 888, delay: 222, }}>
+            PLAYER 1 WINS
+        </div>
+    {:else if p1Lives <= 0}
+        <div style:position="absolute" style:top="540px" style:right="960px"
+            style:transform="translate(50%, -50%)" style:font-size="72px"
+            style:color="white" style:font-family="Exo2" style:user-select="none"
+            style:mix-blend-mode="screen" style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white"
+            in:fade={{ duration: 888, delay: 222, }}>
+            PLAYER 2 WINS
+        </div>
     {/if}
 
     {#if MOBILE_CONTROLS}
