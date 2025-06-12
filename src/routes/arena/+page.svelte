@@ -215,7 +215,7 @@
     {#each (new Array(6)).fill(0).map((_, i) => Math.pow(2, i) * 3) as glowRadius}
         <div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color={p1.color}
             style:position="absolute" style:top="{p1.y}px" style:left="{p1.x}px"
-            style:border-radius="6px/18px" style:filter="blur({glowRadius * p1.flicker}px)" style:mix-blend-mode="svreen"></div>
+            style:border-radius="6px/18px" style:filter="blur({glowRadius * p1.flicker}px)" style:mix-blend-mode="screen"></div>
     {/each}
     <div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color="white"
         style:position="absolute" style:top="{p1.y}px" style:left="{p1.x}px"
