@@ -242,7 +242,7 @@
                     }, 1500);
                 }, 1500);
             }, 1500);
-        }, screenFadeDuration + 10);
+        }, screenFadeDuration + 1010);
 
         setTimeout(() => { curtainVisible = false; }, 10);
     });
