@@ -200,6 +200,8 @@
         }, duration);
     }
 
+    let debugMode = false;
+
     onMount(() => {
         resizeGameScreen();
         window.addEventListener("resize", resizeGameScreen);
@@ -213,6 +215,10 @@
                     frameCount++;
                     requestAnimationFrame(mainGameLoop);
                 }
+            }
+            if (e.key == "i" && e.ctrlKey && e.altKey && !e.repeat) {
+                e.preventDefault();
+                debugMode = !debugMode;
             }
         });
         window.addEventListener("keyup", (e) => {
@@ -358,9 +364,13 @@
             style:background-color="black" transition:fade={{ duration: screenFadeDuration, }}></div>
     {/if}
 
-    <!--<div style:position="fixed" style:top="10px" style:left="10px" style:color="white">
-        Delta Time: {deltaTime.toFixed(3)}
-    </div>-->
+    {#if debugMode}
+        <div style:position="absolute" style:top="0" style:left="0" style:color="white" style:background-color="hsla(0deg, 0%, 0%, 0.5)"
+            style:padding="15px" style:font-size="20px">
+            Delta Time: {deltaTime.toFixed(3)} sec <br />
+            Framerate: {(1 / deltaTime).toFixed(2)} fps
+        </div>
+    {/if}
 
 </div>
 
