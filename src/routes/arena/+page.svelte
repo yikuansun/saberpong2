@@ -6,6 +6,8 @@
     import annoyingHumSound from "$lib/assets/sounds/saber_hum.mp3";
     import serveSound from "$lib/assets/sounds/laser_blast.mp3";
     import pauseSound from "$lib/assets/sounds/pause.wav";
+    import ExpletusSansTtf from "$lib/assets/fonts/ExpletusSans-VariableFont_wght.ttf";
+    import Exo2Ttf from "$lib/assets/fonts/Exo2-VariableFont_wght.ttf";
 
     /** @type {HTMLDivElement} */
     let gameScreen;
@@ -295,10 +297,12 @@
             <source src={pauseSound} type="audio/wav">
         </audio>
         <div style:position="absolute" style:top="540px" style:left="960px" style:transform="translate(-50%, -50%)"
-            style:color="white" style:font-size="50px" transition:fade={{ duration: 222, }}>
-            game paused
+            style:color="white" style:font-size="36px" transition:fade={{ duration: 222, }}
+            style:font-family="Exo2" style:user-select="none" style:mix-blend-mode="screen"
+            style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white">
+            <span style:font-size="63px">Game Paused</span>
             <br /> <br />
-            press space to resume
+            Press Space to Resume
         </div>
     {/if}
 
@@ -322,7 +326,23 @@
     </audio>
 {/if}
 
+<style>
+    @font-face {
+        font-family: "ExpletusSans";
+        src: url("$lib/assets/fonts/ExpletusSans-VariableFont_wght.ttf");
+    }
+
+    @font-face {
+        font-family: "Exo2";
+        src: url("$lib/assets/fonts/Exo2-VariableFont_wght.ttf");
+    }
+</style>
+
 <svelte:head>
     <link rel="preload" as="audio" href={deflectSound} />
     <link rel="preload" as="audio" href={annoyingHumSound} />
+    <link rel="preload" as="audio" href={serveSound} />
+    <link rel="preload" as="audio" href={pauseSound} />
+    <link rel="preload" as="font" href={ExpletusSansTtf} type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" as="font" href={Exo2Ttf} type="font/ttf" crossorigin="anonymous" />
 </svelte:head>
