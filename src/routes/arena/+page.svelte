@@ -302,9 +302,11 @@
             {@const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2))}
             {@const angle = Math.atan2(distanceY, distanceX)}
 
-            <div style:width="{distance + ball.radius * 2}px" style:height="{ball.radius * 2}px" style:background-color={ball.color}
-                style:position="absolute" style:top="{midpointY}px" style:left="{midpointX}px" style:transform="translate(-50%, -50%) rotate({angle}rad)"
-                style:border-radius="100px"></div>
+            {#if distance > 0}
+                <div style:width="{distance + ball.radius * 2}px" style:height="{ball.radius * 2}px" style:background-color={ball.color}
+                    style:position="absolute" style:top="{midpointY}px" style:left="{midpointX}px" style:transform="translate(-50%, -50%) rotate({angle}rad)"
+                    style:border-radius="100px"></div>
+            {/if}
         {/each}
     </div>
 
