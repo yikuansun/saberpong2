@@ -171,13 +171,17 @@
         }
     }
 
+    let gameStarted = false;
+    let curtainVisible = true;
+    let screenFadeDuration = 500;
+
     onMount(() => {
         resizeGameScreen();
         window.addEventListener("resize", resizeGameScreen);
 
         window.addEventListener("keydown", (e) => {
             keysPressed[e.key] = true;
-            if (e.key == " " && !e.repeat) {
+            if (e.key == " " && !e.repeat && gameStarted) {
                 paused = !paused;
                 if (!paused) {
                     lastTime = (new Date()).getTime();
@@ -190,12 +194,16 @@
             keysPressed[e.key] = false;
         });
 
-        // first serve
-        ball.speed = 842;
-        serving = true;
-        setTimeout(() => { serving = false; }, 10);
+        setTimeout(() => {
+            gameStarted = true;
+            ball.speed = 842;
+            serving = true;
+            setTimeout(() => { serving = false; }, 10);
+            lastTime = (new Date()).getTime();
+            requestAnimationFrame(mainGameLoop);
+        }, 3000);
 
-        mainGameLoop();
+        setTimeout(() => { curtainVisible = false; }, 10);
     });
 </script>
 
@@ -304,6 +312,11 @@
             <br /> <br />
             Press Space to Resume
         </div>
+    {/if}
+
+    {#if curtainVisible}
+        <div style:position="absolute" style:left="0px" style:top="0px" style:width="1920px" style:height="1080px"
+            style:background-color="black" transition:fade={{ duration: screenFadeDuration, }}></div>
     {/if}
 
     <!--<div style:position="fixed" style:top="10px" style:left="10px" style:color="white">
