@@ -22,7 +22,7 @@
     let p1 = {
         x: 360,
         y: 540 - 150,
-        width: 12,
+        width: 14,
         height: 300,
         color: "hsl(204deg, 100%, 54%)",
         flicker: 1,
@@ -30,9 +30,9 @@
     let p1Lives = 10;
 
     let p2 = {
-        x: 1920 - 360 - 12,
+        x: 1920 - 360 - 14,
         y: 540 - 150,
-        width: 12,
+        width: 14,
         height: 300,
         color: "hsl(0deg, 100%, 60%)",
         flicker: 1,
@@ -256,21 +256,21 @@
     {#each (new Array(6)).fill(0).map((_, i) => Math.pow(2, i) * 3) as glowRadius}
         <div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color={p1.color}
             style:position="absolute" style:top="{p1.y}px" style:left="{p1.x}px"
-            style:border-radius="6px/18px" style:filter="blur({glowRadius * p1.flicker}px)" style:mix-blend-mode="screen"></div>
+            style:border-radius="7px/18px" style:filter="blur({glowRadius * p1.flicker}px)" style:mix-blend-mode="screen"></div>
     {/each}
     <div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color="white"
         style:position="absolute" style:top="{p1.y}px" style:left="{p1.x}px"
-        style:border-radius="6px/18px" style:filter="blur({1 * p1.flicker}px)"></div>
+        style:border-radius="7px/18px" style:filter="blur({1 * p1.flicker}px)"></div>
 
     <!-- player 2 -->
     {#each (new Array(6)).fill(0).map((_, i) => Math.pow(2, i) * 3) as glowRadius}
         <div style:width="{p2.width}px" style:height="{p2.height}px" style:background-color={p2.color}
             style:position="absolute" style:top="{p2.y}px" style:left="{p2.x}px"
-            style:border-radius="6px/18px" style:filter="blur({glowRadius * p2.flicker}px)" style:mix-blend-mode="screen"></div>
+            style:border-radius="7px/18px" style:filter="blur({glowRadius * p2.flicker}px)" style:mix-blend-mode="screen"></div>
     {/each}
     <div style:width="{p2.width}px" style:height="{p2.height}px" style:background-color="white"
         style:position="absolute" style:top="{p2.y}px" style:left="{p2.x}px"
-        style:border-radius="6px/18px" style:filter="blur({1 * p2.flicker}px)"></div>
+        style:border-radius="7px/18px" style:filter="blur({1 * p2.flicker}px)"></div>
 
     <!-- laser -->
     <div style:mix-blend-mode="screen" style:filter="blur(2px) drop-shadow(0 0 5px {ball.color}) drop-shadow(0 0 15px {ball.color})">
