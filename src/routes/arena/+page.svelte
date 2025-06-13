@@ -11,6 +11,8 @@
     import ExpletusSansTtf from "$lib/assets/fonts/ExpletusSans-VariableFont_wght.ttf";
     import Exo2Ttf from "$lib/assets/fonts/Exo2-VariableFont_wght.ttf";
 
+    import FireworksEmitter from "$lib/components/FireworksEmitter.svelte";
+
     /** @type {HTMLDivElement} */
     let gameScreen;
 
@@ -420,6 +422,13 @@
             in:fade={{ duration: 888, delay: 222, }}>
             {P1_NAME.toUpperCase()} WINS!
         </div>
+        <FireworksEmitter fireworkSettings={{
+            particleRadius: 5,
+            particleLifespan: 700,
+            particlesCount: 100,
+            maxParticleSpeed: 500,
+            particleColor: p1.color,
+        }} interval={1500} />
     {:else if p1Lives <= 0}
         <div style:position="absolute" style:top="540px" style:right="960px"
             style:transform="translate(50%, -50%)" style:font-size="72px"
@@ -428,6 +437,13 @@
             in:fade={{ duration: 888, delay: 222, }}>
             {P2_NAME.toUpperCase()} WINS!
         </div>
+        <FireworksEmitter fireworkSettings={{
+            particleRadius: 5,
+            particleLifespan: 500,
+            particlesCount: 100,
+            maxParticleSpeed: 500,
+            particleColor: p2.color,
+        }} interval={1500} />
     {/if}
 
     {#if MOBILE_CONTROLS}
