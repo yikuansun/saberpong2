@@ -11,6 +11,7 @@
     };
 
     export let interval = 1500;
+    export let duration = 10000;
 
     /** @type {Object[]} */
     let fireworks = [];
@@ -22,6 +23,10 @@
             cop.emitterY = Math.random() * 1080;
             fireworks = [...fireworks, cop];
         }, interval);
+
+        setTimeout(() => {
+            clearInterval(intervalId);
+        }, duration);
     });
 </script>
 
