@@ -477,6 +477,7 @@
             style:transform="translate(-50%, -50%)" style:font-size="72px"
             style:color="white" style:font-family="ExpletusSans" style:user-select="none"
             style:mix-blend-mode="screen" style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white"
+            style:font-weight="bold" style:letter-spacing="15px"
             in:fade={{ duration: 888, delay: 222, }}>
             {P1_NAME.toUpperCase()} WINS!
             <br /> <br />
@@ -499,6 +500,7 @@
             style:transform="translate(50%, -50%)" style:font-size="72px"
             style:color="white" style:font-family="ExpletusSans" style:user-select="none"
             style:mix-blend-mode="screen" style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white"
+            style:font-weight="bold" style:letter-spacing="15px"
             in:fade={{ duration: 888, delay: 222, }}>
             {P2_NAME.toUpperCase()} WINS!
             <br /> <br />
