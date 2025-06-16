@@ -75,6 +75,11 @@
 
     let paused = false;
 
+    let pongAiParams = {
+        minX: 700,
+        buffer: 20,
+    };
+
     let deltaTime = 0; // velocities are in pixels per second
     let lastTime = (new Date()).getTime();
     let frameCount = 0;
@@ -103,12 +108,12 @@
         }
 
         if (P2_UP_KEY == "PONG_AI" && P2_DOWN_KEY == "PONG_AI") {
-            if (ball.x > 960 && Math.cos(ball.angle) > 0) {
-                if (p2.y + p2.height / 2 < ball.y && Math.abs(p2.y + p2.height / 2 - ball.y) > 50) {
+            if (ball.x > pongAiParams.minX && Math.cos(ball.angle) > 0) {
+                if (p2.y + p2.height / 2 < ball.y && Math.abs(p2.y + p2.height / 2 - ball.y) > pongAiParams.buffer) {
                     p2.y += saberSpeed * deltaTime;
                     if (p2.y > 1080 - p2.height) p2.y = 1080 - p2.height;
                 }
-                if (p2.y + p2.height / 2 > ball.y && Math.abs(p2.y + p2.height / 2 - ball.y) > 50) {
+                if (p2.y + p2.height / 2 > ball.y && Math.abs(p2.y + p2.height / 2 - ball.y) > pongAiParams.buffer) {
                     p2.y -= saberSpeed * deltaTime;
                     if (p2.y < 0) p2.y = 0;
                 }
