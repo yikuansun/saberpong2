@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import { fade, scale, fly } from "svelte/transition";
     import { goto } from "$app/navigation";
+    import { page } from "$app/state";
 
     import deflectSound from "$lib/assets/sounds/laser_deflect.mp3";
     import annoyingHumSound from "$lib/assets/sounds/saber_hum.mp3";
@@ -23,19 +24,21 @@
         gameScreen.style.transform = `translate(-50%, -50%) scale(${scale})`;
     }
 
-    let P1_COLOR = "hsl(204deg, 100%, 54%)";
-    let P2_COLOR = "hsl(0deg, 100%, 60%)";
-    let BALL_COLOR = "hsl(100deg, 100%, 50%)";
-    let BALL_SPEED = 842;
-    let MAX_LIVES = 3;
-    let P1_NAME = "Player 1";
-    let P2_NAME = "Player 2";
-    let P1_UP_KEY = "w";
-    let P1_DOWN_KEY = "s";
-    let P2_UP_KEY = "PONG_AI";
-    let P2_DOWN_KEY = "PONG_AI";
-    let MOBILE_CONTROLS = false;
-    let AI_LEVEL = 3;
+    let searchParams = page.url.searchParams;
+
+    let P1_COLOR = searchParams.get("P1_COLOR") || "hsl(204deg, 100%, 54%)";
+    let P2_COLOR = searchParams.get("P2_COLOR") || "hsl(0deg, 100%, 60%)";
+    let BALL_COLOR = searchParams.get("BALL_COLOR") || "hsl(100deg, 100%, 50%)";
+    let BALL_SPEED = Number(searchParams.get("BALL_SPEED")) || 842;
+    let MAX_LIVES = Number(searchParams.get("MAX_LIVES")) || 3;
+    let P1_NAME = searchParams.get("P1_NAME") || "Player 1";
+    let P2_NAME = searchParams.get("P2_NAME") || "Player 2";
+    let P1_UP_KEY = searchParams.get("P1_UP_KEY") || "w";
+    let P1_DOWN_KEY = searchParams.get("P1_DOWN_KEY") || "s";
+    let P2_UP_KEY = searchParams.get("P2_UP_KEY") || "PONG_AI";
+    let P2_DOWN_KEY = searchParams.get("P2_DOWN_KEY") || "PONG_AI";
+    let MOBILE_CONTROLS = searchParams.get("MOBILE_CONTROLS") === "true";
+    let AI_LEVEL = Number(searchParams.get("AI_LEVEL")) || 1;
 
     let p1 = {
         x: 360,
