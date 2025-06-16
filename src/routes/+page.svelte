@@ -21,6 +21,9 @@
 </script>
 
 {#if !autoplayAllowed}
+    <div style:width="100vw" style:height="100vh"
+        style:position="fixed" style:top="0" style:left="0"
+        style:background-color="lightgrey"></div>
     <button style:position="fixed"
         style:left="50vw" style:top="50vh"
         style:transform="translate(-50%, -50%)"

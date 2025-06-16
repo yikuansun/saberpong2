@@ -595,6 +595,10 @@
     .mobileButton:active {
         opacity: 0.8;
     }
+
+    :global(body) {
+        background-color: black;
+    }
 </style>
 
 <svelte:head>

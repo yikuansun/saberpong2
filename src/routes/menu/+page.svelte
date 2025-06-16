@@ -113,6 +113,10 @@
         font-family: "Exo2";
         src: url("$lib/assets/fonts/Exo2-VariableFont_wght.ttf");
     }
+
+    :global(body) {
+        background-color: black;
+    }
 </style>
 
 <svelte:head>
