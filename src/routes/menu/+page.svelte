@@ -37,7 +37,7 @@
     });
 </script>
 
-<div bind:this={gameScreen} style:width="1920px" style:height="1080px" style:background-color="#111111"
+<div bind:this={gameScreen} style:width="1920px" style:height="1080px" style:background-color="#141414"
     style:position="fixed" style:top="50vh" style:left="50vw" style:transform="translate(-50%, -50%)"
     style:overflow="hidden">
     <!-- svelte-ignore a11y-media-has-caption -->

@@ -287,7 +287,7 @@
     });
 </script>
 
-<div style:width="1920px" style:height="1080px" style:background-color="#111111" bind:this={gameScreen}
+<div style:width="1920px" style:height="1080px" style:background-color="#141414" bind:this={gameScreen}
     style:position="fixed" style:top="50vh" style:left="50vw" style:transform="translate(-50%, -50%)"
     style:overflow="hidden">
 
