@@ -423,12 +423,12 @@
             {P1_NAME.toUpperCase()} WINS!
         </div>
         <FireworksEmitter fireworkSettings={{
-            particleRadius: 5,
+            particleRadius: 10,
             particleLifespan: 700,
             particlesCount: 100,
             maxParticleSpeed: 500,
             particleColor: p1.color,
-        }} interval={1500} duration={15000}/>
+        }} interval={1000} duration={15000}/>
     {:else if p1Lives <= 0}
         <div style:position="absolute" style:top="540px" style:right="960px"
             style:transform="translate(50%, -50%)" style:font-size="72px"
@@ -438,12 +438,12 @@
             {P2_NAME.toUpperCase()} WINS!
         </div>
         <FireworksEmitter fireworkSettings={{
-            particleRadius: 5,
+            particleRadius: 10,
             particleLifespan: 500,
             particlesCount: 100,
             maxParticleSpeed: 500,
             particleColor: p2.color,
-        }} interval={1500} duration={15000} />
+        }} interval={1000} duration={15000} />
     {/if}
 
     {#if MOBILE_CONTROLS}

@@ -36,7 +36,7 @@
             speed: Math.random() * maxParticleSpeed,
             angle: Math.random() * Math.PI * 2,
             opacity: 1,
-            hueShift: (Math.random() - 0.5) * 30,
+            hueShift: (Math.random() - 0.5) * 60,
         };
         particles = [...particles, particle];
     }
@@ -75,7 +75,7 @@
 {#each particles as particle}
     <div style:position="absolute" style:top="{particle.y}px" style:left="{particle.x}px" style:transform="translate(-50%, -50%)"
         style:width="{particle.radius * 2}px" style:height="{particle.radius * 2}px" style:border-radius="{particle.radius}px"
-        style:background-color={particle.color} style:opacity={particle.opacity} style:filter="hue-rotate({particle.hueShift}deg) blur({particle.radius}px)"
+        style:background="radial-gradient(circle at center, {particle.color} 0, black {particle.radius}px)" style:opacity={particle.opacity} style:filter="hue-rotate({particle.hueShift}deg)"
         style:mix-blend-mode="screen"></div>
 {/each}
 
