@@ -30,8 +30,8 @@
     let P2_NAME = "Player 2";
     let P1_UP_KEY = "w";
     let P1_DOWN_KEY = "s";
-    let P2_UP_KEY = "ArrowUp";
-    let P2_DOWN_KEY = "ArrowDown";
+    let P2_UP_KEY = "PONG_AI";
+    let P2_DOWN_KEY = "PONG_AI";
     let MOBILE_CONTROLS = false;
 
     let p1 = {
@@ -100,6 +100,17 @@
         if (keysPressed[P2_DOWN_KEY]) {
             p2.y += saberSpeed * deltaTime;
             if (p2.y > 1080 - p2.height) p2.y = 1080 - p2.height;
+        }
+
+        if (P2_UP_KEY == "PONG_AI" && P2_DOWN_KEY == "PONG_AI") {
+            if (p2.y + p2.height / 2 < ball.y && Math.abs(p2.y + p2.height / 2 - ball.y) > 50 && ball.x > 960) {
+                p2.y += saberSpeed * deltaTime;
+                if (p2.y > 1080 - p2.height) p2.y = 1080 - p2.height;
+            }
+            if (p2.y + p2.height / 2 > ball.y && Math.abs(p2.y + p2.height / 2 - ball.y) > 50 && ball.x > 960) {
+                p2.y -= saberSpeed * deltaTime;
+                if (p2.y < 0) p2.y = 0;
+            }
         }
 
         if (ball.y <= 0) {
