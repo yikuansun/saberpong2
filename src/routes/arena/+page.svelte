@@ -187,8 +187,8 @@
             laserLengthActual -= marginalDistance;
         }
 
-        p1.flicker = 1 + 0.3 * Math.sin(Date.now() / 100);
-        p2.flicker = 1 + 0.3 * Math.cos(Date.now() / 100);
+        p1.flicker = 1 + 0.1 * Math.sin(Date.now() / 70);
+        p2.flicker = 1 + 0.1 * Math.cos(Date.now() / 70);
 
         if (!paused) {
             frameCount++;
