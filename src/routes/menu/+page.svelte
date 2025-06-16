@@ -7,7 +7,7 @@
     import ExpletusSansTtf from "$lib/assets/fonts/ExpletusSans-VariableFont_wght.ttf";
     import Exo2Ttf from "$lib/assets/fonts/Exo2-VariableFont_wght.ttf";
     import bgVideo from "$lib/assets/videos/homescreenLoop.mp4";
-    import music from "$lib/assets/music/menuTheme.mp3";
+    import music from "$lib/assets/music/lady on the track 132.mp3";
 
     /** @type {HTMLDivElement} */
     let gameScreen;

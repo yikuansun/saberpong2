@@ -10,6 +10,7 @@
     import beepSound from "$lib/assets/sounds/beep.wav";
     import ExpletusSansTtf from "$lib/assets/fonts/ExpletusSans-VariableFont_wght.ttf";
     import Exo2Ttf from "$lib/assets/fonts/Exo2-VariableFont_wght.ttf";
+    import victoryTheme from "$lib/assets/music/dream a dream inst mix ab oz.mp3";
 
     import FireworksEmitter from "$lib/components/FireworksEmitter.svelte";
 
@@ -446,7 +447,7 @@
         </div>
         {#if alertSound}
             <audio autoplay on:ended={() => { alertSound = null; }}>
-                <source src={alertSound} type="audio/mpeg">
+                <source src={alertSound} type="audio/wav">
             </audio>
         {/if}
     {/if}
@@ -466,6 +467,9 @@
             maxParticleSpeed: 500,
             particleColor: p1.color,
         }} interval={1000} duration={15000}/>
+        <audio autoplay>
+            <source src={victoryTheme} type="audio/mpeg">
+        </audio>
     {:else if p1Lives <= 0}
         <div style:position="absolute" style:top="540px" style:right="960px"
             style:transform="translate(50%, -50%)" style:font-size="72px"
@@ -481,6 +485,9 @@
             maxParticleSpeed: 500,
             particleColor: p2.color,
         }} interval={1000} duration={15000} />
+        <audio autoplay>
+            <source src={victoryTheme} type="audio/mpeg">
+        </audio>
     {/if}
 
     {#if MOBILE_CONTROLS}
@@ -597,4 +604,5 @@
     <link rel="preload" as="audio" href={pauseSound} />
     <link rel="preload" as="font" href={ExpletusSansTtf} type="font/ttf" crossorigin="anonymous" />
     <link rel="preload" as="font" href={Exo2Ttf} type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" as="audio" href={victoryTheme} />
 </svelte:head>
