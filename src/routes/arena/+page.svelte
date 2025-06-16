@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { fade, scale, fly } from "svelte/transition";
+    import { goto } from "$app/navigation";
 
     import deflectSound from "$lib/assets/sounds/laser_deflect.mp3";
     import annoyingHumSound from "$lib/assets/sounds/saber_hum.mp3";
@@ -237,6 +238,14 @@
     let gameStarted = false;
     let curtainVisible = true;
     let screenFadeDuration = 500;
+    /**
+     * Go to a page & use fade-out effect
+     * @param {string} endpt path to go to
+     */
+    function gotoCool(endpt) {
+        curtainVisible = true;
+        setTimeout(() => { goto(endpt); }, screenFadeDuration + 10);
+    }
 
     let alertMessage = "";
     let alertColor = "white";
@@ -434,7 +443,15 @@
             style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white">
             <span style:font-size="63px">Game Paused</span>
             <br /> <br />
-            Press Space to Resume
+            <button class="glowButton" on:click={() => {
+                paused = false;
+                lastTime = (new Date()).getTime();
+                frameCount++;
+                requestAnimationFrame(mainGameLoop);
+            }}>Resume</button>
+            <button class="glowButton" on:click={() => {
+                gotoCool("../menu");
+            }}>Exit to Menu</button>
         </div>
     {/if}
 
@@ -459,6 +476,10 @@
             style:mix-blend-mode="screen" style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white"
             in:fade={{ duration: 888, delay: 222, }}>
             {P1_NAME.toUpperCase()} WINS!
+            <br /> <br />
+            <button class="glowButton" on:click={() => {
+                gotoCool("../menu");
+            }}>Exit to Menu</button>
         </div>
         <FireworksEmitter fireworkSettings={{
             particleRadius: 10,
@@ -477,6 +498,10 @@
             style:mix-blend-mode="screen" style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white"
             in:fade={{ duration: 888, delay: 222, }}>
             {P2_NAME.toUpperCase()} WINS!
+            <br /> <br />
+            <button class="glowButton" on:click={() => {
+                gotoCool("../menu");
+            }}>Exit to Menu</button>
         </div>
         <FireworksEmitter fireworkSettings={{
             particleRadius: 10,
@@ -594,6 +619,25 @@
 
     .mobileButton:active {
         opacity: 0.8;
+    }
+
+    .glowButton {
+        border: 0;
+        background-color: transparent;
+        color: white;
+        text-shadow: 0 0 10px white, 0 0 20px white, 0 0 40px white;
+        transition: text-shadow 0.3s, box-shadow 0.3s, color 0.3s;
+        font-size: 36px;
+        padding: 10px 20px;
+        font-family: "Exo2", sans-serif;
+        mix-blend-mode: screen;
+    }
+
+    .glowButton:hover {
+        --glow-color: hsl(200deg, 100%, 70%);
+        text-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color), 0 0 60px var(--glow-color), 0 0 120px var(--glow-color);
+        color: hsl(200deg, 100%, 88%);
+        cursor: pointer;
     }
 
     :global(body) {
