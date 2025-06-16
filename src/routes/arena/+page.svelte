@@ -33,6 +33,7 @@
     let P2_UP_KEY = "PONG_AI";
     let P2_DOWN_KEY = "PONG_AI";
     let MOBILE_CONTROLS = false;
+    let AI_LEVEL = 3;
 
     let p1 = {
         x: 360,
@@ -79,6 +80,24 @@
         minX: 700,
         buffer: 20,
     };
+    switch (AI_LEVEL) {
+        case 0: // beginner
+            pongAiParams.minX = 960;
+            pongAiParams.buffer = 60;
+            break;
+        case 1: // intermediate
+            pongAiParams.minX = 700;
+            pongAiParams.buffer = 20;
+            break;
+        case 2: // advanced
+            pongAiParams.minX = 555;
+            pongAiParams.buffer = 15;
+            break;
+        case 3: // expert
+            pongAiParams.minX = 360;
+            pongAiParams.buffer = 7;
+            break;
+    }
 
     let deltaTime = 0; // velocities are in pixels per second
     let lastTime = (new Date()).getTime();
