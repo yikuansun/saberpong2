@@ -43,9 +43,73 @@
         AI_LEVEL: 1,
     };
 
+    let availLaserColors = [
+        {
+            color: "hsl(100deg, 100%, 50%)",
+            locked: false,
+            unlockMessage: "",
+        },
+        {
+            color: "hsl(5deg, 100%, 64%)",
+            locked: true,
+            unlockMessage: "Unlock by beating the Normal CPU in a 5-point game.",
+        },
+        {
+            color: "hsl(210deg, 100%, 64%)",
+            locked: true,
+            unlockMessage: "Unlock by beating the Advanced CPU in a 5-point game.",
+        },
+        {
+            color: "hsl(30deg, 100%, 54%)",
+            locked: true,
+            unlockMessage: "Unlock by beating the Expert CPU in a 5-point game.",
+        },
+    ];
+    let laserColorTooltip = "";
+
+    let availSaberColors = [
+        {
+            color: "hsl(204deg, 100%, 54%)",
+            locked: false,
+            unlockMessage: "",
+        },
+        {
+            color: "hsl(0deg, 100%, 60%)",
+            locked: false,
+            unlockMessage: "",
+        },
+        {
+            color: "hsl(100deg, 100%, 50%)",
+            locked: true,
+            unlockMessage: "Unlock by beating the Normal CPU in an 11-point game.",
+        },
+        {
+            color: "hsl(289deg, 100%, 50%)",
+            locked: true,
+            unlockMessage: "Unlock by beating the Expert CPU in an 8-point game.",
+        },
+        {
+            color: "hsl(30deg, 100%, 54%)",
+            locked: true,
+            unlockMessage: "Unlock by beating the Expert CPU in an 11-point game.",
+        },
+    ];
+    let p1ColorTooltip = "";
+    let p2ColorTooltip = "";
+
     onMount(() => {
         resizeGameScreen();
         window.addEventListener("resize", resizeGameScreen);
+
+        if (window.localStorage.getItem("RED_LASER_UNLOCKED") == "yes") {
+            availLaserColors[1].locked = false;
+        }
+        if (window.localStorage.getItem("BLUE_LASER_UNLOCKED") == "yes") {
+            availLaserColors[2].locked = false;
+        }
+        if (window.localStorage.getItem("ORANGE_LASER_UNLOCKED") == "yes") {
+            availLaserColors[3].locked = false;
+        }
 
         setTimeout(() => { curtainVisible = false; }, 10);
     });
@@ -57,24 +121,51 @@
     <table style:position="absolute" style:top="0" style:left="0" style:width="1920px" style:height="1080px"
         style:color="white" style:font-size="27px" style:font-family="Exo2">
         <tr>
-            <td colspan="2" style:text-align="center">
+            <td colspan="2" style:text-align="center" style:font-size="24px">
                 <button on:click={() => {
                     gotoCool("../menu");
                 }} style:font-size="24px">Return to Menu</button>
                 <br /> <br />
                 <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px">New Game (Player vs. Player)</b>
-                <br /> <br />
-                <p style:display="inline-block" style:margin="0" style:text-align="left">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style:text-align="center">
+                <p style:display="inline-block" style:margin="0" style:text-align="left" style:width="500px">
                     <label>
-                        Laser Color:
-                        <!-- TODO: replace with color picker later -->
-                        <!-- TODO: make red, blue, and orange unlockable -->
-                        <select bind:value={params.BALL_COLOR}>
-                            <option value="hsl(100deg, 100%, 50%)">Green</option>
-                            <option value="hsl(5deg, 100%, 64%)">Red</option>
-                            <option value="hsl(210deg, 100%, 64%)">Blue</option>
-                            <option value="hsl(30deg, 100%, 54%)">Orange</option>
-                        </select>
+                        Laser Color: <br />
+                        <input type="hidden" bind:value={params.BALL_COLOR} />
+                        {#each availLaserColors as { color, locked, unlockMessage }}
+                            {#if !locked}
+                                <button style:width="42px" style:height="42px" style:padding="0" style:margin="5px 20px"
+                                    style:border-radius="21px"
+                                    style:background-color={color} on:click={() => {
+                                        params.BALL_COLOR = color;
+                                    }} style:box-shadow={(params.BALL_COLOR == color) ? "0 0 5px white, 0 0 20px white" : ""}
+                                    ></button>
+                            {:else}
+                                <button style:width="42px" style:height="42px" style:padding="0" style:margin="5px 20px"
+                                    style:border-radius="21px"
+                                    style:background-color="black"
+                                    disabled={true} on:mouseover={() => {
+                                        laserColorTooltip = unlockMessage;
+                                    }} on:mouseleave={() => {
+                                        laserColorTooltip = "";
+                                    }} on:focus={() => {}} style:position="relative">
+                                    <div style:position="absolute" style:top="17px" style:left="14px"
+                                        style:width="14px" style:height="14px" style:background-color="white"
+                                        style:border-radius="3px"></div>
+                                    <div style:position="absolute" style:top="12px" style:left="16px"
+                                        style:width="10px" style:height="10px"
+                                        style:background-color="transparent" style:border-radius="5px"
+                                        style:box-shadow = "inset 0 0 0 2px white"></div>
+                                    <div style:position="absolute" style:top="22px" style:left="19px"
+                                        style:width="4px" style:height="4px"
+                                        style:background-color="black" style:border-radius="2px"></div>
+                                </button>
+                            {/if}
+                        {/each} <br />
+                        <span style:font-size="18px">{laserColorTooltip}</span>
                     </label> <br />
                     <label>
                         Laser Speed:
@@ -92,20 +183,43 @@
             </td>
         </tr>
         <tr>
-            <td style:text-align="center">
+            <td style:text-align="center" style:width="50%">
                 <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px">Player 1</b>
                 <br /> <br />
                 <label>
-                    Color:
-                    <!-- TODO: replace with color picker later -->
-                    <!-- TODO: make red, blue, and orange unlockable -->
-                    <select bind:value={params.P1_COLOR}>
-                        <option value="hsl(204deg, 100%, 54%)">Blue</option>
-                        <option value="hsl(0deg, 100%, 60%)">Red</option>
-                        <option value="hsl(100deg, 100%, 50%)">Green</option>
-                        <option value="hsl(289deg, 100%, 50%)">Purple</option>
-                        <option value="hsl(30deg, 100%, 54%)">Orange</option>
-                    </select>
+                    Color: <br />
+                    <input type="hidden" bind:value={params.P1_COLOR} />
+                    {#each availSaberColors as { color, locked, unlockMessage }}
+                        {#if !locked}
+                            <button style:width="42px" style:height="42px" style:padding="0" style:margin="5px 20px"
+                                style:border-radius="21px"
+                                style:background-color={color} on:click={() => {
+                                    params.P1_COLOR = color;
+                                }} style:box-shadow={(params.P1_COLOR == color) ? "0 0 5px white, 0 0 20px white" : ""}
+                                ></button>
+                        {:else}
+                            <button style:width="42px" style:height="42px" style:padding="0" style:margin="5px 20px"
+                                style:border-radius="21px"
+                                style:background-color="black"
+                                disabled={true} on:mouseover={() => {
+                                    p1ColorTooltip = unlockMessage;
+                                }} on:mouseleave={() => {
+                                    p1ColorTooltip = "";
+                                }} on:focus={() => {}} style:position="relative">
+                                <div style:position="absolute" style:top="17px" style:left="14px"
+                                    style:width="14px" style:height="14px" style:background-color="white"
+                                    style:border-radius="3px"></div>
+                                <div style:position="absolute" style:top="12px" style:left="16px"
+                                    style:width="10px" style:height="10px"
+                                    style:background-color="transparent" style:border-radius="5px"
+                                    style:box-shadow = "inset 0 0 0 2px white"></div>
+                                <div style:position="absolute" style:top="22px" style:left="19px"
+                                    style:width="4px" style:height="4px"
+                                    style:background-color="black" style:border-radius="2px"></div>
+                            </button>
+                        {/if}
+                    {/each} <br />
+                    <span style:font-size="18px">{p1ColorTooltip}</span>
                 </label> <br />
                 <label>
                     Nickname:
@@ -122,20 +236,43 @@
                     </select>
                 </label>
             </td>
-            <td style:text-align="center">
+            <td style:text-align="center" style:width="50%">
                 <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px">Player 2</b>
                 <br /> <br />
                 <label>
                     Color:
-                    <!-- TODO: replace with color picker later -->
-                    <!-- TODO: make red, blue, and orange unlockable -->
-                    <select bind:value={params.P2_COLOR}>
-                        <option value="hsl(204deg, 100%, 54%)">Blue</option>
-                        <option value="hsl(0deg, 100%, 60%)">Red</option>
-                        <option value="hsl(100deg, 100%, 50%)">Green</option>
-                        <option value="hsl(289deg, 100%, 50%)">Purple</option>
-                        <option value="hsl(30deg, 100%, 54%)">Orange</option>
-                    </select>
+                    <input type="hidden" bind:value={params.P2_COLOR} />
+                    {#each availSaberColors as { color, locked, unlockMessage }}
+                        {#if !locked}
+                            <button style:width="42px" style:height="42px" style:padding="0" style:margin="5px 20px"
+                                style:border-radius="21px"
+                                style:background-color={color} on:click={() => {
+                                    params.P2_COLOR = color;
+                                }} style:box-shadow={(params.P2_COLOR == color) ? "0 0 5px white, 0 0 20px white" : ""}
+                                ></button>
+                        {:else}
+                            <button style:width="42px" style:height="42px" style:padding="0" style:margin="5px 20px"
+                                style:border-radius="21px"
+                                style:background-color="black"
+                                disabled={true} on:mouseover={() => {
+                                    p2ColorTooltip = unlockMessage;
+                                }} on:mouseleave={() => {
+                                    p2ColorTooltip = "";
+                                }} on:focus={() => {}} style:position="relative">
+                                <div style:position="absolute" style:top="17px" style:left="14px"
+                                    style:width="14px" style:height="14px" style:background-color="white"
+                                    style:border-radius="3px"></div>
+                                <div style:position="absolute" style:top="12px" style:left="16px"
+                                    style:width="10px" style:height="10px"
+                                    style:background-color="transparent" style:border-radius="5px"
+                                    style:box-shadow = "inset 0 0 0 2px white"></div>
+                                <div style:position="absolute" style:top="22px" style:left="19px"
+                                    style:width="4px" style:height="4px"
+                                    style:background-color="black" style:border-radius="2px"></div>
+                            </button>
+                        {/if}
+                    {/each} <br />
+                    <span style:font-size="18px">{p2ColorTooltip}</span>
                 </label> <br />
                 <label>
                     Nickname:
