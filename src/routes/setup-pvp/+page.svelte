@@ -6,6 +6,7 @@
     import ExpletusSansTtf from "$lib/assets/fonts/ExpletusSans-VariableFont_wght.ttf";
     import Exo2Ttf from "$lib/assets/fonts/Exo2-VariableFont_wght.ttf";
     import music from "$lib/assets/music/lady on the track 132.mp3";
+    import ColorSelect from "$lib/components/ColorSelect.svelte";
 
     /** @type {HTMLDivElement} */
     let gameScreen;
@@ -65,7 +66,6 @@
             unlockMessage: "Unlock by beating the Expert CPU in a 5-point game.",
         },
     ];
-    let laserColorTooltip = "";
 
     let availSaberColors = [
         {
@@ -94,8 +94,6 @@
             unlockMessage: "Unlock by beating the Expert CPU in an 11-point game.",
         },
     ];
-    let p1ColorTooltip = "";
-    let p2ColorTooltip = "";
 
     onMount(() => {
         resizeGameScreen();
@@ -135,37 +133,7 @@
                     <label>
                         Laser Color: <br />
                         <input type="hidden" bind:value={params.BALL_COLOR} />
-                        {#each availLaserColors as { color, locked, unlockMessage }}
-                            {#if !locked}
-                                <button style:width="42px" style:height="42px" style:padding="0" style:margin="5px 20px"
-                                    style:border-radius="21px"
-                                    style:background-color={color} on:click={() => {
-                                        params.BALL_COLOR = color;
-                                    }} style:box-shadow={(params.BALL_COLOR == color) ? "0 0 5px white, 0 0 20px white" : ""}
-                                    ></button>
-                            {:else}
-                                <button style:width="42px" style:height="42px" style:padding="0" style:margin="5px 20px"
-                                    style:border-radius="21px"
-                                    style:background-color="black"
-                                    disabled={true} on:mouseover={() => {
-                                        laserColorTooltip = unlockMessage;
-                                    }} on:mouseleave={() => {
-                                        laserColorTooltip = "";
-                                    }} on:focus={() => {}} style:position="relative">
-                                    <div style:position="absolute" style:top="17px" style:left="14px"
-                                        style:width="14px" style:height="14px" style:background-color="white"
-                                        style:border-radius="3px"></div>
-                                    <div style:position="absolute" style:top="12px" style:left="16px"
-                                        style:width="10px" style:height="10px"
-                                        style:background-color="transparent" style:border-radius="5px"
-                                        style:box-shadow = "inset 0 0 0 2px white"></div>
-                                    <div style:position="absolute" style:top="22px" style:left="19px"
-                                        style:width="4px" style:height="4px"
-                                        style:background-color="black" style:border-radius="2px"></div>
-                                </button>
-                            {/if}
-                        {/each} <br />
-                        <span style:font-size="18px">{laserColorTooltip}</span>
+                        <ColorSelect bind:value={params.BALL_COLOR} availColors={availLaserColors} />
                     </label> <br />
                     <label>
                         Laser Speed:
@@ -189,37 +157,7 @@
                 <label>
                     Color: <br />
                     <input type="hidden" bind:value={params.P1_COLOR} />
-                    {#each availSaberColors as { color, locked, unlockMessage }}
-                        {#if !locked}
-                            <button style:width="42px" style:height="42px" style:padding="0" style:margin="5px 20px"
-                                style:border-radius="21px"
-                                style:background-color={color} on:click={() => {
-                                    params.P1_COLOR = color;
-                                }} style:box-shadow={(params.P1_COLOR == color) ? "0 0 5px white, 0 0 20px white" : ""}
-                                ></button>
-                        {:else}
-                            <button style:width="42px" style:height="42px" style:padding="0" style:margin="5px 20px"
-                                style:border-radius="21px"
-                                style:background-color="black"
-                                disabled={true} on:mouseover={() => {
-                                    p1ColorTooltip = unlockMessage;
-                                }} on:mouseleave={() => {
-                                    p1ColorTooltip = "";
-                                }} on:focus={() => {}} style:position="relative">
-                                <div style:position="absolute" style:top="17px" style:left="14px"
-                                    style:width="14px" style:height="14px" style:background-color="white"
-                                    style:border-radius="3px"></div>
-                                <div style:position="absolute" style:top="12px" style:left="16px"
-                                    style:width="10px" style:height="10px"
-                                    style:background-color="transparent" style:border-radius="5px"
-                                    style:box-shadow = "inset 0 0 0 2px white"></div>
-                                <div style:position="absolute" style:top="22px" style:left="19px"
-                                    style:width="4px" style:height="4px"
-                                    style:background-color="black" style:border-radius="2px"></div>
-                            </button>
-                        {/if}
-                    {/each} <br />
-                    <span style:font-size="18px">{p1ColorTooltip}</span>
+                    <ColorSelect bind:value={params.P1_COLOR} availColors={availSaberColors} />
                 </label> <br />
                 <label>
                     Nickname:
@@ -240,39 +178,9 @@
                 <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px">Player 2</b>
                 <br /> <br />
                 <label>
-                    Color:
+                    Color: <br />
                     <input type="hidden" bind:value={params.P2_COLOR} />
-                    {#each availSaberColors as { color, locked, unlockMessage }}
-                        {#if !locked}
-                            <button style:width="42px" style:height="42px" style:padding="0" style:margin="5px 20px"
-                                style:border-radius="21px"
-                                style:background-color={color} on:click={() => {
-                                    params.P2_COLOR = color;
-                                }} style:box-shadow={(params.P2_COLOR == color) ? "0 0 5px white, 0 0 20px white" : ""}
-                                ></button>
-                        {:else}
-                            <button style:width="42px" style:height="42px" style:padding="0" style:margin="5px 20px"
-                                style:border-radius="21px"
-                                style:background-color="black"
-                                disabled={true} on:mouseover={() => {
-                                    p2ColorTooltip = unlockMessage;
-                                }} on:mouseleave={() => {
-                                    p2ColorTooltip = "";
-                                }} on:focus={() => {}} style:position="relative">
-                                <div style:position="absolute" style:top="17px" style:left="14px"
-                                    style:width="14px" style:height="14px" style:background-color="white"
-                                    style:border-radius="3px"></div>
-                                <div style:position="absolute" style:top="12px" style:left="16px"
-                                    style:width="10px" style:height="10px"
-                                    style:background-color="transparent" style:border-radius="5px"
-                                    style:box-shadow = "inset 0 0 0 2px white"></div>
-                                <div style:position="absolute" style:top="22px" style:left="19px"
-                                    style:width="4px" style:height="4px"
-                                    style:background-color="black" style:border-radius="2px"></div>
-                            </button>
-                        {/if}
-                    {/each} <br />
-                    <span style:font-size="18px">{p2ColorTooltip}</span>
+                    <ColorSelect bind:value={params.P2_COLOR} availColors={availSaberColors} />
                 </label> <br />
                 <label>
                     Nickname:
