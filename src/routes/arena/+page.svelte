@@ -35,8 +35,8 @@
     let P2_NAME = searchParams.get("P2_NAME") || "Player 2";
     let P1_UP_KEY = searchParams.get("P1_UP_KEY") || "w";
     let P1_DOWN_KEY = searchParams.get("P1_DOWN_KEY") || "s";
-    let P2_UP_KEY = searchParams.get("P2_UP_KEY") || "PONG_AI";
-    let P2_DOWN_KEY = searchParams.get("P2_DOWN_KEY") || "PONG_AI";
+    let P2_UP_KEY = searchParams.get("P2_UP_KEY") || "ArrowUp";
+    let P2_DOWN_KEY = searchParams.get("P2_DOWN_KEY") || "ArrowDown";
     let MOBILE_CONTROLS = searchParams.get("MOBILE_CONTROLS") === "true";
     let AI_LEVEL = Number(searchParams.get("AI_LEVEL")) || 1;
 

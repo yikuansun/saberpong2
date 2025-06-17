@@ -51,7 +51,7 @@
         <img src={logo} alt="Saber Pong II" style:width="800px" style:height="auto" style:font-size="72px" draggable={false} />
         <br />
         <button on:click={() => {
-            gotoCool("../arena");
+            gotoCool("../setup-pvp");
         }}>New Game (Player vs. Player)</button>
         <br />
         <button on:click={() => {
