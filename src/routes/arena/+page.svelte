@@ -24,21 +24,19 @@
         gameScreen.style.transform = `translate(-50%, -50%) scale(${scale})`;
     }
 
-    let searchParams = page.url.searchParams;
-
-    let P1_COLOR = searchParams.get("P1_COLOR") || "hsl(204deg, 100%, 54%)";
-    let P2_COLOR = searchParams.get("P2_COLOR") || "hsl(0deg, 100%, 60%)";
-    let BALL_COLOR = searchParams.get("BALL_COLOR") || "hsl(100deg, 100%, 50%)";
-    let BALL_SPEED = Number(searchParams.get("BALL_SPEED")) || 842;
-    let MAX_LIVES = Number(searchParams.get("MAX_LIVES")) || 3;
-    let P1_NAME = searchParams.get("P1_NAME") || "Player 1";
-    let P2_NAME = searchParams.get("P2_NAME") || "Player 2";
-    let P1_UP_KEY = searchParams.get("P1_UP_KEY") || "w";
-    let P1_DOWN_KEY = searchParams.get("P1_DOWN_KEY") || "s";
-    let P2_UP_KEY = searchParams.get("P2_UP_KEY") || "ArrowUp";
-    let P2_DOWN_KEY = searchParams.get("P2_DOWN_KEY") || "ArrowDown";
-    let MOBILE_CONTROLS = searchParams.get("MOBILE_CONTROLS") === "true";
-    let AI_LEVEL = Number(searchParams.get("AI_LEVEL")) || 1;
+    let P1_COLOR = "hsl(204deg, 100%, 54%)";
+    let P2_COLOR = "hsl(0deg, 100%, 60%)";
+    let BALL_COLOR = "hsl(100deg, 100%, 50%)";
+    let BALL_SPEED = 842;
+    let MAX_LIVES = 3;
+    let P1_NAME = "Player 1";
+    let P2_NAME = "Player 2";
+    let P1_UP_KEY = "w";
+    let P1_DOWN_KEY = "s";
+    let P2_UP_KEY = "ArrowUp";
+    let P2_DOWN_KEY = "ArrowDown";
+    let MOBILE_CONTROLS = false;
+    let AI_LEVEL = 1;
 
     let p1 = {
         x: 360,
@@ -85,24 +83,6 @@
         minX: 700,
         buffer: 20,
     };
-    switch (AI_LEVEL) {
-        case 0: // beginner
-            pongAiParams.minX = 960;
-            pongAiParams.buffer = 60;
-            break;
-        case 1: // intermediate
-            pongAiParams.minX = 700;
-            pongAiParams.buffer = 20;
-            break;
-        case 2: // advanced
-            pongAiParams.minX = 555;
-            pongAiParams.buffer = 15;
-            break;
-        case 3: // expert
-            pongAiParams.minX = 360;
-            pongAiParams.buffer = 7;
-            break;
-    }
 
     let deltaTime = 0; // velocities are in pixels per second
     let lastTime = (new Date()).getTime();
@@ -319,6 +299,46 @@
     let debugMode = false;
 
     onMount(() => {
+        let searchParams = page.url.searchParams;
+        P1_COLOR = searchParams.get("P1_COLOR") || "hsl(204deg, 100%, 54%)";
+        P2_COLOR = searchParams.get("P2_COLOR") || "hsl(0deg, 100%, 60%)";
+        BALL_COLOR = searchParams.get("BALL_COLOR") || "hsl(100deg, 100%, 50%)";
+        BALL_SPEED = Number(searchParams.get("BALL_SPEED")) || 842;
+        MAX_LIVES = Number(searchParams.get("MAX_LIVES")) || 3;
+        P1_NAME = searchParams.get("P1_NAME") || "Player 1";
+        P2_NAME = searchParams.get("P2_NAME") || "Player 2";
+        P1_UP_KEY = searchParams.get("P1_UP_KEY") || "w";
+        P1_DOWN_KEY = searchParams.get("P1_DOWN_KEY") || "s";
+        P2_UP_KEY = searchParams.get("P2_UP_KEY") || "ArrowUp";
+        P2_DOWN_KEY = searchParams.get("P2_DOWN_KEY") || "ArrowDown";
+        MOBILE_CONTROLS = searchParams.get("MOBILE_CONTROLS") === "true";
+        AI_LEVEL = Number(searchParams.get("AI_LEVEL")) || 1;
+
+        p1.color = P1_COLOR;
+        p1Lives = MAX_LIVES;
+        p2.color = P2_COLOR;
+        p2Lives = MAX_LIVES;
+        ball.color = BALL_COLOR;
+        ball.speed = BALL_SPEED;
+        switch (AI_LEVEL) {
+            case 0: // beginner
+                pongAiParams.minX = 960;
+                pongAiParams.buffer = 60;
+                break;
+            case 1: // intermediate
+                pongAiParams.minX = 700;
+                pongAiParams.buffer = 20;
+                break;
+            case 2: // advanced
+                pongAiParams.minX = 555;
+                pongAiParams.buffer = 15;
+                break;
+            case 3: // expert
+                pongAiParams.minX = 360;
+                pongAiParams.buffer = 7;
+                break;
+        }
+
         resizeGameScreen();
         window.addEventListener("resize", resizeGameScreen);
 
