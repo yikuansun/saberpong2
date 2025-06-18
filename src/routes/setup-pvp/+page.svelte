@@ -109,6 +109,13 @@
             availLaserColors[3].locked = false;
         }
 
+        if (window.localStorage.getItem("PVP_DEFAULT_PARAMS")) {
+            let pvpDefaultParams = JSON.parse(window.localStorage.getItem("PVP_DEFAULT_PARAMS"));
+            for (let [key, value] of Object.entries(pvpDefaultParams)) {
+                params[key] = value;
+            }
+        }
+
         setTimeout(() => { curtainVisible = false; }, 10);
     });
 </script>
@@ -121,6 +128,7 @@
         <tr>
             <td colspan="2" style:text-align="center" style:font-size="24px">
                 <button on:click={() => {
+                    window.localStorage.setItem("PVP_DEFAULT_PARAMS", JSON.stringify(params));
                     gotoCool("../menu");
                 }}>Return to Menu</button>
                 <br /> <br />
@@ -207,6 +215,8 @@
         <tr>
             <td colspan="2" style:text-align="center">
                 <button on:click={() => {
+                    window.localStorage.setItem("PVP_DEFAULT_PARAMS", JSON.stringify(params));
+
                     let searchParams = new URLSearchParams();
                     for (let [key, value] of Object.entries(params)) {
                         searchParams.set(key, value);
