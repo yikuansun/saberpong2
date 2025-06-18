@@ -55,7 +55,7 @@
         }}>New Game (Player vs. Player)</button>
         <br />
         <button on:click={() => {
-            gotoCool("../arena?P2_UP_KEY=PONG_AI&P2_DOWN_KEY=PONG_AI&AI_LEVEL=3");
+            gotoCool("../setup-cpu");
         }}>New Game (Player vs. CPU)</button>
         <br />
         <button on:click={() => {
