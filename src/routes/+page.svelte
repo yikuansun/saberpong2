@@ -27,7 +27,8 @@
     <button style:position="fixed"
         style:left="50vw" style:top="50vh"
         style:transform="translate(-50%, -50%)"
-        on:click={() => { goto("./menu"); }}>
+        on:click={() => { goto("./menu"); }}
+        style:padding="14px 24px" style:font-size="24px">
         Run Game
     </button>
 {:else}
