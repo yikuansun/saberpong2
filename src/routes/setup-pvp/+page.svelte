@@ -108,6 +108,15 @@
         if (window.localStorage.getItem("ORANGE_LASER_UNLOCKED") == "yes") {
             availLaserColors[3].locked = false;
         }
+        if (window.localStorage.getItem("GREEN_SABER_UNLOCKED") == "yes") {
+            availSaberColors[2].locked = false;
+        }
+        if (window.localStorage.getItem("PURPLE_SABER_UNLOCKED") == "yes") {
+            availSaberColors[3].locked = false;
+        }
+        if (window.localStorage.getItem("ORANGE_SABER_UNLOCKED") == "yes") {
+            availSaberColors[4].locked = false;
+        }
 
         if (window.localStorage.getItem("PVP_DEFAULT_PARAMS")) {
             let pvpDefaultParams = JSON.parse(window.localStorage.getItem("PVP_DEFAULT_PARAMS"));

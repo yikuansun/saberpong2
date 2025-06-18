@@ -192,7 +192,41 @@
                 }, 3000);
                 alert(P1_NAME + " Scored!", p1.color, 2000, scoreSound);
             }
-            else alert("", "", 5000, scoreSound);
+            else {
+                alert("", "", 5000, scoreSound);
+                if (P2_UP_KEY == "PONG_AI" && P2_DOWN_KEY == "PONG_AI") {
+                    if (window.localStorage.getItem("RED_LASER_UNLOCKED") != "yes"
+                        && AI_LEVEL == 1 && MAX_LIVES == 5) {
+                        window.localStorage.setItem("RED_LASER_UNLOCKED", "yes");
+                        alert("New laser color unlocked!", "hsl(5deg, 100%, 64%)");
+                    }
+                    if (window.localStorage.getItem("BLUE_LASER_UNLOCKED") != "yes"
+                        && AI_LEVEL == 2 && MAX_LIVES == 5) {
+                        window.localStorage.setItem("BLUE_LASER_UNLOCKED", "yes");
+                        alert("New laser color unlocked!", "hsl(210deg, 100%, 64%)");
+                    }
+                    if (window.localStorage.getItem("ORANGE_LASER_UNLOCKED") != "yes"
+                        && AI_LEVEL == 3 && MAX_LIVES == 5) {
+                        window.localStorage.setItem("ORANGE_LASER_UNLOCKED", "yes");
+                        alert("New laser color unlocked!", "hsl(30deg, 100%, 54%)");
+                    }
+                    if (window.localStorage.getItem("GREEN_SABER_UNLOCKED") != "yes"
+                        && AI_LEVEL == 1 && MAX_LIVES == 11) {
+                        window.localStorage.setItem("GREEN_SABER_UNLOCKED", "yes");
+                        alert("New saber color unlocked!", "hsl(100deg, 100%, 50%)");
+                    }
+                    if (window.localStorage.getItem("PURPLE_SABER_UNLOCKED") != "yes"
+                        && AI_LEVEL == 3 && MAX_LIVES == 8) {
+                        window.localStorage.setItem("PURPLE_SABER_UNLOCKED", "yes");
+                        alert("New saber color unlocked!", "hsl(289deg, 100%, 50%)");
+                    }
+                    if (window.localStorage.getItem("ORANGE_SABER_UNLOCKED") != "yes"
+                        && AI_LEVEL == 3 && MAX_LIVES == 11) {
+                        window.localStorage.setItem("ORANGE_SABER_UNLOCKED", "yes");
+                        alert("New saber color unlocked!", "hsl(30deg, 100%, 54%)");
+                    }
+                }
+            }
         }
 
         lensFlareVisible = false;
