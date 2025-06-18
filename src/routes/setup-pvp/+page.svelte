@@ -138,7 +138,7 @@
                     <label>
                         Laser Speed: <br />
                         <select bind:value={params.BALL_SPEED} style:width="400px">
-                            <option value={444}>Slow</option>
+                            <option value={700}>Slow</option>
                             <option value={842}>Normal</option>
                             <option value={1111}>Fast</option>
                         </select> <br />
