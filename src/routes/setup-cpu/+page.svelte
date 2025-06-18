@@ -35,7 +35,7 @@
         BALL_SPEED: 842,
         MAX_LIVES: 3,
         P1_NAME: "Player 1",
-        P2_NAME: "CPU",
+        P2_NAME: "CPU (Normal)",
         P1_UP_KEY: "w",
         P1_DOWN_KEY: "s",
         P2_UP_KEY: "PONG_AI",
@@ -197,7 +197,14 @@
                     </label> <br />
                     <label>
                         Difficulty: <br />
-                        <select bind:value={params.AI_LEVEL} style:width="414px">
+                        <select bind:value={params.AI_LEVEL} style:width="414px" on:change={(e) => {
+                            params.P2_NAME = {
+                                0: "CPU (Beginner)",
+                                1: "CPU (Normal)",
+                                2: "CPU (Advanced)",
+                                3: "CPU (Expert)",
+                            }[params.AI_LEVEL] || "CPU";
+                        }}>
                             <option value={0}>Beginner</option>
                             <option value={1}>Normal</option>
                             <option value={2}>Advanced</option>
