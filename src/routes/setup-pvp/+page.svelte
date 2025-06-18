@@ -5,7 +5,7 @@
 
     import ExpletusSansTtf from "$lib/assets/fonts/ExpletusSans-VariableFont_wght.ttf";
     import Exo2Ttf from "$lib/assets/fonts/Exo2-VariableFont_wght.ttf";
-    import music from "$lib/assets/music/lady on the track 132.mp3";
+    import music from "$lib/assets/music/argon inst mix ab oz.mp3";
     import ColorSelect from "$lib/components/ColorSelect.svelte";
 
     /** @type {HTMLDivElement} */
@@ -117,12 +117,12 @@
     style:position="fixed" style:top="50vh" style:left="50vw" style:transform="translate(-50%, -50%)"
     style:overflow="hidden">
     <table style:position="absolute" style:top="0" style:left="0" style:width="1920px" style:height="1080px"
-        style:color="white" style:font-size="27px" style:font-family="Exo2" style:user-select="none">
+        style:color="white" style:font-size="24px" style:font-family="Exo2" style:user-select="none">
         <tr>
             <td colspan="2" style:text-align="center" style:font-size="24px">
                 <button on:click={() => {
                     gotoCool("../menu");
-                }} style:font-size="24px">Return to Menu</button>
+                }}>Return to Menu</button>
                 <br /> <br />
                 <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px" style:text-shadow="0 0 20px white, 0 0 40px white, 0 0 80px white">New Game (Player vs. Player)</b>
             </td>
@@ -212,7 +212,7 @@
                         searchParams.set(key, value);
                     }
                     gotoCool(`../arena?${searchParams.toString()}`);
-                }} style:font-size="24px">Start Game</button>
+                }}>Start Game</button>
             </td>
         </tr>
     </table>
