@@ -59,7 +59,7 @@
         }}>New Game (Player vs. CPU)</button>
         <br />
         <button on:click={() => {
-
+            gotoCool("../credits");
         }}>Credits</button>
     </div>
 
