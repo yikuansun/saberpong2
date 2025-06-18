@@ -251,6 +251,16 @@
 
         ball.x += ball.speed * deltaTime * Math.cos(ball.angle);
         ball.y += ball.speed * deltaTime * Math.sin(ball.angle);
+        if (ballPastPositions[ballPastPositions.length - 1].x - ball.radius > p1.x + p1.width && ball.x + ball.radius < p1.x) {
+            // ball clipped through Player 1's paddle
+            ball.x = p1.x;
+            //console.log("clipped");
+        }
+        if (ballPastPositions[ballPastPositions.length - 1].x + ball.radius < p2.x && ball.x - ball.radius > p2.x + p2.width) {
+            // ball clipped through Player 2's paddle
+            ball.x = p2.x + p2.width;
+            //console.log("clipped");
+        }
         ballPastPositions = [...ballPastPositions, {x: ball.x, y: ball.y}];
         let laserLengthActual = 0;
         for (let i = 0; i < ballPastPositions.length - 1; i++) {
