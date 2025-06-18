@@ -129,23 +129,23 @@
         </tr>
         <tr>
             <td colspan="2" style:text-align="center">
-                <p style:display="inline-block" style:margin="0" style:text-align="left" style:width="500px">
+                <p style:display="inline-block" style:margin="0" style:text-align="left" style:width="400px">
                     <label>
                         Laser Color: <br />
                         <input type="hidden" bind:value={params.BALL_COLOR} />
                         <ColorSelect bind:value={params.BALL_COLOR} availColors={availLaserColors} />
                     </label> <br />
                     <label>
-                        Laser Speed:
-                        <select bind:value={params.BALL_SPEED}>
+                        Laser Speed: <br />
+                        <select bind:value={params.BALL_SPEED} style:width="400px">
                             <option value={444}>Slow</option>
                             <option value={842}>Normal</option>
                             <option value={1111}>Fast</option>
-                        </select>
+                        </select> <br />
                     </label> <br />
                     <label>
-                        Starting Lives:
-                        <input type="number" bind:value={params.MAX_LIVES} min={3} max={11} />
+                        Starting Lives: <br />
+                        <input type="number" bind:value={params.MAX_LIVES} min={3} max={11} style:width="400px" style:text-align="center" />
                     </label>
                 </p>
             </td>
@@ -154,50 +154,54 @@
             <td style:text-align="center" style:width="50%">
                 <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px">Player 1</b>
                 <br /> <br />
-                <label>
-                    Color: <br />
-                    <input type="hidden" bind:value={params.P1_COLOR} />
-                    <ColorSelect bind:value={params.P1_COLOR} availColors={availSaberColors} />
-                </label> <br />
-                <label>
-                    Nickname:
-                    <input type="text" bind:value={params.P1_NAME} />
-                </label> <br />
-                <label>
-                    Control Scheme:
-                    <select on:input={(e) => {
-                        let [ upKey, downKey ] = e.target.value.split("/");
-                        params.P1_UP_KEY = upKey;
-                        params.P1_DOWN_KEY = downKey;
-                    }}>
-                        <option value="w/s" selected>W/A</option>
-                    </select>
-                </label>
+                <p style:display="inline-block" style:margin="0" style:text-align="left" style:width="414px">
+                    <label>
+                        Color: <br />
+                        <input type="hidden" bind:value={params.P1_COLOR} />
+                        <ColorSelect bind:value={params.P1_COLOR} availColors={availSaberColors} />
+                    </label> <br />
+                    <label>
+                        Nickname: <br />
+                        <input type="text" bind:value={params.P1_NAME} style:width="414px" /> <br />
+                    </label> <br />
+                    <label>
+                        Control Scheme: <br />
+                        <select on:input={(e) => {
+                            let [ upKey, downKey ] = e.target.value.split("/");
+                            params.P1_UP_KEY = upKey;
+                            params.P1_DOWN_KEY = downKey;
+                        }} style:width="414px">
+                            <option value="w/s" selected>W/A</option>
+                        </select>
+                    </label>
+                </p>
             </td>
             <td style:text-align="center" style:width="50%">
                 <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px">Player 2</b>
                 <br /> <br />
-                <label>
-                    Color: <br />
-                    <input type="hidden" bind:value={params.P2_COLOR} />
-                    <ColorSelect bind:value={params.P2_COLOR} availColors={availSaberColors} />
-                </label> <br />
-                <label>
-                    Nickname:
-                    <input type="text" bind:value={params.P2_NAME} />
-                </label> <br />
-                <label>
-                    Control Scheme:
-                    <select on:input={(e) => {
-                        let [ upKey, downKey ] = e.target.value.split("/");
-                        params.P2_UP_KEY = upKey;
-                        params.P2_DOWN_KEY = downKey;
-                    }}>
-                        <option value="ArrowUp/ArrowDown" selected>Arrow Keys</option>
-                        <option value="i/k">I/K</option>
-                        <option value="PONG_AI/PONG_AI" hidden>ai lmao</option>
-                    </select>
-                </label>
+                <p style:display="inline-block" style:margin="0" style:text-align="left" style:width="414px">
+                    <label>
+                        Color: <br />
+                        <input type="hidden" bind:value={params.P2_COLOR} />
+                        <ColorSelect bind:value={params.P2_COLOR} availColors={availSaberColors} />
+                    </label> <br />
+                    <label>
+                        Nickname: <br />
+                        <input type="text" bind:value={params.P2_NAME} style:width="414px" /> <br />
+                    </label> <br />
+                    <label>
+                        Control Scheme: <br />
+                        <select on:input={(e) => {
+                            let [ upKey, downKey ] = e.target.value.split("/");
+                            params.P2_UP_KEY = upKey;
+                            params.P2_DOWN_KEY = downKey;
+                        }} style:width="414px">
+                            <option value="ArrowUp/ArrowDown" selected>Arrow Keys</option>
+                            <option value="i/k">I/K</option>
+                            <option value="PONG_AI/PONG_AI" hidden>ai lmao</option>
+                        </select>
+                    </label>
+                </p>
             </td>
         </tr>
         <tr>
@@ -252,6 +256,18 @@
         color: hsl(200deg, 100%, 88%);
         /*box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), inset 0 0 10px var(--glow-color), inset 0 0 20px var(--glow-color);*/
         cursor: pointer;
+    }
+
+    select, input[type=number], input[type=text] {
+        font-family: "Exo2", sans-serif;
+        font-size: inherit;
+        padding: 5px 15px;
+        box-sizing: border-box;
+        color: white;
+        border: 2px solid white;
+        border-radius: 5px;
+        background-color: #141414;
+        outline: none!important;
     }
 
     @font-face {

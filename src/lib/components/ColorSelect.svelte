@@ -51,7 +51,7 @@
         </button>
     {/if}
 {/each} <br />
-<span style:font-size="18px">{tooltip}</span>
+<span style:font-size="15px">{tooltip}</span>
 
 <style>
     button {
