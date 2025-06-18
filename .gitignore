@@ -24,4 +24,4 @@ vite.config.ts.timestamp-*
 package-lock.json
 
 # temp (will push later)
-docs
+#docs
