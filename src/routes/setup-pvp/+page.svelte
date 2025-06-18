@@ -117,7 +117,7 @@
     style:position="fixed" style:top="50vh" style:left="50vw" style:transform="translate(-50%, -50%)"
     style:overflow="hidden">
     <table style:position="absolute" style:top="0" style:left="0" style:width="1920px" style:height="1080px"
-        style:color="white" style:font-size="27px" style:font-family="Exo2">
+        style:color="white" style:font-size="27px" style:font-family="Exo2" style:user-select="none">
         <tr>
             <td colspan="2" style:text-align="center" style:font-size="24px">
                 <button on:click={() => {
