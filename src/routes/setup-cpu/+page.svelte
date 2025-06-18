@@ -130,7 +130,7 @@
                 <button on:click={() => {
                     window.localStorage.setItem("CPU_DEFAULT_PARAMS", JSON.stringify(params));
                     gotoCool("../menu");
-                }}>Return to Menu</button>
+                }} style:font-size="24px">Return to Menu</button>
                 <br /> <br />
                 <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px" style:text-shadow="0 0 20px white, 0 0 40px white, 0 0 80px white">
                     New Game (Player vs. Computer)
