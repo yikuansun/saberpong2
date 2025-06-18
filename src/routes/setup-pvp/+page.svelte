@@ -124,7 +124,7 @@
                     gotoCool("../menu");
                 }} style:font-size="24px">Return to Menu</button>
                 <br /> <br />
-                <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px">New Game (Player vs. Player)</b>
+                <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px" style:text-shadow="0 0 20px white, 0 0 40px white, 0 0 80px white">New Game (Player vs. Player)</b>
             </td>
         </tr>
         <tr>
@@ -152,7 +152,7 @@
         </tr>
         <tr>
             <td style:text-align="center" style:width="50%">
-                <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px">Player 1</b>
+                <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px" style:text-shadow="0 0 20px white, 0 0 40px white, 0 0 80px white">Player 1</b>
                 <br /> <br />
                 <p style:display="inline-block" style:margin="0" style:text-align="left" style:width="414px">
                     <label>
@@ -177,7 +177,7 @@
                 </p>
             </td>
             <td style:text-align="center" style:width="50%">
-                <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px">Player 2</b>
+                <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px" style:text-shadow="0 0 20px white, 0 0 40px white, 0 0 80px white">Player 2</b>
                 <br /> <br />
                 <p style:display="inline-block" style:margin="0" style:text-align="left" style:width="414px">
                     <label>
