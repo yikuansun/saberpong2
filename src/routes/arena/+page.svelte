@@ -356,6 +356,9 @@
                 e.preventDefault();
                 debugMode = !debugMode;
             }
+            if (e.key == " " || e.key == "ArrowUp" || e.key == "ArrowDown" || e.key == "ArrowLeft" || e.key == "ArrowRight") {
+                e.preventDefault();
+            }
         });
         window.addEventListener("keyup", (e) => {
             keysPressed[e.key] = false;
