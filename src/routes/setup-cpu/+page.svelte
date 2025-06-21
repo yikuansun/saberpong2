@@ -44,6 +44,8 @@
         AI_LEVEL: 1,
     };
 
+    let p1ControlScheme = "w/s";
+
     let availLaserColors = [
         {
             color: "hsl(100deg, 100%, 50%)",
@@ -123,6 +125,7 @@
             for (let [key, value] of Object.entries(cpuDefaultParams)) {
                 params[key] = value;
             }
+            p1ControlScheme = cpuDefaultParams.P1_UP_KEY + "/" + cpuDefaultParams.P1_DOWN_KEY;
         }
 
         setTimeout(() => { curtainVisible = false; }, 10);
@@ -189,8 +192,8 @@
                             let [ upKey, downKey ] = e.target.value.split("/");
                             params.P1_UP_KEY = upKey;
                             params.P1_DOWN_KEY = downKey;
-                        }} style:width="414px">
-                            <option value="w/s" selected>W/A</option>
+                        }} style:width="414px" bind:value={p1ControlScheme}>
+                            <option value="w/s" selected>W/S</option>
                         </select>
                     </label>
                 </p>

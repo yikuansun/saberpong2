@@ -44,6 +44,9 @@
         AI_LEVEL: 1,
     };
 
+    let p1ControlScheme = "w/s";
+    let p2ControlScheme = "ArrowUp/ArrowDown";
+
     let availLaserColors = [
         {
             color: "hsl(100deg, 100%, 50%)",
@@ -123,6 +126,8 @@
             for (let [key, value] of Object.entries(pvpDefaultParams)) {
                 params[key] = value;
             }
+            p1ControlScheme = pvpDefaultParams.P1_UP_KEY + "/" + pvpDefaultParams.P1_DOWN_KEY;
+            p2ControlScheme = pvpDefaultParams.P2_UP_KEY + "/" + pvpDefaultParams.P2_DOWN_KEY;
         }
 
         setTimeout(() => { curtainVisible = false; }, 10);
@@ -187,8 +192,8 @@
                             let [ upKey, downKey ] = e.target.value.split("/");
                             params.P1_UP_KEY = upKey;
                             params.P1_DOWN_KEY = downKey;
-                        }} style:width="414px">
-                            <option value="w/s" selected>W/A</option>
+                        }} style:width="414px" bind:value={p1ControlScheme}>
+                            <option value="w/s">W/S</option>
                         </select>
                     </label>
                 </p>
@@ -212,8 +217,8 @@
                             let [ upKey, downKey ] = e.target.value.split("/");
                             params.P2_UP_KEY = upKey;
                             params.P2_DOWN_KEY = downKey;
-                        }} style:width="414px">
-                            <option value="ArrowUp/ArrowDown" selected>Arrow Keys</option>
+                        }} style:width="414px" bind:value={p2ControlScheme}>
+                            <option value="ArrowUp/ArrowDown">Arrow Keys</option>
                             <option value="i/k">I/K</option>
                             <option value="PONG_AI/PONG_AI" hidden>ai lmao</option>
                         </select>
