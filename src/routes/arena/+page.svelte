@@ -16,14 +16,6 @@
 
     import FireworksEmitter from "$lib/components/FireworksEmitter.svelte";
 
-    /** @type {HTMLDivElement} */
-    let gameScreen;
-
-    function resizeGameScreen() {
-        let scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
-        gameScreen.style.transform = `translate(-50%, -50%) scale(${scale})`;
-    }
-
     let P1_COLOR = "hsl(204deg, 100%, 54%)";
     let P2_COLOR = "hsl(0deg, 100%, 60%)";
     let BALL_COLOR = "hsl(100deg, 100%, 50%)";
@@ -339,9 +331,6 @@
                 break;
         }
 
-        resizeGameScreen();
-        window.addEventListener("resize", resizeGameScreen);
-
         window.addEventListener("keydown", (e) => {
             keysPressed[e.key] = true;
             if (e.key == " " && !e.repeat && gameStarted) {
@@ -386,271 +375,265 @@
     });
 </script>
 
-<div style:width="1920px" style:height="1080px" style:background-color="#141414" bind:this={gameScreen}
-    style:position="fixed" style:top="50vh" style:left="50vw" style:transform="translate(-50%, -50%)"
-    style:overflow="hidden">
-
-    <!-- player 1 -->
-    {#each (new Array(6)).fill(0).map((_, i) => Math.pow(2, i) * 3) as glowRadius}
-        <div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color={p1.color}
-            style:position="absolute" style:top="{p1.y}px" style:left="{p1.x}px"
-            style:border-radius="7px/18px" style:filter="blur({glowRadius * p1.flicker}px)" style:mix-blend-mode="screen"></div>
-    {/each}
-    <div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color="white"
+<!-- player 1 -->
+{#each (new Array(6)).fill(0).map((_, i) => Math.pow(2, i) * 3) as glowRadius}
+    <div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color={p1.color}
         style:position="absolute" style:top="{p1.y}px" style:left="{p1.x}px"
-        style:border-radius="7px/18px" style:filter="blur({1 * p1.flicker}px)"></div>
+        style:border-radius="7px/18px" style:filter="blur({glowRadius * p1.flicker}px)" style:mix-blend-mode="screen"></div>
+{/each}
+<div style:width="{p1.width}px" style:height="{p1.height}px" style:background-color="white"
+    style:position="absolute" style:top="{p1.y}px" style:left="{p1.x}px"
+    style:border-radius="7px/18px" style:filter="blur({1 * p1.flicker}px)"></div>
 
-    <!-- player 2 -->
-    {#each (new Array(6)).fill(0).map((_, i) => Math.pow(2, i) * 3) as glowRadius}
-        <div style:width="{p2.width}px" style:height="{p2.height}px" style:background-color={p2.color}
-            style:position="absolute" style:top="{p2.y}px" style:left="{p2.x}px"
-            style:border-radius="7px/18px" style:filter="blur({glowRadius * p2.flicker}px)" style:mix-blend-mode="screen"></div>
-    {/each}
-    <div style:width="{p2.width}px" style:height="{p2.height}px" style:background-color="white"
+<!-- player 2 -->
+{#each (new Array(6)).fill(0).map((_, i) => Math.pow(2, i) * 3) as glowRadius}
+    <div style:width="{p2.width}px" style:height="{p2.height}px" style:background-color={p2.color}
         style:position="absolute" style:top="{p2.y}px" style:left="{p2.x}px"
-        style:border-radius="7px/18px" style:filter="blur({1 * p2.flicker}px)"></div>
+        style:border-radius="7px/18px" style:filter="blur({glowRadius * p2.flicker}px)" style:mix-blend-mode="screen"></div>
+{/each}
+<div style:width="{p2.width}px" style:height="{p2.height}px" style:background-color="white"
+    style:position="absolute" style:top="{p2.y}px" style:left="{p2.x}px"
+    style:border-radius="7px/18px" style:filter="blur({1 * p2.flicker}px)"></div>
 
-    <!-- laser -->
-    <div style:mix-blend-mode="screen" style:filter="blur(2px) drop-shadow(0 0 5px {ball.color}) drop-shadow(0 0 15px {ball.color})">
-        <!-- for a smooth line, draw line segments between each pair of points -->
-        {#each ballPastPositions as pastPosition, index}
-            {@const midpointX = (index < ballPastPositions.length - 1) ? ((ballPastPositions[index + 1].x + pastPosition.x) / 2) : ((ball.x + pastPosition.x) / 2)}
-            {@const midpointY = (index < ballPastPositions.length - 1) ? ((ballPastPositions[index + 1].y + pastPosition.y) / 2) : ((ball.y + pastPosition.y) / 2)}
-            {@const distanceX = (index < ballPastPositions.length - 1) ? (ballPastPositions[index + 1].x - pastPosition.x) : (ball.x - pastPosition.x)}
-            {@const distanceY = (index < ballPastPositions.length - 1) ? (ballPastPositions[index + 1].y - pastPosition.y) : (ball.y - pastPosition.y)}
-            {@const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2))}
-            {@const angle = Math.atan2(distanceY, distanceX)}
+<!-- laser -->
+<div style:mix-blend-mode="screen" style:filter="blur(2px) drop-shadow(0 0 5px {ball.color}) drop-shadow(0 0 15px {ball.color})">
+    <!-- for a smooth line, draw line segments between each pair of points -->
+    {#each ballPastPositions as pastPosition, index}
+        {@const midpointX = (index < ballPastPositions.length - 1) ? ((ballPastPositions[index + 1].x + pastPosition.x) / 2) : ((ball.x + pastPosition.x) / 2)}
+        {@const midpointY = (index < ballPastPositions.length - 1) ? ((ballPastPositions[index + 1].y + pastPosition.y) / 2) : ((ball.y + pastPosition.y) / 2)}
+        {@const distanceX = (index < ballPastPositions.length - 1) ? (ballPastPositions[index + 1].x - pastPosition.x) : (ball.x - pastPosition.x)}
+        {@const distanceY = (index < ballPastPositions.length - 1) ? (ballPastPositions[index + 1].y - pastPosition.y) : (ball.y - pastPosition.y)}
+        {@const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2))}
+        {@const angle = Math.atan2(distanceY, distanceX)}
 
-            {#if distance > 0}
-                <div style:width="{distance + ball.radius * 2}px" style:height="{ball.radius * 2}px" style:background-color={ball.color}
-                    style:position="absolute" style:top="{midpointY}px" style:left="{midpointX}px" style:transform="translate(-50%, -50%) rotate({angle}rad)"
-                    style:border-radius="100px"></div>
-            {/if}
-        {/each}
+        {#if distance > 0}
+            <div style:width="{distance + ball.radius * 2}px" style:height="{ball.radius * 2}px" style:background-color={ball.color}
+                style:position="absolute" style:top="{midpointY}px" style:left="{midpointX}px" style:transform="translate(-50%, -50%) rotate({angle}rad)"
+                style:border-radius="100px"></div>
+        {/if}
+    {/each}
+</div>
+
+{#if lensFlareVisible}
+    <div style:position="absolute" style:top="{lensFlarePosition.y}px" style:left="{lensFlarePosition.x}px"
+        style:width="414px" style:height="32px" style:background-color="hsl(48deg, 100%, 64%)" style:filter="blur(16px)"
+        style:transform="translate(-50%, -50%)" style:border-radius="100%" style:mix-blend-mode="screen"
+        out:scale={{ duration: 222, }}></div>
+    <div style:position="absolute" style:top="{lensFlarePosition.y}px" style:left="{lensFlarePosition.x}px"
+        style:width="300x" style:height="20px" style:background-color="white" style:filter="blur(10px)"
+        style:transform="translate(-50%, -50%)" style:border-radius="100%" style:mix-blend-mode="screen"
+        out:scale={{ duration: 222, }}></div>
+    <!-- since this sound effect occurs every time the lens flare is visible, we can group it together -->
+    <audio autoplay volume="0.5" out:fade={{ delay: 911, duration: 1, }}> <!-- make sure sound finishes playing before element is destroyed -->
+        <source src={deflectSound} type="audio/mpeg">
+    </audio>
+{/if}
+
+<!-- p1 endzone -->
+<div style:position="absolute" style:top="0" style:left="0" style:width="242px" style:height="1080px"
+    style:background-color={p1.color} style:opacity="0.1" style:mix-blend-mode="screen"></div>
+<div style:position="absolute" style:top="0" style:left="242px" style:width="10px" style:height="1080px"
+    style:background-color={p1.color} style:opacity="0.25" style:mix-blend-mode="screen"></div>
+<div style:position="absolute" style:top="540px" style:left="121px" style:transform="translate(-50%, -50%) rotate(270deg)"
+    style:color={p1.color} style:font-size="70px" style:font-family="ExpletusSans" style:user-select="none"
+    style:mix-blend-mode="screen" style:opacity="0.5" style:font-variant="small-caps" style:letter-spacing="15px">
+    {P1_NAME}
+</div>
+
+<!-- p2 endzone -->
+<div style:position="absolute" style:top="0" style:right="0" style:width="242px" style:height="1080px"
+    style:background-color={p2.color} style:opacity="0.1" style:mix-blend-mode="screen"></div>
+<div style:position="absolute" style:top="0" style:right="242px" style:width="10px" style:height="1080px"
+    style:background-color={p2.color} style:opacity="0.25" style:mix-blend-mode="screen"></div>
+<div style:position="absolute" style:top="540px" style:right="121px" style:transform="translate(50%, -50%) rotate(90deg)"
+    style:color={p2.color} style:font-size="70px" style:font-family="ExpletusSans" style:user-select="none"
+    style:mix-blend-mode="screen" style:opacity="0.5" style:font-variant="small-caps" style:letter-spacing="15px">
+    {P2_NAME}
+</div>
+
+{#each (new Array(p1Lives)).fill(0) as _, i}
+    <div style:position="absolute" style:top="{24 + Math.floor(i / 4) * 54}px" style:left="{24 + (i % 4) * 54}px"
+        style:width="32px" style:height="32px" style:filter="brightness(1.27) drop-shadow(0 0 3px {p1.color}) drop-shadow(0 0 10px {p1.color})"
+        style:mix-blend-mode="screen" out:scale={{ duration: 500, }}>
+        <div style:position="absolute" style:transform="translate(-50%, -50%)"
+            style:top="11.5px" style:left="21.75px" style:width="16px" style:height="16px"
+            style:border-radius="12px" style:background-color={p1.color}></div>
+        <div style:position="absolute" style:transform="translate(-50%, -50%)"
+            style:top="11.5px" style:left="10.25px" style:width="16px" style:height="16px"
+            style:border-radius="12px" style:background-color={p1.color}></div>
+        <div style:position="absolute" style:transform="translate(-50%, -50%) rotate(45deg)"
+            style:top="17.25px" style:left="16px" style:width="16px" style:height="16px"
+            style:background-color={p1.color}></div>
     </div>
+{/each}
+{#each (new Array(p2Lives)).fill(0) as _, i}
+    <div style:position="absolute" style:top="{24 + Math.floor(i / 4) * 54}px" style:right="{24 + (i % 4) * 54}px"
+        style:width="32px" style:height="32px" style:filter="brightness(1.27) drop-shadow(0 0 3px {p2.color}) drop-shadow(0 0 10px {p2.color})"
+        style:mix-blend-mode="screen" out:scale={{ duration: 500, }}>
+        <div style:position="absolute" style:transform="translate(-50%, -50%)"
+            style:top="11.5px" style:left="21.75px" style:width="16px" style:height="16px"
+            style:border-radius="12px" style:background-color={p2.color}></div>
+        <div style:position="absolute" style:transform="translate(-50%, -50%)"
+            style:top="11.5px" style:left="10.25px" style:width="16px" style:height="16px"
+            style:border-radius="12px" style:background-color={p2.color}></div>
+        <div style:position="absolute" style:transform="translate(-50%, -50%) rotate(45deg)"
+            style:top="17.25px" style:left="16px" style:width="16px" style:height="16px"
+            style:background-color={p2.color}></div>
+    </div>
+{/each}
 
-    {#if lensFlareVisible}
-        <div style:position="absolute" style:top="{lensFlarePosition.y}px" style:left="{lensFlarePosition.x}px"
-            style:width="414px" style:height="32px" style:background-color="hsl(48deg, 100%, 64%)" style:filter="blur(16px)"
-            style:transform="translate(-50%, -50%)" style:border-radius="100%" style:mix-blend-mode="screen"
-            out:scale={{ duration: 222, }}></div>
-        <div style:position="absolute" style:top="{lensFlarePosition.y}px" style:left="{lensFlarePosition.x}px"
-            style:width="300x" style:height="20px" style:background-color="white" style:filter="blur(10px)"
-            style:transform="translate(-50%, -50%)" style:border-radius="100%" style:mix-blend-mode="screen"
-            out:scale={{ duration: 222, }}></div>
-        <!-- since this sound effect occurs every time the lens flare is visible, we can group it together -->
-        <audio autoplay volume="0.5" out:fade={{ delay: 911, duration: 1, }}> <!-- make sure sound finishes playing before element is destroyed -->
-            <source src={deflectSound} type="audio/mpeg">
+{#if serving}
+    <audio autoplay volume="0.5" out:fade={{ delay: 1801, duration: 1, }}> <!-- make sure sound finishes playing before element is destroyed -->
+        <source src={serveSound} type="audio/mpeg">
+    </audio>
+{/if}
+
+{#if paused}
+    <audio autoplay>
+        <source src={pauseSound} type="audio/wav">
+    </audio>
+    <div style:position="absolute" style:top="540px" style:left="960px" style:transform="translate(-50%, -50%)"
+        style:color="white" style:font-size="36px" transition:fade={{ duration: 222, }}
+        style:font-family="Exo2" style:user-select="none" style:mix-blend-mode="screen"
+        style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white">
+        <span style:font-size="63px">Game Paused</span>
+        <br /> <br />
+        <button class="glowButton" on:click={() => {
+            paused = false;
+            lastTime = (new Date()).getTime();
+            frameCount++;
+            requestAnimationFrame(mainGameLoop);
+        }}>Resume</button>
+        <button class="glowButton" on:click={() => {
+            gotoCool("../menu");
+        }}>Exit to Menu</button>
+    </div>
+{/if}
+
+{#if alertVisible}
+    <div style:position="absolute" style:top="100px" style:left="960px" style:transform="translate(-50%, -50%)"
+        style:color={alertColor} style:font-size="50px" transition:fly={{ duration: 500, y: "-100px", }}
+        style:font-family="Exo2" style:user-select="none" style:mix-blend-mode="screen" style:filter="brightness(1.2)"
+        style:text-align="center" style:text-shadow="0 0 14px {alertColor}, 0 0 24px {alertColor}, 0 0 40px {alertColor}">
+        {alertMessage}
+    </div>
+    {#if alertSound}
+        <audio autoplay on:ended={() => { alertSound = null; }}>
+            <source src={alertSound} type="audio/wav">
         </audio>
     {/if}
+{/if}
 
-    <!-- p1 endzone -->
-    <div style:position="absolute" style:top="0" style:left="0" style:width="242px" style:height="1080px"
-        style:background-color={p1.color} style:opacity="0.1" style:mix-blend-mode="screen"></div>
-    <div style:position="absolute" style:top="0" style:left="242px" style:width="10px" style:height="1080px"
-        style:background-color={p1.color} style:opacity="0.25" style:mix-blend-mode="screen"></div>
-    <div style:position="absolute" style:top="540px" style:left="121px" style:transform="translate(-50%, -50%) rotate(270deg)"
-        style:color={p1.color} style:font-size="70px" style:font-family="ExpletusSans" style:user-select="none"
-        style:mix-blend-mode="screen" style:opacity="0.5" style:font-variant="small-caps" style:letter-spacing="15px">
-        {P1_NAME}
+{#if p2Lives <= 0}
+    <div style:position="absolute" style:top="540px" style:left="960px"
+        style:transform="translate(-50%, -50%)" style:font-size="72px"
+        style:color="white" style:font-family="ExpletusSans" style:user-select="none"
+        style:mix-blend-mode="screen" style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white"
+        style:font-weight="bold" style:letter-spacing="15px"
+        in:fade={{ duration: 888, delay: 222, }}>
+        {P1_NAME.toUpperCase()} WINS!
+        <br /> <br />
+        <button class="glowButton" on:click={() => {
+            gotoCool("../menu");
+        }}>Exit to Menu</button>
     </div>
-
-    <!-- p2 endzone -->
-    <div style:position="absolute" style:top="0" style:right="0" style:width="242px" style:height="1080px"
-        style:background-color={p2.color} style:opacity="0.1" style:mix-blend-mode="screen"></div>
-    <div style:position="absolute" style:top="0" style:right="242px" style:width="10px" style:height="1080px"
-        style:background-color={p2.color} style:opacity="0.25" style:mix-blend-mode="screen"></div>
-    <div style:position="absolute" style:top="540px" style:right="121px" style:transform="translate(50%, -50%) rotate(90deg)"
-        style:color={p2.color} style:font-size="70px" style:font-family="ExpletusSans" style:user-select="none"
-        style:mix-blend-mode="screen" style:opacity="0.5" style:font-variant="small-caps" style:letter-spacing="15px">
-        {P2_NAME}
+    <FireworksEmitter fireworkSettings={{
+        particleRadius: 10,
+        particleLifespan: 700,
+        particlesCount: 100,
+        maxParticleSpeed: 500,
+        particleColor: p1.color,
+    }} interval={1000} duration={15000}/>
+    <audio autoplay>
+        <source src={victoryTheme} type="audio/mpeg">
+    </audio>
+{:else if p1Lives <= 0}
+    <div style:position="absolute" style:top="540px" style:right="960px"
+        style:transform="translate(50%, -50%)" style:font-size="72px"
+        style:color="white" style:font-family="ExpletusSans" style:user-select="none"
+        style:mix-blend-mode="screen" style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white"
+        style:font-weight="bold" style:letter-spacing="15px"
+        in:fade={{ duration: 888, delay: 222, }}>
+        {P2_NAME.toUpperCase()} WINS!
+        <br /> <br />
+        <button class="glowButton" on:click={() => {
+            gotoCool("../menu");
+        }}>Exit to Menu</button>
     </div>
+    <FireworksEmitter fireworkSettings={{
+        particleRadius: 10,
+        particleLifespan: 500,
+        particlesCount: 100,
+        maxParticleSpeed: 500,
+        particleColor: p2.color,
+    }} interval={1000} duration={15000} />
+    <audio autoplay>
+        <source src={victoryTheme} type="audio/mpeg">
+    </audio>
+{/if}
 
-    {#each (new Array(p1Lives)).fill(0) as _, i}
-        <div style:position="absolute" style:top="{24 + Math.floor(i / 4) * 54}px" style:left="{24 + (i % 4) * 54}px"
-            style:width="32px" style:height="32px" style:filter="brightness(1.27) drop-shadow(0 0 3px {p1.color}) drop-shadow(0 0 10px {p1.color})"
-            style:mix-blend-mode="screen" out:scale={{ duration: 500, }}>
-            <div style:position="absolute" style:transform="translate(-50%, -50%)"
-                style:top="11.5px" style:left="21.75px" style:width="16px" style:height="16px"
-                style:border-radius="12px" style:background-color={p1.color}></div>
-            <div style:position="absolute" style:transform="translate(-50%, -50%)"
-                style:top="11.5px" style:left="10.25px" style:width="16px" style:height="16px"
-                style:border-radius="12px" style:background-color={p1.color}></div>
-            <div style:position="absolute" style:transform="translate(-50%, -50%) rotate(45deg)"
-                style:top="17.25px" style:left="16px" style:width="16px" style:height="16px"
-                style:background-color={p1.color}></div>
-        </div>
-    {/each}
-    {#each (new Array(p2Lives)).fill(0) as _, i}
-        <div style:position="absolute" style:top="{24 + Math.floor(i / 4) * 54}px" style:right="{24 + (i % 4) * 54}px"
-            style:width="32px" style:height="32px" style:filter="brightness(1.27) drop-shadow(0 0 3px {p2.color}) drop-shadow(0 0 10px {p2.color})"
-            style:mix-blend-mode="screen" out:scale={{ duration: 500, }}>
-            <div style:position="absolute" style:transform="translate(-50%, -50%)"
-                style:top="11.5px" style:left="21.75px" style:width="16px" style:height="16px"
-                style:border-radius="12px" style:background-color={p2.color}></div>
-            <div style:position="absolute" style:transform="translate(-50%, -50%)"
-                style:top="11.5px" style:left="10.25px" style:width="16px" style:height="16px"
-                style:border-radius="12px" style:background-color={p2.color}></div>
-            <div style:position="absolute" style:transform="translate(-50%, -50%) rotate(45deg)"
-                style:top="17.25px" style:left="16px" style:width="16px" style:height="16px"
-                style:background-color={p2.color}></div>
-        </div>
-    {/each}
+{#if MOBILE_CONTROLS}
+    <button style:position="absolute" style:top="180px" style:left="100px"
+        style:width="180px" style:height="180px" class="mobileButton"
+        on:touchstart={() => { keysPressed[P1_UP_KEY] = true; }} on:touchend={() => { keysPressed[P1_UP_KEY] = false; }}
+        on:mousedown={() => { keysPressed[P1_UP_KEY] = true; }} on:mouseup={() => { keysPressed[P1_UP_KEY] = false; }}
+        on:contextmenu={(e) => e.preventDefault()}>up</button>
+    <button style:position="absolute" style:bottom="180px" style:left="100px"
+        style:width="180px" style:height="180px" class="mobileButton"
+        on:touchstart={() => { keysPressed[P1_DOWN_KEY] = true; }} on:touchend={() => { keysPressed[P1_DOWN_KEY] = false; }}
+        on:mousedown={() => { keysPressed[P1_DOWN_KEY] = true; }} on:mouseup={() => { keysPressed[P1_DOWN_KEY] = false; }}
+        on:contextmenu={(e) => e.preventDefault()}>down</button>
 
-    {#if serving}
-        <audio autoplay volume="0.5" out:fade={{ delay: 1801, duration: 1, }}> <!-- make sure sound finishes playing before element is destroyed -->
-            <source src={serveSound} type="audio/mpeg">
-        </audio>
-    {/if}
+    <button style:position="absolute" style:top="180px" style:right="100px"
+        style:width="180px" style:height="180px" class="mobileButton"
+        on:touchstart={() => { keysPressed[P2_UP_KEY] = true; }} on:touchend={() => { keysPressed[P2_UP_KEY] = false; }}
+        on:mousedown={() => { keysPressed[P2_UP_KEY] = true; }} on:mouseup={() => { keysPressed[P2_UP_KEY] = false; }}
+        on:contextmenu={(e) => e.preventDefault()}>up</button>
+    <button style:position="absolute" style:bottom="180px" style:right="100px"
+        style:width="180px" style:height="180px" class="mobileButton"
+        on:touchstart={() => { keysPressed[P2_DOWN_KEY] = true; }} on:touchend={() => { keysPressed[P2_DOWN_KEY] = false; }}
+        on:mousedown={() => { keysPressed[P2_DOWN_KEY] = true; }} on:mouseup={() => { keysPressed[P2_DOWN_KEY] = false; }}
+        on:contextmenu={(e) => e.preventDefault()}>down</button>
 
-    {#if paused}
-        <audio autoplay>
-            <source src={pauseSound} type="audio/wav">
-        </audio>
-        <div style:position="absolute" style:top="540px" style:left="960px" style:transform="translate(-50%, -50%)"
-            style:color="white" style:font-size="36px" transition:fade={{ duration: 222, }}
-            style:font-family="Exo2" style:user-select="none" style:mix-blend-mode="screen"
-            style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white">
-            <span style:font-size="63px">Game Paused</span>
-            <br /> <br />
-            <button class="glowButton" on:click={() => {
-                paused = false;
+    <button style:position="absolute" style:bottom="80px" style:left="960px" style:transform="translate(-50%, 50%)"
+        style:width="180px" style:height="100px" class="mobileButton"
+        on:click={() => {
+            paused = !paused;
+            if (!paused) {
                 lastTime = (new Date()).getTime();
                 frameCount++;
                 requestAnimationFrame(mainGameLoop);
-            }}>Resume</button>
-            <button class="glowButton" on:click={() => {
-                gotoCool("../menu");
-            }}>Exit to Menu</button>
-        </div>
-    {/if}
+            }
+        }}
+        on:contextmenu={(e) => e.preventDefault()}>
+        {#if paused} Resume {:else} Pause {/if}
+    </button>
+{/if}
 
-    {#if alertVisible}
-        <div style:position="absolute" style:top="100px" style:left="960px" style:transform="translate(-50%, -50%)"
-            style:color={alertColor} style:font-size="50px" transition:fly={{ duration: 500, y: "-100px", }}
-            style:font-family="Exo2" style:user-select="none" style:mix-blend-mode="screen" style:filter="brightness(1.2)"
-            style:text-align="center" style:text-shadow="0 0 14px {alertColor}, 0 0 24px {alertColor}, 0 0 40px {alertColor}">
-            {alertMessage}
-        </div>
-        {#if alertSound}
-            <audio autoplay on:ended={() => { alertSound = null; }}>
-                <source src={alertSound} type="audio/wav">
-            </audio>
+{#if curtainVisible}
+    <div style:position="absolute" style:left="0px" style:top="0px" style:width="1920px" style:height="1080px"
+        style:background-color="black" transition:fade={{ duration: screenFadeDuration, }}></div>
+{/if}
+
+{#if debugMode}
+    <div style:position="absolute" style:top="0" style:left="0" style:color="white" style:background-color="hsla(0deg, 0%, 0%, 0.5)"
+        style:padding="15px" style:font-size="20px">
+        Delta Time: {deltaTime.toFixed(3)} sec <br />
+        Framerate: {(1 / deltaTime).toFixed(2)} fps <br />
+        Performance:
+        {#if (1 / deltaTime) >= 60}
+            <span style:color="white">Perfect</span>
+        {:else if (1 / deltaTime) >= 45}
+            <span style:color="green">Good</span>
+        {:else if (1 / deltaTime) >= 30}
+            <span style:color="yellow">Fine</span>
+        {:else if (1 / deltaTime) >= 15}
+            <span style:color="orange">Poor</span>
+        {:else}
+            <span style:color="red">wtf.</span>
         {/if}
-    {/if}
-
-    {#if p2Lives <= 0}
-        <div style:position="absolute" style:top="540px" style:left="960px"
-            style:transform="translate(-50%, -50%)" style:font-size="72px"
-            style:color="white" style:font-family="ExpletusSans" style:user-select="none"
-            style:mix-blend-mode="screen" style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white"
-            style:font-weight="bold" style:letter-spacing="15px"
-            in:fade={{ duration: 888, delay: 222, }}>
-            {P1_NAME.toUpperCase()} WINS!
-            <br /> <br />
-            <button class="glowButton" on:click={() => {
-                gotoCool("../menu");
-            }}>Exit to Menu</button>
-        </div>
-        <FireworksEmitter fireworkSettings={{
-            particleRadius: 10,
-            particleLifespan: 700,
-            particlesCount: 100,
-            maxParticleSpeed: 500,
-            particleColor: p1.color,
-        }} interval={1000} duration={15000}/>
-        <audio autoplay>
-            <source src={victoryTheme} type="audio/mpeg">
-        </audio>
-    {:else if p1Lives <= 0}
-        <div style:position="absolute" style:top="540px" style:right="960px"
-            style:transform="translate(50%, -50%)" style:font-size="72px"
-            style:color="white" style:font-family="ExpletusSans" style:user-select="none"
-            style:mix-blend-mode="screen" style:text-align="center" style:text-shadow="0 0 20px white, 0 0 50px white"
-            style:font-weight="bold" style:letter-spacing="15px"
-            in:fade={{ duration: 888, delay: 222, }}>
-            {P2_NAME.toUpperCase()} WINS!
-            <br /> <br />
-            <button class="glowButton" on:click={() => {
-                gotoCool("../menu");
-            }}>Exit to Menu</button>
-        </div>
-        <FireworksEmitter fireworkSettings={{
-            particleRadius: 10,
-            particleLifespan: 500,
-            particlesCount: 100,
-            maxParticleSpeed: 500,
-            particleColor: p2.color,
-        }} interval={1000} duration={15000} />
-        <audio autoplay>
-            <source src={victoryTheme} type="audio/mpeg">
-        </audio>
-    {/if}
-
-    {#if MOBILE_CONTROLS}
-        <button style:position="absolute" style:top="180px" style:left="100px"
-            style:width="180px" style:height="180px" class="mobileButton"
-            on:touchstart={() => { keysPressed[P1_UP_KEY] = true; }} on:touchend={() => { keysPressed[P1_UP_KEY] = false; }}
-            on:mousedown={() => { keysPressed[P1_UP_KEY] = true; }} on:mouseup={() => { keysPressed[P1_UP_KEY] = false; }}
-            on:contextmenu={(e) => e.preventDefault()}>up</button>
-        <button style:position="absolute" style:bottom="180px" style:left="100px"
-            style:width="180px" style:height="180px" class="mobileButton"
-            on:touchstart={() => { keysPressed[P1_DOWN_KEY] = true; }} on:touchend={() => { keysPressed[P1_DOWN_KEY] = false; }}
-            on:mousedown={() => { keysPressed[P1_DOWN_KEY] = true; }} on:mouseup={() => { keysPressed[P1_DOWN_KEY] = false; }}
-            on:contextmenu={(e) => e.preventDefault()}>down</button>
-
-        <button style:position="absolute" style:top="180px" style:right="100px"
-            style:width="180px" style:height="180px" class="mobileButton"
-            on:touchstart={() => { keysPressed[P2_UP_KEY] = true; }} on:touchend={() => { keysPressed[P2_UP_KEY] = false; }}
-            on:mousedown={() => { keysPressed[P2_UP_KEY] = true; }} on:mouseup={() => { keysPressed[P2_UP_KEY] = false; }}
-            on:contextmenu={(e) => e.preventDefault()}>up</button>
-        <button style:position="absolute" style:bottom="180px" style:right="100px"
-            style:width="180px" style:height="180px" class="mobileButton"
-            on:touchstart={() => { keysPressed[P2_DOWN_KEY] = true; }} on:touchend={() => { keysPressed[P2_DOWN_KEY] = false; }}
-            on:mousedown={() => { keysPressed[P2_DOWN_KEY] = true; }} on:mouseup={() => { keysPressed[P2_DOWN_KEY] = false; }}
-            on:contextmenu={(e) => e.preventDefault()}>down</button>
-
-        <button style:position="absolute" style:bottom="80px" style:left="960px" style:transform="translate(-50%, 50%)"
-            style:width="180px" style:height="100px" class="mobileButton"
-            on:click={() => {
-                paused = !paused;
-                if (!paused) {
-                    lastTime = (new Date()).getTime();
-                    frameCount++;
-                    requestAnimationFrame(mainGameLoop);
-                }
-            }}
-            on:contextmenu={(e) => e.preventDefault()}>
-            {#if paused} Resume {:else} Pause {/if}
-        </button>
-    {/if}
-
-    {#if curtainVisible}
-        <div style:position="absolute" style:left="0px" style:top="0px" style:width="1920px" style:height="1080px"
-            style:background-color="black" transition:fade={{ duration: screenFadeDuration, }}></div>
-    {/if}
-
-    {#if debugMode}
-        <div style:position="absolute" style:top="0" style:left="0" style:color="white" style:background-color="hsla(0deg, 0%, 0%, 0.5)"
-            style:padding="15px" style:font-size="20px">
-            Delta Time: {deltaTime.toFixed(3)} sec <br />
-            Framerate: {(1 / deltaTime).toFixed(2)} fps <br />
-            Performance:
-            {#if (1 / deltaTime) >= 60}
-                <span style:color="white">Perfect</span>
-            {:else if (1 / deltaTime) >= 45}
-                <span style:color="green">Good</span>
-            {:else if (1 / deltaTime) >= 30}
-                <span style:color="yellow">Fine</span>
-            {:else if (1 / deltaTime) >= 15}
-                <span style:color="orange">Poor</span>
-            {:else}
-                <span style:color="red">wtf.</span>
-            {/if}
-        </div>
-    {/if}
-
-</div>
+    </div>
+{/if}
 
 {#if gameStarted && !paused}
     <audio autoplay loop volume="1" on:timeupdate={(e) => {
@@ -710,10 +693,6 @@
         text-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color), 0 0 60px var(--glow-color), 0 0 120px var(--glow-color);
         color: hsl(200deg, 100%, 88%);
         cursor: pointer;
-    }
-
-    :global(body) {
-        background-color: black;
     }
 </style>
 

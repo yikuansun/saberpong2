@@ -21,18 +21,18 @@
 </script>
 
 {#if !autoplayAllowed}
-    <div style:width="100vw" style:height="100vh"
+    <div style:width="1920px" style:height="1080px"
         style:position="fixed" style:top="0" style:left="0"
         style:background-color="lightgrey"></div>
     <button style:position="fixed"
-        style:left="50vw" style:top="50vh"
+        style:left="960px" style:top="540px"
         style:transform="translate(-50%, -50%)"
         on:click={() => { goto("./menu"); }}
         style:padding="14px 24px" style:font-size="24px">
         Run Game
     </button>
 {:else}
-    <div style:width="100vw" style:height="100vh"
+    <div style:width="1920px" style:height="1080px"
         style:position="fixed" style:top="0" style:left="0"
         style:background-color="black"></div>
 {/if}

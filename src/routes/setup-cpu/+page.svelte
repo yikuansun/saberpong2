@@ -8,14 +8,6 @@
     import music from "$lib/assets/music/argon inst mix ab oz.mp3";
     import ColorSelect from "$lib/components/ColorSelect.svelte";
 
-    /** @type {HTMLDivElement} */
-    let gameScreen;
-
-    function resizeGameScreen() {
-        let scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
-        gameScreen.style.transform = `translate(-50%, -50%) scale(${scale})`;
-    }
-
     let curtainVisible = true;
     let screenFadeDuration = 500;
 
@@ -98,9 +90,6 @@
     ];
 
     onMount(() => {
-        resizeGameScreen();
-        window.addEventListener("resize", resizeGameScreen);
-
         if (window.localStorage.getItem("RED_LASER_UNLOCKED") == "yes") {
             availLaserColors[1].locked = false;
         }
@@ -132,120 +121,116 @@
     });
 </script>
 
-<div bind:this={gameScreen} style:width="1920px" style:height="1080px" style:background-color="#141414"
-    style:position="fixed" style:top="50vh" style:left="50vw" style:transform="translate(-50%, -50%)"
-    style:overflow="hidden">
-    <table style:position="absolute" style:top="0" style:left="0" style:width="1920px" style:height="1080px"
-        style:color="white" style:font-size="24px" style:font-family="Exo2" style:user-select="none">
-        <tr>
-            <td colspan="2" style:text-align="center" style:font-size="24px">
-                <button on:click={() => {
-                    window.localStorage.setItem("CPU_DEFAULT_PARAMS", JSON.stringify(params));
-                    gotoCool("../menu");
-                }} style:font-size="24px">Return to Menu</button>
-                <br /> <br />
-                <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px" style:text-shadow="0 0 20px white, 0 0 40px white, 0 0 80px white">
-                    New Game (Player vs. Computer)
-                </b>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" style:text-align="center">
-                <p style:display="inline-block" style:margin="0" style:text-align="left" style:width="400px">
-                    <label>
-                        Laser Color: <br />
-                        <input type="hidden" bind:value={params.BALL_COLOR} />
-                        <ColorSelect bind:value={params.BALL_COLOR} availColors={availLaserColors} />
-                    </label> <br />
-                    <label>
-                        Laser Speed: <br />
-                        <select bind:value={params.BALL_SPEED} style:width="400px">
-                            <option value={700}>Slow</option>
-                            <option value={842}>Normal</option>
-                            <option value={1111}>Fast</option>
-                        </select> <br />
-                    </label> <br />
-                    <label>
-                        Starting Lives: <br />
-                        <input type="number" bind:value={params.MAX_LIVES} min={3} max={11} style:width="400px" style:text-align="center" />
-                    </label>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td style:text-align="center" style:width="50%">
-                <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px" style:text-shadow="0 0 20px white, 0 0 40px white, 0 0 80px white">Player</b>
-                <br /> <br />
-                <p style:display="inline-block" style:margin="0" style:text-align="left" style:width="414px">
-                    <label>
-                        Color: <br />
-                        <input type="hidden" bind:value={params.P1_COLOR} />
-                        <ColorSelect bind:value={params.P1_COLOR} availColors={availSaberColors} />
-                    </label> <br />
-                    <label>
-                        Nickname: <br />
-                        <input type="text" bind:value={params.P1_NAME} style:width="414px" /> <br />
-                    </label> <br />
-                    <label>
-                        Control Scheme: <br />
-                        <select on:input={(e) => {
-                            let [ upKey, downKey ] = e.target.value.split("/");
-                            params.P1_UP_KEY = upKey;
-                            params.P1_DOWN_KEY = downKey;
-                        }} style:width="414px" bind:value={p1ControlScheme}>
-                            <option value="w/s" selected>W/S</option>
-                        </select>
-                    </label>
-                </p>
-            </td>
-            <td style:text-align="center" style:width="50%">
-                <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px" style:text-shadow="0 0 20px white, 0 0 40px white, 0 0 80px white">CPU</b>
-                <br /> <br />
-                <p style:display="inline-block" style:margin="0" style:text-align="left" style:width="414px">
-                    <label>
-                        Color: <br />
-                        <input type="hidden" bind:value={params.P2_COLOR} />
-                        <ColorSelect bind:value={params.P2_COLOR} availColors={availSaberColors} />
-                    </label> <br />
-                    <label>
-                        Difficulty: <br />
-                        <select bind:value={params.AI_LEVEL} style:width="414px" on:change={(e) => {
-                            params.P2_NAME = {
-                                0: "CPU (Beginner)",
-                                1: "CPU (Normal)",
-                                2: "CPU (Advanced)",
-                                3: "CPU (Expert)",
-                            }[params.AI_LEVEL] || "CPU";
-                        }}>
-                            <option value={0}>Beginner</option>
-                            <option value={1}>Normal</option>
-                            <option value={2}>Advanced</option>
-                            <option value={3}>Expert</option>
-                        </select>
-                    </label>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" style:text-align="center">
-                <button on:click={() => {
-                    window.localStorage.setItem("CPU_DEFAULT_PARAMS", JSON.stringify(params));
+<table style:position="absolute" style:top="0" style:left="0" style:width="1920px" style:height="1080px"
+    style:color="white" style:font-size="24px" style:font-family="Exo2" style:user-select="none">
+    <tr>
+        <td colspan="2" style:text-align="center" style:font-size="24px">
+            <button on:click={() => {
+                window.localStorage.setItem("CPU_DEFAULT_PARAMS", JSON.stringify(params));
+                gotoCool("../menu");
+            }} style:font-size="24px">Return to Menu</button>
+            <br /> <br />
+            <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px" style:text-shadow="0 0 20px white, 0 0 40px white, 0 0 80px white">
+                New Game (Player vs. Computer)
+            </b>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style:text-align="center">
+            <p style:display="inline-block" style:margin="0" style:text-align="left" style:width="400px">
+                <label>
+                    Laser Color: <br />
+                    <input type="hidden" bind:value={params.BALL_COLOR} />
+                    <ColorSelect bind:value={params.BALL_COLOR} availColors={availLaserColors} />
+                </label> <br />
+                <label>
+                    Laser Speed: <br />
+                    <select bind:value={params.BALL_SPEED} style:width="400px">
+                        <option value={700}>Slow</option>
+                        <option value={842}>Normal</option>
+                        <option value={1111}>Fast</option>
+                    </select> <br />
+                </label> <br />
+                <label>
+                    Starting Lives: <br />
+                    <input type="number" bind:value={params.MAX_LIVES} min={3} max={11} style:width="400px" style:text-align="center" />
+                </label>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td style:text-align="center" style:width="50%">
+            <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px" style:text-shadow="0 0 20px white, 0 0 40px white, 0 0 80px white">Player</b>
+            <br /> <br />
+            <p style:display="inline-block" style:margin="0" style:text-align="left" style:width="414px">
+                <label>
+                    Color: <br />
+                    <input type="hidden" bind:value={params.P1_COLOR} />
+                    <ColorSelect bind:value={params.P1_COLOR} availColors={availSaberColors} />
+                </label> <br />
+                <label>
+                    Nickname: <br />
+                    <input type="text" bind:value={params.P1_NAME} style:width="414px" /> <br />
+                </label> <br />
+                <label>
+                    Control Scheme: <br />
+                    <select on:input={(e) => {
+                        let [ upKey, downKey ] = e.target.value.split("/");
+                        params.P1_UP_KEY = upKey;
+                        params.P1_DOWN_KEY = downKey;
+                    }} style:width="414px" bind:value={p1ControlScheme}>
+                        <option value="w/s" selected>W/S</option>
+                    </select>
+                </label>
+            </p>
+        </td>
+        <td style:text-align="center" style:width="50%">
+            <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px" style:text-shadow="0 0 20px white, 0 0 40px white, 0 0 80px white">CPU</b>
+            <br /> <br />
+            <p style:display="inline-block" style:margin="0" style:text-align="left" style:width="414px">
+                <label>
+                    Color: <br />
+                    <input type="hidden" bind:value={params.P2_COLOR} />
+                    <ColorSelect bind:value={params.P2_COLOR} availColors={availSaberColors} />
+                </label> <br />
+                <label>
+                    Difficulty: <br />
+                    <select bind:value={params.AI_LEVEL} style:width="414px" on:change={(e) => {
+                        params.P2_NAME = {
+                            0: "CPU (Beginner)",
+                            1: "CPU (Normal)",
+                            2: "CPU (Advanced)",
+                            3: "CPU (Expert)",
+                        }[params.AI_LEVEL] || "CPU";
+                    }}>
+                        <option value={0}>Beginner</option>
+                        <option value={1}>Normal</option>
+                        <option value={2}>Advanced</option>
+                        <option value={3}>Expert</option>
+                    </select>
+                </label>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style:text-align="center">
+            <button on:click={() => {
+                window.localStorage.setItem("CPU_DEFAULT_PARAMS", JSON.stringify(params));
 
-                    let searchParams = new URLSearchParams();
-                    for (let [key, value] of Object.entries(params)) {
-                        searchParams.set(key, value);
-                    }
-                    gotoCool(`../arena?${searchParams.toString()}`);
-                }}>Start Game</button>
-            </td>
-        </tr>
-    </table>
+                let searchParams = new URLSearchParams();
+                for (let [key, value] of Object.entries(params)) {
+                    searchParams.set(key, value);
+                }
+                gotoCool(`../arena?${searchParams.toString()}`);
+            }}>Start Game</button>
+        </td>
+    </tr>
+</table>
 
-    {#if curtainVisible}
-        <div style:position="absolute" style:left="0px" style:top="0px" style:width="1920px" style:height="1080px"
-            style:background-color="black" transition:fade={{ duration: screenFadeDuration, }}></div>
-    {/if}
-</div>
+{#if curtainVisible}
+    <div style:position="absolute" style:left="0px" style:top="0px" style:width="1920px" style:height="1080px"
+        style:background-color="black" transition:fade={{ duration: screenFadeDuration, }}></div>
+{/if}
 
 <audio autoplay loop on:timeupdate={(e) => {
     if (e.target) {
@@ -302,10 +287,6 @@
     @font-face {
         font-family: "Exo2";
         src: url("$lib/assets/fonts/Exo2-VariableFont_wght.ttf");
-    }
-
-    :global(body) {
-        background-color: black;
     }
 </style>
 

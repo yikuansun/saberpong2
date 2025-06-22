@@ -9,14 +9,6 @@
     import bgVideo from "$lib/assets/videos/homescreenLoop.mp4";
     import music from "$lib/assets/music/lady on the track 132.mp3";
 
-    /** @type {HTMLDivElement} */
-    let gameScreen;
-
-    function resizeGameScreen() {
-        let scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
-        gameScreen.style.transform = `translate(-50%, -50%) scale(${scale})`;
-    }
-
     let curtainVisible = true;
     let screenFadeDuration = 500;
 
@@ -30,44 +22,37 @@
     }
 
     onMount(() => {
-        resizeGameScreen();
-        window.addEventListener("resize", resizeGameScreen);
-
         setTimeout(() => { curtainVisible = false; }, 10);
     });
 </script>
 
-<div bind:this={gameScreen} style:width="1920px" style:height="1080px" style:background-color="#141414"
-    style:position="fixed" style:top="50vh" style:left="50vw" style:transform="translate(-50%, -50%)"
-    style:overflow="hidden">
-    <!-- svelte-ignore a11y-media-has-caption -->
-    <video autoplay muted loop style:width="1920px" style:height="1080px" style:position = "absolute"
-        style:top="0px" style:left="0px" style:mix-blend-mode="screen"
-        on:contextmenu={(e) => e.preventDefault()} on:click={(e) => e.preventDefault()}>
-        <source src={bgVideo} type="video/mp4" />
-    </video>
-    <div style:position="absolute" style:left="960px" style:top="540px" style:transform="translate(-50%, -50%)"
-        style:font-size="36px" style:color="white" style:text-align="center" style:user-select="none" style:mix-blend-mode="screen">
-        <img src={logo} alt="Saber Pong II" style:width="800px" style:height="auto" style:font-size="72px" draggable={false} />
-        <br />
-        <button on:click={() => {
-            gotoCool("../setup-pvp");
-        }}>New Game (Player vs. Player)</button>
-        <br />
-        <button on:click={() => {
-            gotoCool("../setup-cpu");
-        }}>New Game (Player vs. CPU)</button>
-        <br />
-        <button on:click={() => {
-            gotoCool("../credits");
-        }}>Credits</button>
-    </div>
-
-    {#if curtainVisible}
-        <div style:position="absolute" style:left="0px" style:top="0px" style:width="1920px" style:height="1080px"
-            style:background-color="black" transition:fade={{ duration: screenFadeDuration, }}></div>
-    {/if}
+<!-- svelte-ignore a11y-media-has-caption -->
+<video autoplay muted loop style:width="1920px" style:height="1080px" style:position = "absolute"
+    style:top="0px" style:left="0px" style:mix-blend-mode="screen"
+    on:contextmenu={(e) => e.preventDefault()} on:click={(e) => e.preventDefault()}>
+    <source src={bgVideo} type="video/mp4" />
+</video>
+<div style:position="absolute" style:left="960px" style:top="540px" style:transform="translate(-50%, -50%)"
+    style:font-size="36px" style:color="white" style:text-align="center" style:user-select="none" style:mix-blend-mode="screen">
+    <img src={logo} alt="Saber Pong II" style:width="800px" style:height="auto" style:font-size="72px" draggable={false} />
+    <br />
+    <button on:click={() => {
+        gotoCool("../setup-pvp");
+    }}>New Game (Player vs. Player)</button>
+    <br />
+    <button on:click={() => {
+        gotoCool("../setup-cpu");
+    }}>New Game (Player vs. CPU)</button>
+    <br />
+    <button on:click={() => {
+        gotoCool("../credits");
+    }}>Credits</button>
 </div>
+
+{#if curtainVisible}
+    <div style:position="absolute" style:left="0px" style:top="0px" style:width="1920px" style:height="1080px"
+        style:background-color="black" transition:fade={{ duration: screenFadeDuration, }}></div>
+{/if}
 
 <audio autoplay loop on:timeupdate={(e) => {
     if (e.target) {
@@ -112,10 +97,6 @@
     @font-face {
         font-family: "Exo2";
         src: url("$lib/assets/fonts/Exo2-VariableFont_wght.ttf");
-    }
-
-    :global(body) {
-        background-color: black;
     }
 </style>
 
