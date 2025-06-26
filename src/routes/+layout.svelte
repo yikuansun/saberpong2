@@ -26,3 +26,7 @@
         background-color: black;
     }
 </style>
+
+<svelte:head>
+    <title>Saber Pong II</title>
+</svelte:head>
