@@ -3,6 +3,31 @@
     import { onMount } from "svelte";
     import { goto } from "$app/navigation";
 
+    import Exo2Ttf from "$lib/assets/fonts/Exo2-VariableFont_wght.ttf";
+    import ExpletusSansTtf from "$lib/assets/fonts/ExpletusSans-VariableFont_wght.ttf";
+    import logoImg from "$lib/assets/images/logo.jpg";
+    import bgVideo from "$lib/assets/videos/homescreenLoop.mp4";
+    import argonMusic from "$lib/assets/music/argon inst mix ab oz.mp3";
+    import dreamADreamMusic from "$lib/assets/music/dream a dream inst mix ab oz.mp3";
+    import ladyOnTheTrackMusic from "$lib/assets/music/lady on the track 132.mp3";
+    import deflectSound from "$lib/assets/sounds/laser_deflect.mp3";
+    import annoyingHumSound from "$lib/assets/sounds/saber_hum.mp3";
+    import serveSound from "$lib/assets/sounds/laser_blast.mp3";
+    import pauseSound from "$lib/assets/sounds/pause.wav";
+    import scoreSound from "$lib/assets/sounds/score.wav";
+    import beepSound from "$lib/assets/sounds/beep.wav";
+
+    /**
+     * Scrape assets (attempt to preload)
+     * @param {string[]} urlList list of URLs to load
+     */
+    function loadAssets(urlList) {
+        for (let url of urlList) {
+            fetch(url);
+        }
+    }
+    
+
     let autoplayAllowed = true;
 
     onMount(() => {
@@ -17,6 +42,22 @@
                 autoplayAllowed = false;
             });
         });
+
+        loadAssets([
+            Exo2Ttf,
+            ExpletusSansTtf,
+            logoImg,
+            bgVideo,
+            argonMusic,
+            dreamADreamMusic,
+            ladyOnTheTrackMusic,
+            deflectSound,
+            annoyingHumSound,
+            serveSound,
+            pauseSound,
+            scoreSound,
+            beepSound,
+        ]);
     });
 </script>
 
