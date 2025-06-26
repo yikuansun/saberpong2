@@ -1,0 +1,8 @@
+{
+    "name": "Saber Pong II",
+    "desc": "Pong, but with lightsabers.",
+    "platforms": [ "linux", "windows", "mac" ],
+    "version": "1.0.0",
+    "icon": "favicon.png",
+    "colorScheme": "dark"
+}

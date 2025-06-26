@@ -1,0 +1,1 @@
+const t=""+new URL("../assets/Exo2-VariableFont_wght.lLV6DVhW.ttf",import.meta.url).href,s=""+new URL("../assets/ExpletusSans-VariableFont_wght.Bg4kjLOB.ttf",import.meta.url).href;export{t as E,s as a};
