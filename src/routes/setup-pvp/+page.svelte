@@ -180,6 +180,7 @@
                         params.P1_DOWN_KEY = downKey;
                     }} style:width="414px" bind:value={p1ControlScheme}>
                         <option value="w/s">W/S</option>
+                        <option value="1/2">1/2</option>
                     </select>
                 </label>
             </p>
@@ -206,6 +207,7 @@
                     }} style:width="414px" bind:value={p2ControlScheme}>
                         <option value="ArrowUp/ArrowDown">Arrow Keys</option>
                         <option value="i/k">I/K</option>
+                        <option value="9/0">9/0</option>
                         <option value="PONG_AI/PONG_AI" hidden>ai lmao</option>
                     </select>
                 </label>

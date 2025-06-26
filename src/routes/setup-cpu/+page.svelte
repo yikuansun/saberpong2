@@ -180,6 +180,9 @@
                         params.P1_DOWN_KEY = downKey;
                     }} style:width="414px" bind:value={p1ControlScheme}>
                         <option value="w/s" selected>W/S</option>
+                        <option value="1/2" selected>1/2</option>
+                        <option value="ArrowUp/ArrowDown" selected>Arrow Keys</option>
+                        <option value="i/k" selected>I/K</option>
                     </select>
                 </label>
             </p>
