@@ -50,6 +50,9 @@
             The Pong paddle bounce algorithm was provided by
             <span style:user-select="text">Ricket</span>
             on the GameDev StackExchange.
+            <br /> <br />
+            This game is <b>open source</b>. Contribute at
+            <span style:user-select="text" style:color="deepskyblue">github.com/yikuansun/saberpong2</span>.
         </td>
         <td style:text-align="center" style:width="50%">
             <b style:font-family="ExpletusSans" style:font-variant="small-caps" style:letter-spacing="7px" style:font-size="32px" style:text-shadow="0 0 20px white, 0 0 40px white, 0 0 80px white">
