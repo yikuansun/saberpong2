@@ -1,8 +1,10 @@
 {
     "name": "Saber Pong II",
+    "id": "saberpong2",
+    "author": "Yikuan Sun <no-reply@yikuansun.github.io> (https://yikuansun.github.io)",
     "desc": "Pong, but with lightsabers.",
     "platforms": [ "linux", "windows", "mac" ],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "icon": "favicon.png",
     "colorScheme": "dark"
 }
